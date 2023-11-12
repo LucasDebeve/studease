@@ -24,3 +24,17 @@ git clone https://iut-info.univ-reims.fr/gitlab/coud0011/studease.git
 ```bash
 composer install
 ```
+
+## Usage
+### Start the server
+```bash
+composer start
+```
+### Verify the code with PHP CS Fixer
+```bash
+composer test:cs
+```
+### Correct the code with PHP CS Fixer
+```bash
+composer fix:cs
+```
