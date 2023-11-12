@@ -14,7 +14,15 @@
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 
+### phpstorm ###
+/.idea/
+
 ###> symfony/phpunit-bridge ###
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###
