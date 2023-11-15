@@ -90,12 +90,25 @@
         "fix:cs" : [
             "Composer\\Config::disableProcessTimeout",
             "php vendor/bin/php-cs-fixer fix"
+        ],
+        "test:codeception": [
+            "php vendor/bin/codecept clean",
+            "php bin/console doctrine:database:drop --force --quiet --env=test",
+            "php bin/console doctrine:database:create --quiet --env=test",
+            "php bin/console doctrine:schema:create --quiet --env=test",
+            "php vendor/bin/codecept run"
+        ],
+        "test": [
+            "@test:cs",
+            "@test:codeception"
         ]
     },
     "scripts-descriptions": {
         "start": "Run local server",
         "test:cs": "Show PHP CS Fixer errors",
-        "fix:cs": "Resolve PHP CS Fixer errors"
+        "fix:cs": "Resolve PHP CS Fixer errors",
+        "test:codeception": "Run Codeception tests",
+        "test": "Run all tests (CS Fixer + Codeception)"
     },
         "conflict": {
         "symfony/symfony": "*"
