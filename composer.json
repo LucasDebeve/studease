@@ -101,6 +101,12 @@
         "test": [
             "@test:cs",
             "@test:codeception"
+        ],
+        "db": [
+            "php bin/console doctrine:database:drop --force --if-exists",
+            "php bin/console doctrine:database:create",
+            "php bin/console doctrine:migrations:migrate --no-interaction",
+            "php bin/console doctrine:fixtures:load --no-interaction"
         ]
     },
     "scripts-descriptions": {
@@ -108,7 +114,8 @@
         "test:cs": "Show PHP CS Fixer errors",
         "fix:cs": "Resolve PHP CS Fixer errors",
         "test:codeception": "Run Codeception tests",
-        "test": "Run all tests (CS Fixer + Codeception)"
+        "test": "Run all tests (CS Fixer + Codeception)",
+        "db": "Recreate database and load fixtures"
     },
         "conflict": {
         "symfony/symfony": "*"
