@@ -90,12 +90,32 @@
         "fix:cs" : [
             "Composer\\Config::disableProcessTimeout",
             "php vendor/bin/php-cs-fixer fix"
+        ],
+        "test:codeception": [
+            "php vendor/bin/codecept clean",
+            "php bin/console doctrine:database:drop --force --quiet --env=test",
+            "php bin/console doctrine:database:create --quiet --env=test",
+            "php bin/console doctrine:schema:create --quiet --env=test",
+            "php vendor/bin/codecept run"
+        ],
+        "test": [
+            "@test:cs",
+            "@test:codeception"
+        ],
+        "db": [
+            "php bin/console doctrine:database:drop --force --if-exists",
+            "php bin/console doctrine:database:create",
+            "php bin/console doctrine:migrations:migrate --no-interaction",
+            "php bin/console doctrine:fixtures:load --no-interaction"
         ]
     },
     "scripts-descriptions": {
         "start": "Run local server",
         "test:cs": "Show PHP CS Fixer errors",
-        "fix:cs": "Resolve PHP CS Fixer errors"
+        "fix:cs": "Resolve PHP CS Fixer errors",
+        "test:codeception": "Run Codeception tests",
+        "test": "Run all tests (CS Fixer + Codeception)",
+        "db": "Recreate database and load fixtures"
     },
         "conflict": {
         "symfony/symfony": "*"
@@ -107,6 +127,10 @@
         }
     },
     "require-dev": {
+        "codeception/codeception": "^5.0",
+        "codeception/module-asserts": "^3.0",
+        "codeception/module-symfony": "^3.1",
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "friendsofphp/php-cs-fixer": "^3.38",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "6.3.*",
@@ -115,6 +139,7 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^6.3",
         "symfony/stopwatch": "6.3.*",
-        "symfony/web-profiler-bundle": "6.3.*"
+        "symfony/web-profiler-bundle": "6.3.*",
+        "zenstruck/foundry": "^1.36"
     }
 }
