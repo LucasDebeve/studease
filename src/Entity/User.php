@@ -49,6 +49,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 14, nullable: true)]
     private ?string $numSiret = null;
 
+    #[ORM\Column(type: Types::SMALLINT)]
+    private ?int $tpUser = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -199,6 +202,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setNumSiret(?string $numSiret): static
     {
         $this->numSiret = $numSiret;
+
+        return $this;
+    }
+
+    public function getTpUser(): ?int
+    {
+        return $this->tpUser;
+    }
+
+    public function setTpUser(int $tpUser): static
+    {
+        $this->tpUser = $tpUser;
 
         return $this;
     }
