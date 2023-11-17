@@ -33,6 +33,10 @@ class Formation
         return $this;
     }
 
+    /**
+     * Fonction à définir
+     * @return Ecole
+     */
     public function getEcole(): Ecole
     {
 
