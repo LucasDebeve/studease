@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{# variable noms #}
+{% set noms = "#{user.firstname|capitalize} #{user.name|upper}" %}
+
+{% block body %}
+    <img src="{{ user.displayAvatar|default(asset('img/default_profile.jpg')) }}" alt="Avatar de l'utilisateur">
+    <h1>{{ noms }}</h1>
+
+    <ul>
+        <li>{{ user.email }}</li>
+        <li>{{ user.telephone }}</li>
+        {% if user.tpUser == 2 %}
+            <li>{{ user.descriptionEntreprise }}</li>
+            <li>N°SIRET : {{ user.numSiret }}</li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block title %}
+    {{ noms }}
+{% endblock %}

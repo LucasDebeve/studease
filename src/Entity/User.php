@@ -54,6 +54,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $tpUser = null;
 
+    private $rawAvatar;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -218,5 +220,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->tpUser = $tpUser;
 
         return $this;
+    }
+
+    public function displayAvatar()
+    {
+        if (null === $this->rawAvatar) {
+            if (null === $this->getAvatar()) {
+                return null;
+            }
+            $this->rawAvatar = 'data:image/jpeg;base64,'.base64_encode(stream_get_contents($this->getAvatar()));
+        }
+
+        return $this->rawAvatar;
     }
 }
