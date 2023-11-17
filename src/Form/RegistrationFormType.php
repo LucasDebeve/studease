@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Constraints\EqualTo;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\PasswordStrength;
 
 class RegistrationFormType extends AbstractType
 {
@@ -50,6 +49,7 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'autocomplete' => 'new-password',
                     'placeholder' => 'Mot de passe',
+                    'class' => 'password',
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -69,6 +69,7 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'autocomplete' => 'new-password',
                     'placeholder' => 'Confirmer le mot de passe',
+                    'class' => 'password',
                 ],
                 'label' => 'Confirmer le mot de passe',
                 'constraints' => [
@@ -85,9 +86,16 @@ class RegistrationFormType extends AbstractType
                         'propertyPath' => 'plainPassword',
                         'message' => 'Les mots de passe ne correspondent pas',
                     ]),
-                ],
-            ]
-            )
+                ]])
+                ->add('showPassword', CheckboxType::class, [
+                    'mapped' => false,
+                    'label' => 'Afficher le mot de passe',
+                    'required' => false,
+                        'attr' => [
+                            'onclick' => 'showPassword()',
+                        ],
+                ]
+                )
         ;
     }
 

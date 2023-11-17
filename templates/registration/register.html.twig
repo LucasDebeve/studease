@@ -11,9 +11,25 @@
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword, {}) }}
         {{ form_row(registrationForm.confirmPassword, {}) }}
+        {{ form_row(registrationForm.showPassword) }}
         {{ form_row(registrationForm.tpUser) }}
         {{ form_row(registrationForm.agreeTerms) }}
 
         <button type="submit" class="btn">S'inscrire</button>
     {{ form_end(registrationForm) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+    function showPassword() {
+        const x = document.querySelectorAll(".password");
+        x.forEach(element => {
+            if (element.type === "password") {
+                element.type = "text";
+            } else {
+                element.type = "password";
+            }
+        });
+    }
+    </script>
 {% endblock %}
