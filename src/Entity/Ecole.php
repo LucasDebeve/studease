@@ -19,13 +19,13 @@ class Ecole
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $adresse = null;
 
-    #[ORM\Column(length: 5, nullable: true)]
+    #[ORM\Column(length: 5, nullable: false)]
     private ?string $cp = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255, nullable: false)]
     private ?string $ville = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255, nullable: false)]
     private ?string $pays = null;
 
     public function getId(): ?int
