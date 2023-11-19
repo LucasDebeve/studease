@@ -93,6 +93,6 @@
     font-weight: 500;
     line-height: normal;
 }
-button[aria-expanded="true"]{
-
+.d-none {
+    display: none;
 }
