@@ -5,6 +5,7 @@ namespace App\Tests\Controller\InsertionsProfessionnellesController;
 
 use App\Tests\Support\ControllerTester;
 
+
 class IndexCest
 {
     public function insertionsProfessionnelles(ControllerTester $I): void
