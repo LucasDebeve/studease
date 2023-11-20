@@ -30,6 +30,16 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            switch ($form->get('tpUser')->getData()) {
+                case 1:
+                    $user->setRoles(['ROLE_STUDENT']);
+                    break;
+                case 2:
+                    $user->setRoles(['ROLE_COMPANY']);
+                    break;
+                default:
+                    $user->setRoles(['ROLE_USER']);
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -55,4 +65,3 @@ class RegistrationController extends AbstractController
         ]);
     }
 }
-
