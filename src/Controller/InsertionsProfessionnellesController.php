@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class InsertionsProfessionnellesController extends AbstractController
 {
-    #[Route('/insertions-professionnelles', name: 'app_insertions_professionnelles')]
+    #[Route('/test', name: 'app_insertions_professionnelles')]
     public function index(InsertionProfessionnelleRepository $repository): Response
     {
         $insertions = $repository->findBy([], ['titre' => 'ASC', 'typePro' => 'ASC']);

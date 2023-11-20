@@ -30,10 +30,7 @@ class InsertionProfessionnelle
     private ?string $titre = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $gratification = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?float $salaire = null;
+    private ?float $revenus = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $typePro = null;
@@ -110,26 +107,14 @@ class InsertionProfessionnelle
         return $this;
     }
 
-    public function getGratification(): ?float
+    public function getRevenus(): ?float
     {
-        return $this->gratification;
+        return $this->revenus;
     }
 
-    public function setGratification(?float $gratification): static
+    public function setRevenus(?float $revenus): static
     {
-        $this->gratification = $gratification;
-
-        return $this;
-    }
-
-    public function getSalaire(): ?float
-    {
-        return $this->salaire;
-    }
-
-    public function setSalaire(?float $salaire): static
-    {
-        $this->salaire = $salaire;
+        $this->revenus = $revenus;
 
         return $this;
     }
