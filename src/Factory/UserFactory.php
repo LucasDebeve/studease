@@ -60,6 +60,8 @@ final class UserFactory extends ModelFactory
             'numEtud' => self::faker()->unique()->numerify('########'),
             'roles' => ['ROLE_STUDENT'],
             'tpUser' => 1,
+            'ecole' => null,
+            'formation' => null,
         ];
     }
 
