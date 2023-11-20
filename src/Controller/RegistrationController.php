@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
@@ -63,5 +64,14 @@ class RegistrationController extends AbstractController
         return $this->render('registration/profile.html.twig', [
             'user' => $id,
         ]);
+    }
+
+    #[Route('/profile', name: 'app_user_profile')]
+    #[isGranted('IS_AUTHENTICATED_REMEMBERED')]
+    public function self_profile(): Response
+    {
+        $user = $this->getUser();
+
+        return $this->redirectToRoute('app_profile', ['id' => $user->getId()]);
     }
 }
