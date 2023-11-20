@@ -59,6 +59,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Formation $formation = null;
 
+    #[ORM\ManyToOne(inversedBy: 'students')]
+    private ?Ecole $ecole = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -245,6 +248,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFormation(?Formation $formation): static
     {
         $this->formation = $formation;
+
+        return $this;
+    }
+
+    public function getEcole(): ?Ecole
+    {
+        return $this->ecole;
+    }
+
+    public function setEcole(?Ecole $ecole): static
+    {
+        $this->ecole = $ecole;
 
         return $this;
     }

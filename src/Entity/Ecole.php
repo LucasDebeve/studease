@@ -33,9 +33,13 @@ class Ecole
     #[ORM\OneToMany(mappedBy: 'ecole', targetEntity: Formation::class)]
     private Collection $formations;
 
+    #[ORM\OneToMany(mappedBy: 'ecole', targetEntity: User::class)]
+    private Collection $students;
+
     public function __construct()
     {
         $this->formations = new ArrayCollection();
+        $this->students = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -132,6 +136,36 @@ class Ecole
             // set the owning side to null (unless already changed)
             if ($formation->getEcole() === $this) {
                 $formation->setEcole(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getStudents(): Collection
+    {
+        return $this->students;
+    }
+
+    public function addStudent(User $student): static
+    {
+        if (!$this->students->contains($student)) {
+            $this->students->add($student);
+            $student->setEcole($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(User $student): static
+    {
+        if ($this->students->removeElement($student)) {
+            // set the owning side to null (unless already changed)
+            if ($student->getEcole() === $this) {
+                $student->setEcole(null);
             }
         }
 

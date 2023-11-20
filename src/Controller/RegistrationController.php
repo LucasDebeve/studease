@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,7 +60,9 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/profile/{id}', name: 'app_profile')]
-    public function profile(User $id): Response
+    public function profile(
+        #[MapEntity(expr: 'repository.findWithFormationAndEcole(id)')]
+        User $id): Response
     {
         return $this->render('registration/profile.html.twig', [
             'user' => $id,

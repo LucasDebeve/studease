@@ -21,10 +21,6 @@ class Formation
     #[ORM\OneToMany(mappedBy: 'formation', targetEntity: User::class)]
     private Collection $users;
 
-    #[ORM\ManyToOne(inversedBy: 'formations')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Ecole $ecole = null;
-
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -45,15 +41,6 @@ class Formation
         $this->nom = $nom;
 
         return $this;
-    }
-
-    /**
-     * Fonction à définir
-     * @return Ecole
-     */
-    public function getEcole(): Ecole
-    {
-
     }
 
     /**
@@ -82,13 +69,6 @@ class Formation
                 $user->setFormation(null);
             }
         }
-
-        return $this;
-    }
-
-    public function setEcole(?Ecole $ecole): static
-    {
-        $this->ecole = $ecole;
 
         return $this;
     }
