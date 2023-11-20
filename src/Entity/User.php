@@ -36,7 +36,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $telephone = null;
 
     #[ORM\Column(type: Types::BLOB, nullable: true)]
-    private $avatar = null;
+    private $avatar;
 
     #[ORM\Column(length: 150, nullable: true)]
     private ?string $name = null;

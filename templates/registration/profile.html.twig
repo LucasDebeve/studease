@@ -104,6 +104,14 @@
                                 {% if user.tpUser == 1 %}
                                 <h6 class="d-flex align-items-center mb-3">Formation</h6>
                                     {{ user.formation.nom|default('Aucune formation renseignée') }}
+                                {% elseif user.tpUser == 2 %}
+                                    <h6 class="d-flex align-items-center mb-3">Localisations</h6>
+                                    <ul>
+                                        {% for localisation in user.localisations %}
+                                            <li>{{ localisation.adresse }}
+                                                , {{ localisation.codepostal }} {{ localisation.ville }}</li>
+                                        {% endfor %}
+                                    </ul>
                                 {% endif %}
                             </div>
                         </div>

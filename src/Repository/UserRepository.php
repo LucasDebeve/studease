@@ -50,8 +50,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $qb->select('u')
             ->leftJoin('u.formation', 'f')
             ->leftJoin('u.ecole', 'e')
+            ->leftJoin('u.localisations', 'l')
             ->addSelect('f')
             ->addSelect('e')
+            ->addSelect('l')
             ->where('u.id = :id')
             ->setParameter('id', $id);
 

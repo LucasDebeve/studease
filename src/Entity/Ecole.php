@@ -30,9 +30,6 @@ class Ecole
     #[ORM\Column(length: 255, nullable: false)]
     private ?string $pays = null;
 
-    #[ORM\OneToMany(mappedBy: 'ecole', targetEntity: Formation::class)]
-    private Collection $formations;
-
     #[ORM\OneToMany(mappedBy: 'ecole', targetEntity: User::class)]
     private Collection $students;
 
@@ -109,7 +106,8 @@ class Ecole
 
     public function inThisVille(string $ville): bool
     {
-
+        $ville = strtolower($ville);
+        return strtolower($this->ville) === $ville;
     }
 
     /**
