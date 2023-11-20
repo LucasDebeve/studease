@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -61,6 +63,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToOne(inversedBy: 'students')]
     private ?Ecole $ecole = null;
+
+    #[ORM\OneToMany(mappedBy: 'entreprise', targetEntity: Localisation::class, orphanRemoval: true)]
+    private Collection $localisations;
+
+    public function __construct()
+    {
+        $this->localisations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -260,6 +270,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEcole(?Ecole $ecole): static
     {
         $this->ecole = $ecole;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Localisation>
+     */
+    public function getLocalisations(): Collection
+    {
+        return $this->localisations;
+    }
+
+    public function addLocalisation(Localisation $localisation): static
+    {
+        if (!$this->localisations->contains($localisation)) {
+            $this->localisations->add($localisation);
+            $localisation->setEntreprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocalisation(Localisation $localisation): static
+    {
+        if ($this->localisations->removeElement($localisation)) {
+            // set the owning side to null (unless already changed)
+            if ($localisation->getEntreprise() === $this) {
+                $localisation->setEntreprise(null);
+            }
+        }
 
         return $this;
     }

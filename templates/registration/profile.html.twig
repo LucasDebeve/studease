@@ -101,16 +101,20 @@
                     <div class="col-sm-6 mb-3">
                         <div class="card h-100">
                             <div class="card-body">
+                                {% if user.tpUser == 1 %}
                                 <h6 class="d-flex align-items-center mb-3">Formation</h6>
                                     {{ user.formation.nom|default('Aucune formation renseignée') }}
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6 mb-3">
                         <div class="card h-100">
                             <div class="card-body">
+                                {% if user.tpUser == 1 %}
                                 <h6 class="d-flex align-items-center mb-3">Ecole</h6>
                                 {{ user.ecole.nom|default('Aucune école renseignée') }}
+                                {% endif %}
                             </div>
                         </div>
                     </div>
