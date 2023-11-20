@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EcoleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EcoleRepository::class)]
@@ -27,6 +29,14 @@ class Ecole
 
     #[ORM\Column(length: 255, nullable: false)]
     private ?string $pays = null;
+
+    #[ORM\OneToMany(mappedBy: 'ecole', targetEntity: Formation::class)]
+    private Collection $formations;
+
+    public function __construct()
+    {
+        $this->formations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -96,5 +106,35 @@ class Ecole
     public function inThisVille(string $ville): bool
     {
 
+    }
+
+    /**
+     * @return Collection<int, Formation>
+     */
+    public function getFormations(): Collection
+    {
+        return $this->formations;
+    }
+
+    public function addFormation(Formation $formation): static
+    {
+        if (!$this->formations->contains($formation)) {
+            $this->formations->add($formation);
+            $formation->setEcole($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFormation(Formation $formation): static
+    {
+        if ($this->formations->removeElement($formation)) {
+            // set the owning side to null (unless already changed)
+            if ($formation->getEcole() === $this) {
+                $formation->setEcole(null);
+            }
+        }
+
+        return $this;
     }
 }

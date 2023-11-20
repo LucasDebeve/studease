@@ -56,6 +56,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private $rawAvatar;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Formation $formation = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -232,5 +235,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this->rawAvatar;
+    }
+
+    public function getFormation(): ?Formation
+    {
+        return $this->formation;
+    }
+
+    public function setFormation(?Formation $formation): static
+    {
+        $this->formation = $formation;
+
+        return $this;
     }
 }
