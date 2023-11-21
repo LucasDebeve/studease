@@ -55,11 +55,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $tpUser = null;
 
     #[ORM\OneToMany(mappedBy: 'Company', targetEntity: InsertionProfessionnelle::class)]
-    private Collection $InsertionsProfessionnelles;
+    private Collection $insertions_professionnelles;
 
     public function __construct()
     {
-        $this->InsertionsProfessionnelles = new ArrayCollection();
+        $this->insertions_professionnelles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -233,13 +233,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getInsertionsProfessionnelles(): Collection
     {
-        return $this->InsertionsProfessionnelles;
+        return $this->insertions_professionnelles;
     }
 
     public function addInsertionsProfessionnelle(InsertionProfessionnelle $insertionsProfessionnelle): static
     {
-        if (!$this->InsertionsProfessionnelles->contains($insertionsProfessionnelle)) {
-            $this->InsertionsProfessionnelles->add($insertionsProfessionnelle);
+        if (!$this->insertions_professionnelles->contains($insertionsProfessionnelle)) {
+            $this->insertions_professionnelles->add($insertionsProfessionnelle);
             $insertionsProfessionnelle->setCompany($this);
         }
 
@@ -248,7 +248,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeInsertionsProfessionnelle(InsertionProfessionnelle $insertionsProfessionnelle): static
     {
-        if ($this->InsertionsProfessionnelles->removeElement($insertionsProfessionnelle)) {
+        if ($this->insertions_professionnelles->removeElement($insertionsProfessionnelle)) {
             // set the owning side to null (unless already changed)
             if ($insertionsProfessionnelle->getCompany() === $this) {
                 $insertionsProfessionnelle->setCompany(null);

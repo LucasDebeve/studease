@@ -40,7 +40,7 @@ class InsertionProfessionnelle
 
     #[ORM\ManyToOne(inversedBy: 'InsertionsProfessionnelles')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $Company = null;
+    private ?User $company = null;
 
     public function getId(): ?int
     {
@@ -145,12 +145,12 @@ class InsertionProfessionnelle
 
     public function getCompany(): ?User
     {
-        return $this->Company;
+        return $this->company;
     }
 
     public function setCompany(?User $Company): static
     {
-        $this->Company = $Company;
+        $this->company = $Company;
 
         return $this;
     }
