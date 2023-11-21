@@ -47,7 +47,7 @@ final class FormationFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'nom' => self::faker()->text(255),
+            'nom' => self::faker()->word(),
         ];
     }
 
