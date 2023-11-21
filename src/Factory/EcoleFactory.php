@@ -48,8 +48,8 @@ final class EcoleFactory extends ModelFactory
     {
         return [
             'cp' => self::faker()->text(5),
-            'pays' => self::faker()->text(255),
-            'ville' => self::faker()->text(255),
+            'pays' => self::faker()->text(250),
+            'ville' => self::faker()->text(250),
         ];
     }
 
