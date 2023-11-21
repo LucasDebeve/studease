@@ -21,28 +21,38 @@ class InsertionProfessionnelleRepository extends ServiceEntityRepository
         parent::__construct($registry, InsertionProfessionnelle::class);
     }
 
-//    /**
-//     * @return InsertionProfessionnelle[] Returns an array of InsertionProfessionnelle objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('i.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return array InsertionProfessionnelle[]
+     */
+    public function search(): array
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->orderBy('p.titre');
 
-//    public function findOneBySomeField($value): ?InsertionProfessionnelle
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        return $qb->getQuery()->execute();
+    }
+    //    /**
+    //     * @return InsertionProfessionnelle[] Returns an array of InsertionProfessionnelle objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('i')
+    //            ->andWhere('i.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('i.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
+
+    //    public function findOneBySomeField($value): ?InsertionProfessionnelle
+    //    {
+    //        return $this->createQueryBuilder('i')
+    //            ->andWhere('i.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }
