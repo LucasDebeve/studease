@@ -7,10 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -57,9 +59,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'Company', targetEntity: InsertionProfessionnelle::class)]
     private Collection $insertions_professionnelles;
 
+    private $rawAvatar;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Formation $formation = null;
+
+    #[ORM\ManyToOne(inversedBy: 'students')]
+    private ?Ecole $ecole = null;
+
+    #[ORM\OneToMany(mappedBy: 'entreprise', targetEntity: Localisation::class, orphanRemoval: true)]
+    private Collection $localisations;
+
     public function __construct()
     {
         $this->insertions_professionnelles = new ArrayCollection();
+        $this->localisations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -241,6 +255,56 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if (!$this->insertions_professionnelles->contains($insertionsProfessionnelle)) {
             $this->insertions_professionnelles->add($insertionsProfessionnelle);
             $insertionsProfessionnelle->setCompany($this);
+
+    public function displayAvatar()
+    {
+        if (null === $this->rawAvatar) {
+            if (null === $this->getAvatar()) {
+                return null;
+            }
+            $this->rawAvatar = 'data:image/jpeg;base64,'.base64_encode(stream_get_contents($this->getAvatar()));
+        }
+
+        return $this->rawAvatar;
+    }
+
+    public function getFormation(): ?Formation
+    {
+        return $this->formation;
+    }
+
+    public function setFormation(?Formation $formation): static
+    {
+        $this->formation = $formation;
+
+        return $this;
+    }
+
+    public function getEcole(): ?Ecole
+    {
+        return $this->ecole;
+    }
+
+    public function setEcole(?Ecole $ecole): static
+    {
+        $this->ecole = $ecole;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Localisation>
+     */
+    public function getLocalisations(): Collection
+    {
+        return $this->localisations;
+    }
+
+    public function addLocalisation(Localisation $localisation): static
+    {
+        if (!$this->localisations->contains($localisation)) {
+            $this->localisations->add($localisation);
+            $localisation->setEntreprise($this);
         }
 
         return $this;
@@ -252,6 +316,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($insertionsProfessionnelle->getCompany() === $this) {
                 $insertionsProfessionnelle->setCompany(null);
+
+    public function removeLocalisation(Localisation $localisation): static
+    {
+        if ($this->localisations->removeElement($localisation)) {
+            // set the owning side to null (unless already changed)
+            if ($localisation->getEntreprise() === $this) {
+                $localisation->setEntreprise(null);
             }
         }
 

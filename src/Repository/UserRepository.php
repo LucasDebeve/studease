@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -38,6 +39,31 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setPassword($newHashedPassword);
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findWithFormationAndEcole(int $id): ?User
+    {
+        $qb = $this->createQueryBuilder('u');
+        $qb->select('u')
+            ->leftJoin('u.formation', 'f')
+            ->leftJoin('u.ecole', 'e')
+            ->leftJoin('u.localisations', 'l')
+            ->addSelect('f')
+            ->addSelect('e')
+            ->addSelect('l')
+            ->where('u.id = :id')
+            ->setParameter('id', $id);
+
+        $res = $qb->getQuery()->execute();
+
+        if (count($res) > 0) {
+            return $res[0];
+        } else {
+            return null;
+        }
     }
 
     //    /**

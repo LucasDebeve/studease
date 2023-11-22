@@ -3,7 +3,7 @@
 {% block title %}Studease - Connexion{% endblock %}
 
 {% block body %}
-<form method="post">
+<form class="auth" method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
