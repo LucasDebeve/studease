@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EcoleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EcoleRepository::class)]
@@ -27,6 +29,15 @@ class Ecole
 
     #[ORM\Column(length: 255, nullable: false)]
     private ?string $pays = null;
+
+    #[ORM\OneToMany(mappedBy: 'ecole', targetEntity: User::class)]
+    private Collection $students;
+
+    public function __construct()
+    {
+        $this->formations = new ArrayCollection();
+        $this->students = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -95,6 +106,67 @@ class Ecole
 
     public function inThisVille(string $ville): bool
     {
+        $ville = strtolower($ville);
+        return strtolower($this->ville) === $ville;
+    }
 
+    /**
+     * @return Collection<int, Formation>
+     */
+    public function getFormations(): Collection
+    {
+        return $this->formations;
+    }
+
+    public function addFormation(Formation $formation): static
+    {
+        if (!$this->formations->contains($formation)) {
+            $this->formations->add($formation);
+            $formation->setEcole($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFormation(Formation $formation): static
+    {
+        if ($this->formations->removeElement($formation)) {
+            // set the owning side to null (unless already changed)
+            if ($formation->getEcole() === $this) {
+                $formation->setEcole(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getStudents(): Collection
+    {
+        return $this->students;
+    }
+
+    public function addStudent(User $student): static
+    {
+        if (!$this->students->contains($student)) {
+            $this->students->add($student);
+            $student->setEcole($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(User $student): static
+    {
+        if ($this->students->removeElement($student)) {
+            // set the owning side to null (unless already changed)
+            if ($student->getEcole() === $this) {
+                $student->setEcole(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -16,7 +16,7 @@ class UserFixtures extends Fixture
             'name' => 'Parker',
             'telephone' => '+33612345678',
             'numEtud' => '22203123',
-            'roles' => ['ROLE_USER', 'ROLE_STUDENT'],
+            'roles' => ['ROLE_STUDENT'],
         ]);
         UserFactory::createOne([
             'email' => 'tony@example.com',
@@ -26,7 +26,7 @@ class UserFixtures extends Fixture
             'numSiret' => '12345678901234',
             'descriptionEntreprise' => 'Je suis un super héros',
             'tpUser' => 2,
-            'roles' => ['ROLE_USER', 'ROLE_COMPANY'],
+            'roles' => ['ROLE_COMPANY'],
         ]);
         UserFactory::createMany(10);
 

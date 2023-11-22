@@ -4,7 +4,6 @@ namespace App\Factory;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
@@ -58,8 +57,10 @@ final class UserFactory extends ModelFactory
             'name' => self::faker()->lastName(),
             'telephone' => self::faker()->e164PhoneNumber(),
             'numEtud' => self::faker()->unique()->numerify('########'),
-            'roles' => ['ROLE_USER', 'ROLE_STUDENT'],
+            'roles' => ['ROLE_STUDENT'],
             'tpUser' => 1,
+            'ecole' => null,
+            'formation' => null,
         ];
     }
 
