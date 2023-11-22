@@ -1,0 +1,17 @@
+{% extends '/contact/base.html.twig' %}
+
+{% block title %}
+    {{ insertion.titre }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ insertion.titre }}</h1>
+    <dl>
+        <dt><h3>Durée</h3></dt>
+        <dd>{{ insertion.duree }}</dd>
+        <dt><h3>Début</h3></dt>
+        <dd>{{ insertion.dateDeb }}</dd>
+        <dt><h3>Entreprise</h3></dt>
+        <dd>{{ insertion.company.name }} : {{ insertion.company.numSiret }}</dd>
+    </dl>
+{% endblock %}
