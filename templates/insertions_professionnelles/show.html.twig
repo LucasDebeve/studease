@@ -1,4 +1,4 @@
-{% extends '/contact/base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}
     {{ insertion.titre }}
@@ -10,7 +10,7 @@
         <dt><h3>Durée</h3></dt>
         <dd>{{ insertion.duree }}</dd>
         <dt><h3>Début</h3></dt>
-        <dd>{{ insertion.dateDeb }}</dd>
+        <dd>{{ insertion.dateDeb|date("d/m/Y") }}</dd>
         <dt><h3>Entreprise</h3></dt>
         <dd>{{ insertion.company.name }} : {{ insertion.company.numSiret }}</dd>
     </dl>
