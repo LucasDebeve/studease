@@ -66,7 +66,10 @@ class SecurityController extends AbstractController
 
     #[Route('/profile/{id}/update', name: 'app_profile_update')]
     #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
-    public function update(EntityManagerInterface $entityManager, User $id, Request $request)
+    public function update(EntityManagerInterface $entityManager,
+        #[MapEntity(expr: 'repository.findWithFormationAndEcole(id)')]
+        User $id,
+        Request $request)
     {
         // Verify if the user is the same as the one in the URL
         if ($this->getUser()->getId() !== $id->getId()) {

@@ -58,6 +58,7 @@ class UserType extends AbstractType
                     'class' => Formation::class,
                     'choice_label' => 'nom',
                     'query_builder' => function ($entityRepository) {
+                        // Get all formation which is related to the user ecole
                         return $entityRepository->createQueryBuilder('f')
                             ->orderBy('f.nom', 'ASC');
                     },
