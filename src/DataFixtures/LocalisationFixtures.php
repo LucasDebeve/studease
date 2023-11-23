@@ -12,4 +12,11 @@ class LocalisationFixtures extends Fixture
     {
         LocalisationFactory::createMany(10);
     }
+
+    public function getDependencies(): array
+    {
+        return [
+            UserFixtures::class,
+        ];
+    }
 }

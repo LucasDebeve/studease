@@ -10,7 +10,7 @@ use App\Entity\InsertionProfessionnelle;
 
 class InsertionsProfessionnellesController extends AbstractController
 {
-    #[Route('/insertions_professionnelles', name: 'app_insertions_professionnelles')]
+    #[Route('/insertions-professionnelles', name: 'app_insertions_professionnelles')]
     public function index(InsertionProfessionnelleRepository $repository): Response
     {
         $insertions = $repository->search();
@@ -18,7 +18,7 @@ class InsertionsProfessionnellesController extends AbstractController
         return $this->render('insertions_professionnelles/index.html.twig', ['insertions' => $insertions]);
     }
 
-    #[Route('/insertions_professionnelles/{id}', name: 'app_insertions_professionnelles_id')]
+    #[Route('/insertions-professionnelles/{id}', name: 'app_insertions_professionnelles_id')]
     public function show(InsertionProfessionnelle $insertion): Response
     {
         return $this->render('insertions_professionnelles/show.html.twig', ['insertion' => $insertion]);
