@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Ecole;
 use App\Entity\Formation;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

@@ -65,10 +65,13 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/profile/{id}/update', name: 'app_profile_update')]
-    #[IsGranted('ROLE_ADMIN')]
-    #[Security('is_granted("ROLE_USER") or user == id', message: 'Accès refusé')]
+    #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
     public function update(EntityManagerInterface $entityManager, User $id, Request $request)
     {
+        // Verify if the user is the same as the one in the URL
+        if ($this->getUser()->getId() !== $id->getId()) {
+            return $this->redirectToRoute('app_profile', ['id' => $this->getUser()->getId()]);
+        }
         $form = $this->createForm(UserType::class, $id);
 
         $form->handleRequest($request);
@@ -99,6 +102,7 @@ class SecurityController extends AbstractController
 
             return $this->redirectToRoute('app_profile', ['id' => $user->getId()]);
         }
+
         return $this->render('registration/update.html.twig', ['user' => $id, 'form' => $form]);
     }
 }
