@@ -7,7 +7,8 @@
     <ul>
         {% for insertion in insertions %}
             <li><a href="{{ path('app_insertions_professionnelles_id', {id: insertion.id }) }}">
-                    <h3>{{ insertion.titre }}</h3>Durée : {{ insertion.duree }}, Début : {{ insertion.dateDeb }}</a>
+                    <h3>{{ insertion.titre }}</h3>Durée : {{ insertion.duree }}, Début
+                    : {{ insertion.dateDeb|date("d/m/Y") }}</a>
             </li>
         {% endfor %}
     </ul>
