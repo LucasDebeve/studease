@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Form\UserType;
 use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -57,24 +59,5 @@ class RegistrationController extends AbstractController
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
-    }
-
-    #[Route('/profile/{id}', name: 'app_profile')]
-    public function profile(
-        #[MapEntity(expr: 'repository.findWithFormationAndEcole(id)')]
-        User $id): Response
-    {
-        return $this->render('registration/profile.html.twig', [
-            'user' => $id,
-        ]);
-    }
-
-    #[Route('/profile', name: 'app_user_profile')]
-    #[isGranted('IS_AUTHENTICATED_REMEMBERED')]
-    public function self_profile(): Response
-    {
-        $user = $this->getUser();
-
-        return $this->redirectToRoute('app_profile', ['id' => $user->getId()]);
     }
 }

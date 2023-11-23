@@ -255,6 +255,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if (!$this->insertions_professionnelles->contains($insertionsProfessionnelle)) {
             $this->insertions_professionnelles->add($insertionsProfessionnelle);
             $insertionsProfessionnelle->setCompany($this);
+        }
+    }
 
     public function displayAvatar()
     {
@@ -316,6 +318,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($insertionsProfessionnelle->getCompany() === $this) {
                 $insertionsProfessionnelle->setCompany(null);
+            }
+        }
+    }
 
     public function removeLocalisation(Localisation $localisation): static
     {
