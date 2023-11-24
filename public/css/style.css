@@ -15,6 +15,10 @@
     gap: 20px;
 }
 
+.navbar-iut {
+    display: none;
+}
+
 .navbar-logo{
     width: 52px;
     height: 52px;
@@ -96,3 +100,36 @@
 .d-none {
     display: none;
 }
+
+@media (min-width: 576px) {
+    .navbar-iut {
+        display: none;
+    }
+
+    .navbar-logo {
+        display: block;
+    }
+
+    .navbar-nav {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .navbar-brand {
+        justify-content: flex-start;
+    }
+
+    .nav-item,
+    .nav-item-connect {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 768px) {
+    .container-fluid {
+        flex-direction: column;
+    }
+}
+
+
