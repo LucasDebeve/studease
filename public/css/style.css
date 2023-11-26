@@ -3,7 +3,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 83px;
         align-self: stretch;
         background: #FFF;
     }
@@ -152,6 +151,7 @@
 
     .navbar-brand {
         gap: 80px;
+        justify-content: flex-start;
     }
 
     .navbar-name {
