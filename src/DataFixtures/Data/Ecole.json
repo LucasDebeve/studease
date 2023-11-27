@@ -1,5 +1,4 @@
-{
-  "ecoles": [
+[
     {"nom": "Agroparistech"},
     {"nom": "AUDENCIA"},
     {"nom": "BBS – BREST BUSINESS SCHOOL"},
@@ -223,4 +222,3 @@
     {"nom": "UTT"},
     {"nom": "VetAgro Sup"}
   ]
-}
