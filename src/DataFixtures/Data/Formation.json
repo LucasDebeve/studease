@@ -1,5 +1,4 @@
-{
-  "formations": [
+[
     {"nom": "Génie Informatique"},
     {"nom": "Management des Ressources Humaines"},
     {"nom": "Ingénierie Financière"},
@@ -139,4 +138,3 @@
     {"nom": "Sociologie de la Consommation"},
     {"nom": "Ingénierie de la Robotique Médicale"}
   ]
-}
