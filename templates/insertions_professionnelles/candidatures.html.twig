@@ -12,24 +12,26 @@
 {% block body %}
     <div class="container-lg">
         <h1>Candidatures pour {{ insertion.titre }}</h1>
-        <div class="card-group">
+        <div class="row row-cols-1 row-cols-md-5 g-4">
             {% for candidature in insertion.candidatures %}
-                <div class="card">
-                    <img src="{{ candidature.candidat.displayAvatar|default(asset('img/default_profile.jpg')) }}" alt="Avatar de l'utilisateur" width="150">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ candidature.candidat.name|upper }} {{ candidature.candidat.firstname|capitalize }}</h5>
-                        <p class="card-text">{{ candidature.motivation }}</p>
-                    </div>
-                    <div class="card-footer">
-                        {% set difference = date( 'now'|date() ).diff(date(candidature.date)) %}
-                        {% set leftDays = difference.days %}
-                        {% if leftDays > 1 %}
-                            <small class="text-muted">Envoyé depuis {{ leftDays }} jours</small>
-                        {% elseif leftDays == 0 %}
-                            <small class="text-muted">Envoyé aujourd'hui</small>
-                        {% else %}
-                            <small class="text-muted">Envoyé hier</small>
-                        {% endif %}
+                <div class="col">
+                    <div class="card h-100">
+                        <a href="{{ path('app_profile', {id: candidature.candidat.id}) }}"><img src="{{ candidature.candidat.displayAvatar|default(asset('img/default_profile.jpg')) }}" class="card-img-top" alt="Avatar de l'utilisateur" width="50"></a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ candidature.candidat.name|upper }} {{ candidature.candidat.firstname|capitalize }}</h5>
+                            <p class="card-text">{{ candidature.motivation| length > 70 ? candidature.motivation|slice(0, 70) ~ '...' : candidature.motivation}}</p>
+                        </div>
+                        <div class="card-footer">
+                            {% set difference = date( 'now'|date() ).diff(date(candidature.date)) %}
+                            {% set leftDays = difference.days %}
+                            {% if leftDays > 1 %}
+                                <small class="text-muted">Envoyé depuis {{ leftDays }} jours</small>
+                            {% elseif leftDays == 0 %}
+                                <small class="text-muted">Envoyé aujourd'hui</small>
+                            {% else %}
+                                <small class="text-muted">Envoyé hier</small>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             {% endfor %}

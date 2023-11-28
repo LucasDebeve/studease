@@ -41,7 +41,7 @@ class InsertionProfessionnelleRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('insertion');
         $qb->select('insertion')
             ->leftJoin('insertion.candidatures', 'candidature')
-            ->join('candidature.candidat', 'candidat')
+            ->leftJoin('candidature.candidat', 'candidat')
             ->andWhere('insertion.id = :id')
             ->addSelect('candidature')
             ->addSelect('candidat')
@@ -49,7 +49,13 @@ class InsertionProfessionnelleRepository extends ServiceEntityRepository
             ->addOrderBy('candidat.name', 'ASC')
             ->setParameter('id', $id);
 
-        return $qb->getQuery()->getOneOrNullResult();
+        $res = $qb->getQuery()->execute();
+
+        if (count($res) > 0) {
+            return $res[0];
+        } else {
+            return null;
+        }
     }
     //    /**
     //     * @return InsertionProfessionnelle[] Returns an array of InsertionProfessionnelle objects
