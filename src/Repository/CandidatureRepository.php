@@ -36,13 +36,17 @@ class CandidatureRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Candidature
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findWithCandidatByInsertion($insertion): array
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.candidat', 'candidat')
+            ->andWhere('c.insertion_professionnelle = :val')
+            ->addSelect('candidat')
+            ->setParameter('val', $insertion)
+            ->orderBy('c.date', 'ASC')
+            ->addOrderBy('candidat.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

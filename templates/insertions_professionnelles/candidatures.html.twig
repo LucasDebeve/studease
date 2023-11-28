@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Candidatures pour {{ insertion.titre }}
+{% endblock %}
+
+{% block body %}
+    <h1>Candidatures pour {{ insertion.titre }}</h1>
+    <ul>
+    {% for candidature in candidatures %}
+        <li>{{ candidature.candidat.name }} {{ candidature.candidat.firstname }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}

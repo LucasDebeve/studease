@@ -25,6 +25,9 @@ class Candidature
     #[ORM\JoinColumn(nullable: false)]
     private ?InsertionProfessionnelle $insertion_professionnelle = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -62,6 +65,18 @@ class Candidature
     public function setInsertionProfessionnelle(?InsertionProfessionnelle $insertion_professionnelle): static
     {
         $this->insertion_professionnelle = $insertion_professionnelle;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): static
+    {
+        $this->date = $date;
 
         return $this;
     }
