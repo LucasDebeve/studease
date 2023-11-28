@@ -47,7 +47,7 @@ final class CandidatureFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'candidat' => UserFactory::new(),
+            'candidat' => UserFactory::random(['tpUser' => 1]),
             'insertion_professionnelle' => InsertionProfessionnelleFactory::random(),
             'motivation' => self::faker()->text(300),
         ];
