@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\InsertionProfessionnelle;
 use App\Repository\CandidatureRepository;
 use App\Repository\InsertionProfessionnelleRepository;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,15 +29,16 @@ class InsertionsProfessionnellesController extends AbstractController
 
     #[Route('/insertions-professionnelles/{id}/candidatures/', name: 'app_candidatures')]
     #[IsGranted('ROLE_COMPANY')]
-    public function candidatures(InsertionProfessionnelle $id, CandidatureRepository $repository): Response
+    public function candidatures(
+        #[MapEntity(expr: 'repository.findWithCandidaturesAndCandidats(id)')]
+        InsertionProfessionnelle $id, CandidatureRepository $repository): Response
     {
         $user = $this->getUser();
 
         if ($user !== $id->getCompany()) {
-            //return $this->redirectToRoute('app_insertions_professionnelles_id', ['id' => $id->getId()]);
+            // return $this->redirectToRoute('app_insertions_professionnelles_id', ['id' => $id->getId()]);
         }
 
-        $candidature = $repository->findWithCandidatByInsertion($id);
-        return $this->render('insertions_professionnelles/candidatures.html.twig', ['insertion' => $id, 'candidatures' => $candidature]);
+        return $this->render('insertions_professionnelles/candidatures.html.twig', ['insertion' => $id]);
     }
 }

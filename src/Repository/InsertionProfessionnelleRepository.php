@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\InsertionProfessionnelle;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -30,6 +31,25 @@ class InsertionProfessionnelleRepository extends ServiceEntityRepository
         $qb->orderBy('p.titre');
 
         return $qb->getQuery()->execute();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findWithCandidaturesAndCandidats(int $id): ?InsertionProfessionnelle
+    {
+        $qb = $this->createQueryBuilder('insertion');
+        $qb->select('insertion')
+            ->leftJoin('insertion.candidatures', 'candidature')
+            ->join('candidature.candidat', 'candidat')
+            ->andWhere('insertion.id = :id')
+            ->addSelect('candidature')
+            ->addSelect('candidat')
+            ->orderBy('candidature.date', 'ASC')
+            ->addOrderBy('candidat.name', 'ASC')
+            ->setParameter('id', $id);
+
+        return $qb->getQuery()->getOneOrNullResult();
     }
     //    /**
     //     * @return InsertionProfessionnelle[] Returns an array of InsertionProfessionnelle objects

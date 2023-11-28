@@ -7,7 +7,7 @@
 {% block body %}
     <h1>Candidatures pour {{ insertion.titre }}</h1>
     <ul>
-    {% for candidature in candidatures %}
+    {% for candidature in insertion.candidatures %}
         <li>{{ candidature.candidat.name }} {{ candidature.candidat.firstname }}</li>
     {% endfor %}
     </ul>
