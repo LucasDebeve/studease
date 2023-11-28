@@ -2,22 +2,23 @@
 
 namespace App\DataFixtures;
 
-use App\Factory\LocalisationFactory;
+use App\Factory\CandidatureFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class LocalisationFixtures extends Fixture implements DependentFixtureInterface
+class CandidatureFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        LocalisationFactory::createMany(10);
+        CandidatureFactory::createMany(20);
+        $manager->flush();
     }
 
     public function getDependencies(): array
     {
         return [
-            UserFixtures::class,
+            InsertionsProfessionnellesFixtures::class,
         ];
     }
 }
