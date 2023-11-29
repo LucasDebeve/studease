@@ -46,26 +46,13 @@ final class EcoleFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
-        if (random_int(0, 1) == 0) 
-        {
-            return [
+        return [
             'nom' => self::faker()->word(),
-            'adresse' => self::faker()->randomNumber(2, false)."avenue ".self::faker()->word(),
+            'adresse' => self::faker()->address(),
             'cp' => self::faker()->randomNumber(5, true),
             'pays' => self::faker()->country(),
             'ville' => self::faker()->city(),
         ];
-        }
-        else 
-        {
-            return [
-            'nom' => self::faker()->word(),
-            'adresse' => self::faker()->randomNumber(2, false)."rue de ".self::faker()->word(),
-            'cp' => self::faker()->randomNumber(5, true),
-            'pays' => self::faker()->country(),
-            'ville' => self::faker()->city(),
-        ];
-        }
     }
 
     /**
