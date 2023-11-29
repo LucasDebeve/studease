@@ -10,7 +10,7 @@ class EcoleFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $schoolNames = json_decode(file_get_contents(__DIR__.'/data/Ecole.json'));
+        $schoolNames = json_decode(file_get_contents(__DIR__.'/Data/Ecole.json'));
         foreach ($schoolNames as $schoolName){
             EcoleFactory::createOne(
                 [

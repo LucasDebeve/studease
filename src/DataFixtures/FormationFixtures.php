@@ -11,7 +11,7 @@ class FormationFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $formationNames = json_decode(file_get_contents(__DIR__.'/data/Formation.json'));
+        $formationNames = json_decode(file_get_contents(__DIR__.'/Data/Formation.json'));
         foreach ($formationNames as $formationName) {
             FormationFactory::createOne(
                 [
