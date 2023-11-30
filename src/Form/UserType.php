@@ -10,6 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,7 +34,7 @@ class UserType extends AbstractType
                 'required' => false,
                 'mapped' => false,
             ])
-            ->add('telephone', TextType::class, [
+            ->add('telephone', TelType::class, [
                 'empty_data' => '',
                 'attr' => ['class' => 'form-control w-100'],
             ])
