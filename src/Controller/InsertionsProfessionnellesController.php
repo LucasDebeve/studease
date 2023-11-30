@@ -64,6 +64,17 @@ class InsertionsProfessionnellesController extends AbstractController
             $entityManager->persist($candidature);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Votre candidature a bien été prise en compte.');
+
+            return $this->redirectToRoute('app_insertions_professionnelles_id', ['id' => $insertion->getId()]);
+        }
+
+        $candidature = $insertion->getCandidatures()->filter(function ($candidature) {
+            return $candidature->getCandidat() === $this->getUser();
+        })->first();
+
+        if ($candidature) {
+            $this->addFlash('danger', 'Vous avez déjà candidaté à cette insertion professionnelle.');
             return $this->redirectToRoute('app_insertions_professionnelles_id', ['id' => $insertion->getId()]);
         }
 
