@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Candidater
+{% endblock %}
+
+{% block body %}
+    <h1>Candidater</h1>
+    <p>Vous êtes sur le point de candidater à l'offre {{ insertion.titre }}.</p>
+    {{ form_start(form) }}
+    {{ form_row(form.motivation) }}
+    <input type="submit" class="btn btn-primary" value="Candidater"/>
+    {{ form_end(form) }}
+{% endblock %}
+
+
+
