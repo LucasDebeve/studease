@@ -68,7 +68,7 @@ class UserType extends AbstractType
                             ->orderBy('f.nom', 'ASC');
                     },
                     'required' => false,
-                    'attr' => ['class' => 'form-control w-100'],
+                    'attr' => ['class' => 'form-select w-100'],
                 ])
                 ->add('ecole', EntityType::class, [
                     'class' => Ecole::class,
@@ -78,7 +78,7 @@ class UserType extends AbstractType
                             ->orderBy('e.nom', 'ASC');
                     },
                     'required' => false,
-                    'attr' => ['class' => 'form-control w-100'],
+                    'attr' => ['class' => 'form-select w-100'],
                 ],
                 )
                 ->add('firstname', TextType::class, [
@@ -88,6 +88,19 @@ class UserType extends AbstractType
                 ->add('numEtud', TextType::class, [
                     'empty_data' => '',
                     'attr' => ['class' => 'form-control w-100'],
+                ])
+                ->add('cv', FileType::class, [
+                    'label' => 'CV',
+                    'mapped' => false,
+                    'required' => false,
+                    'attr' => ['class' => 'form-control w-100'],
+                    'constraints' => [
+                        new File([
+                            'maxSize' => '1024k',
+                            'mimeTypes' => ['application/pdf', 'application/x-pdf'],
+                            'mimeTypesMessage' => 'Veuillez transmettre un fichier PDF valide',
+                        ]),
+                    ],
                 ])
             ;
         } elseif (2 === $user->getTpUser()) {
