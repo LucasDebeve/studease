@@ -17,6 +17,8 @@ class CandidatureType extends AbstractType
                 'label' => 'Lettre de motivation',
                 'attr' => [
                     'maxlength' => 5000,
+                    'class' => 'form-control w-100 flex-grow-1',
+                    'style' => 'resize: none; min-height: 300px',
                 ],
             ])
         ;
