@@ -59,6 +59,7 @@ class InsertionsProfessionnellesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $candidature->setInsertionProfessionnelle($insertion);
             $candidature->setCandidat($this->getUser());
+            $candidature->setDate(new \DateTime());
 
             $entityManager->persist($candidature);
             $entityManager->flush();
