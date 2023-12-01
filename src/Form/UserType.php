@@ -10,6 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,20 +26,23 @@ class UserType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'empty_data' => '',
+                'attr' => ['class' => 'form-control w-100'],
             ])
             ->add('password', PasswordType::class, [
                 'empty_data' => '',
-                'attr' => ['autocomplete' => 'new-password'],
+                'attr' => ['autocomplete' => 'new-password', 'class' => 'form-control w-100'],
                 'required' => false,
                 'mapped' => false,
             ])
-            ->add('telephone', TextType::class, [
+            ->add('telephone', TelType::class, [
                 'empty_data' => '',
+                'attr' => ['class' => 'form-control w-100'],
             ])
             ->add('avatar', FileType::class, [
                 'label' => 'Avatar',
                 'mapped' => false,
                 'required' => false,
+                'attr' => ['class' => 'form-control w-100'],
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
@@ -49,6 +53,7 @@ class UserType extends AbstractType
             ])
             ->add('name', TextType::class, [
                 'empty_data' => '',
+                'attr' => ['class' => 'form-control w-100'],
             ])
         ;
         // Verify if the user is a student or a company
@@ -63,6 +68,7 @@ class UserType extends AbstractType
                             ->orderBy('f.nom', 'ASC');
                     },
                     'required' => false,
+                    'attr' => ['class' => 'form-select w-100'],
                 ])
                 ->add('ecole', EntityType::class, [
                     'class' => Ecole::class,
@@ -72,22 +78,40 @@ class UserType extends AbstractType
                             ->orderBy('e.nom', 'ASC');
                     },
                     'required' => false,
+                    'attr' => ['class' => 'form-select w-100'],
                 ],
                 )
                 ->add('firstname', TextType::class, [
                     'empty_data' => '',
+                    'attr' => ['class' => 'form-control w-100'],
                 ])
                 ->add('numEtud', TextType::class, [
                     'empty_data' => '',
+                    'attr' => ['class' => 'form-control w-100'],
+                ])
+                ->add('cv', FileType::class, [
+                    'label' => 'CV',
+                    'mapped' => false,
+                    'required' => false,
+                    'attr' => ['class' => 'form-control w-100'],
+                    'constraints' => [
+                        new File([
+                            'maxSize' => '1024k',
+                            'mimeTypes' => ['application/pdf', 'application/x-pdf'],
+                            'mimeTypesMessage' => 'Veuillez transmettre un fichier PDF valide',
+                        ]),
+                    ],
                 ])
             ;
         } elseif (2 === $user->getTpUser()) {
             $builder
                 ->add('descriptionEntreprise', TextareaType::class, [
                     'empty_data' => '',
+                    'attr' => ['class' => 'form-control w-100', 'style' => 'resize: none; height: 5rem;'],
                 ])
                 ->add('numSiret', TextType::class, [
                     'empty_data' => '',
+                    'attr' => ['class' => 'form-control w-100'],
                 ])
             ;
         }

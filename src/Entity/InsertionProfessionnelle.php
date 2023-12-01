@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\InsertionProfessionnelleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -41,6 +43,14 @@ class InsertionProfessionnelle
     #[ORM\ManyToOne(inversedBy: 'InsertionsProfessionnelles')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $company = null;
+
+    #[ORM\OneToMany(mappedBy: 'insertion_professionnelle', targetEntity: Candidature::class, orphanRemoval: true)]
+    private Collection $candidatures;
+
+    public function __construct()
+    {
+        $this->candidatures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -151,6 +161,36 @@ class InsertionProfessionnelle
     public function setCompany(?User $Company): static
     {
         $this->company = $Company;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidature>
+     */
+    public function getCandidatures(): Collection
+    {
+        return $this->candidatures;
+    }
+
+    public function addCandidature(Candidature $candidature): static
+    {
+        if (!$this->candidatures->contains($candidature)) {
+            $this->candidatures->add($candidature);
+            $candidature->setInsertionProfessionnelle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidature(Candidature $candidature): static
+    {
+        if ($this->candidatures->removeElement($candidature)) {
+            // set the owning side to null (unless already changed)
+            if ($candidature->getInsertionProfessionnelle() === $this) {
+                $candidature->setInsertionProfessionnelle(null);
+            }
+        }
 
         return $this;
     }

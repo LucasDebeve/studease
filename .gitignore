@@ -26,3 +26,6 @@
 /.php-cs-fixer.php
 /.php-cs-fixer.cache
 ###< friendsofphp/php-cs-fixer ###
+
+### CV ###
+/public/uploads/cv/
