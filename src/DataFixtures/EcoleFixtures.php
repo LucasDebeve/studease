@@ -10,9 +10,13 @@ class EcoleFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
-
-        EcoleFactory::createMany(150);
+        $schoolNames = json_decode(file_get_contents(__DIR__.'/Data/Ecole.json'));
+        foreach ($schoolNames as $schoolName){
+            EcoleFactory::createOne(
+                [
+                    'nom' => $schoolName->nom,
+                ]
+            );
+        }
     }
 }
