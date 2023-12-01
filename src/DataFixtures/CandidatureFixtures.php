@@ -12,7 +12,6 @@ class CandidatureFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         CandidatureFactory::createMany(20);
-        $manager->flush();
     }
 
     public function getDependencies(): array
