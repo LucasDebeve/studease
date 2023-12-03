@@ -105,6 +105,51 @@
     display: none;
 }
 
+.footer-info {
+    display: flex;
+    padding: 32px 64px;
+    align-items: center;
+    gap: 80px;
+    align-self: stretch;
+    border-bottom: 1px solid #FF9940;
+    background: #FFF;
+}
+
+.footer-links {
+    display: flex;
+    padding: 20px 0;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+.footer-sitemap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.sitemap-title {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.sitemap-item {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.sitemap-link {
+    color: #000;
+    font-family: Karla, sans-serif;
+    font-style: normal;
+    line-height: normal;
+    text-decoration: none;
+}
+
 
 @media (min-width: 992px) {
     .nav-item {
