@@ -183,6 +183,9 @@ footer {
     line-height: normal;
 }
 
+.footer-logo {
+    display: none;
+}
 
 @media (min-width: 992px) {
     .nav-item {
@@ -236,6 +239,12 @@ footer {
         background: #FFF;
     }
 
+    .footer-logo {
+        display: block;
+        width: 79px;
+        height: 79px;
+        background: lightgray -27.033px -26.39px / 168.067% 168.067% no-repeat;
+    }
 }
 
 
