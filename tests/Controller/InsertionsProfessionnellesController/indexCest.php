@@ -38,8 +38,12 @@ class IndexCest
 
     public function search(ControllerTester $I): void
     {
-        // création des données pour test via la Forge à ajouter plus tard
-
-        // tests pour les détails des stages
+        InsertionProfessionnelleFactory::createOne(['titre' => 'stageTest', 'duree' => 10, 'dateDeb' => '01/01/01']);
+        InsertionProfessionnelleFactory::createOne(['titre' => 'informatique', 'duree' => 10, 'dateDeb' => '01/01/01']);
+        InsertionProfessionnelleFactory::createOne(['titre' => 'réseaux informatiques', 'duree' => 10, 'dateDeb' => '01/01/01']);
+        $I->amOnPage('/insertions-professionnelles?search=informatique');
+        $liste = $I->grabMultiple('ul.insertions_professionnelles a');
+        $I->assertEquals(['<h3>informatique</h3> Durée : 10 semaines, Début : 01/01/01',
+            '<h3>réseaux informatiques</h3> Durée : 10 semaines, Début : 01/01/01'], $liste);
     }
 }
