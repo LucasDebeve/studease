@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block javascripts %}<script href="javascript/insertion.js">{% endblock %}
+{% block javascripts %}<script src="../../public/javascript/insertion.js"></script>{% endblock %}
 
 {% block title %}Stages et Alternances{% endblock %}
 
@@ -41,9 +41,15 @@
     <ul>
         <h3>"{{ date }}"</h3>
         {% for insertion in insertions %}
-            <li><a href="{{ path('app_insertions_professionnelles_id', {id: insertion.id }) }}">
-                    <h3>{{ insertion.titre }}</h3>Durée : {{ insertion.duree }}, Début
-                    : {{ insertion.dateDeb|date("d/m/Y") }}</a>
+            <li>
+                <a href="{{ path('app_insertions_professionnelles_id', {id: insertion.id }) }}" class="">
+                    <div class="insertion__id" hidden="hidden">{{ insertion.id }}</div>
+                    <h3 class="insertion__titre">{{ insertion.titre }}</h3>
+                    <div class="">Durée :
+                        <div class="insertion__duree">{{ insertion.duree }}</div>, Début:
+                        <div class="insertion__dateDeb">{{ insertion.dateDeb|date("d/m/Y") }}</div>
+                    </div>
+                </a>
             </li>
         {% endfor %}
     </ul>
