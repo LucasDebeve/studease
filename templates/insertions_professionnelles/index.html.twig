@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}<script href="javascript/insertion.js">{% endblock %}
+
 {% block title %}Stages et Alternances{% endblock %}
 
 {% block body %}
@@ -7,14 +9,14 @@
         <ul>
             <li class="input intitule_insertion">
                 <label for="intitule"></label>
-                <input type="text" id="intitule" name="intitule" placeholder="{{ intitule }}" class="input intitule_insertion">
+                <input type="text" id="intitule" name="intitule" placeholder="Intitulé" class="input intitule_insertion">
             </li>
             <li class="input type_contrat_insertion">
                 <label for="type_contrat"></label>
                 <select id="type_contrat" name="type_contrat" class="input type_contrat_insertion">
-                    <option value="" {{ type==''?'':'selected' }}>Type de Contrat</option>
-                    <option value="stage"{{ type=='stage'?'':'selected' }}>Stage</option>
-                    <option value="alternance"{{ type=='alternance'?'':'selected' }}>Alternance</option>
+                    <option value="" selected>Type de Contrat</option>
+                    <option value="stage">Stage</option>
+                    <option value="alternance">Alternance</option>
                 </select>
             </li>
             <li class="input date_debut_insertion">
@@ -29,7 +31,7 @@
             </li>
             <li class="input localisation_insertion">
                 <label for="localisation"></label>
-                <input type="text" id="localisation" name="localisation" class="input localisation_insertion" placeholder="{{ localisation }}">
+                <input type="text" id="localisation" name="localisation" class="input localisation_insertion" placeholder="Localisation">
             </li>
             <li class="input submit_insertion">
                 <input type="submit">
