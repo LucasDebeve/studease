@@ -14,15 +14,9 @@ class InsertionsProfessionnellesController extends AbstractController
     #[Route('/insertions-professionnelles', name: 'app_insertions_professionnelles')]
     public function index(Request $request, InsertionProfessionnelleRepository $repository): Response
     {
-        $intitule = $request->request->get('intitule', '');
-        $type_contrat = $request->request->get('type_contrat', '');
-        $date_debut_avant = $request->request->get('date_debut_avant', '');
-        $date_debut_apres = $request->request->get('date_debut_apres', '');
-        $duree = $request->request->get('duree', '');
-        $localisation = $request->request->get('localisation', '');
-        $insertions = $repository->search($intitule, $type_contrat, $date_debut_avant, $date_debut_apres, $duree, $localisation);
+        $insertions = $repository->search();
 
-        return $this->render('insertions_professionnelles/index.html.twig', ['insertions' => $insertions, 'intitule' => '' == $intitule ? 'Intitulé' : $intitule, 'localisation' => '' == $localisation ? 'Localisation' : $localisation, 'date' => $date_debut_apres, 'type' => $type_contrat]);
+        return $this->render('insertions_professionnelles/index.html.twig', ['insertions' => $insertions]);
     }
 
     #[Route('/insertions-professionnelles/{id}', name: 'app_insertions_professionnelles_id')]
