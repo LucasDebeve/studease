@@ -3,13 +3,17 @@
 namespace App\Tests\Controller\InsertionsProfessionnellesController;
 
 use App\Factory\InsertionProfessionnelleFactory;
+use App\Factory\UserFactory;
 use App\Tests\Support\ControllerTester;
+use Symfony\Component\Intl\Timezones;
+
 
 class IndexCest
 {
     public function insertionsProfessionnelles(ControllerTester $I): void
     {
-        InsertionProfessionnelleFactory::createOne(['titre' => 'stageTest', 'duree' => 10, 'dateDeb' => '01/01/01']);
+        UserFactory::createOne();
+        InsertionProfessionnelleFactory::createOne(['titre' => 'stageTest', 'duree' => 10, 'dateDeb' => new \DateTime('01/01/01')]);
         $I->amOnPage('/insertions-professionnelles');
         $I->seeResponseCodeIs(200);
         $I->seeInTitle('Stages et Alternances disponible');
@@ -18,7 +22,7 @@ class IndexCest
 
         // test pour la vérification des liens des éléments de la liste
 
-        $I->click('<h3>StageTest</h3> Durée : 10 semaines, Début : 01/01/01');
+        $I->click('StageTest Durée : 10 semaines, Début : 01/01/01');
         $I->seeResponseCodeIs(200);
         $I->seeCurrentRouteIs('app_details_insertions_professionnelles');
     }
@@ -26,9 +30,9 @@ class IndexCest
 
     public function tri(ControllerTester $I): void
     {
-        InsertionProfessionnelleFactory::createOne(['titre' => 'stageTest', 'duree' => 10, 'dateDeb' => '01/01/01']);
-        InsertionProfessionnelleFactory::createOne(['titre' => 'dev Web', 'duree' => 10, 'dateDeb' => '01/01/01']);
-        InsertionProfessionnelleFactory::createOne(['titre' => 'alternance', 'duree' => 10, 'dateDeb' => '01/01/01']);
+        InsertionProfessionnelleFactory::createOne(['titre' => 'stageTest', 'duree' => 10, 'dateDeb' => new \DateTime('01/01/01')]);
+        InsertionProfessionnelleFactory::createOne(['titre' => 'dev Web', 'duree' => 10, 'dateDeb' => new \DateTime('01/01/01')]);
+        InsertionProfessionnelleFactory::createOne(['titre' => 'alternance', 'duree' => 10, 'dateDeb' => new \DateTime('01/01/01')]);
         $I->amOnPage('/insertions-professionnelles');
         $liste = $I->grabMultiple('ul.insertions_professionnelles a');
         $I->assertEquals(['<h3>alternance</h3> Durée : 10 semaines, Début : 01/01/01',
@@ -38,9 +42,9 @@ class IndexCest
 
     public function search(ControllerTester $I): void
     {
-        InsertionProfessionnelleFactory::createOne(['titre' => 'stageTest', 'duree' => 10, 'dateDeb' => '01/01/01']);
-        InsertionProfessionnelleFactory::createOne(['titre' => 'informatique', 'duree' => 10, 'dateDeb' => '01/01/01']);
-        InsertionProfessionnelleFactory::createOne(['titre' => 'réseaux informatiques', 'duree' => 10, 'dateDeb' => '01/01/01']);
+        InsertionProfessionnelleFactory::createOne(['titre' => 'stageTest', 'duree' => 10,'dateDeb' =>  new \DateTime('01/01/01',)]);
+        InsertionProfessionnelleFactory::createOne(['titre' => 'informatique', 'duree' => 10, 'dateDeb' => new \DateTime('01/01/01',)]);
+        InsertionProfessionnelleFactory::createOne(['titre' => 'réseaux informatiques', 'duree' => 10,'dateDeb' =>  new \DateTime('01/01/01',)]);
         $I->amOnPage('/insertions-professionnelles?search=informatique');
         $liste = $I->grabMultiple('ul.insertions_professionnelles a');
         $I->assertEquals(['<h3>informatique</h3> Durée : 10 semaines, Début : 01/01/01',
