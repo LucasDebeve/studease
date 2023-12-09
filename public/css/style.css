@@ -239,6 +239,87 @@ footer {
         background: #FFF;
     }
 
+    .body-front {
+        width: 1440px;
+        height: 960px;
+        flex-shrink: 0;
+    }
+
+    .body-picture {
+        width: 720px;
+        height: 960px;
+        flex-shrink: 0;
+        background: lightgray 50% / cover no-repeat;
+    }
+
+    .body-text {
+        width: 720px;
+        height: 960px;
+        flex-shrink: 0;
+        background: #FFF;
+    }
+
+    .body-slogan {
+        width: 558.6px;
+        height: 160px;
+        flex-shrink: 0;
+        color: #000;
+        font-family: Karla, sans-serif;
+        font-size: 56px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 80px; /* 142.857% */
+        letter-spacing: -0.84px;
+    }
+
+    .body-info {
+        width: 1440px;
+        height: 676px;
+        flex-shrink: 0;
+        background: #FFF;
+    }
+
+    .info-title {
+        width: 750px;
+        height: 70px;
+        flex-shrink: 0;
+        color: #000;
+        font-family: Karla, sans-serif;
+        font-size: 48px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 72px; /* 150% */
+        letter-spacing: -0.72px;
+    }
+
+    .info-group {
+        width: 600px;
+        height: 150px;
+        flex-shrink: 0;
+    }
+
+    .group-title, .group-content {
+        width: 600px;
+        height: 36px;
+        flex-shrink: 0;
+        color: #000;
+        font-family: Montserrat, sans-serif;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 36px; /* 150% */
+        letter-spacing: -0.36px;
+    }
+
+    .group-content {
+        height: 90px;
+        color: rgba(0, 0, 0, 0.80);
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 30px; /* 166.667% */
+        letter-spacing: -0.27px;
+    }
+
     .footer-logo {
         display: block;
         width: 102px;
