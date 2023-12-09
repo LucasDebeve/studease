@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block javascripts %}<script src="../../public/javascript/insertion.js"></script>{% endblock %}
+{% block javascripts %}{{ encore_entry_script_tags('insertions') }}{% endblock %}
 
 {% block title %}Stages et Alternances{% endblock %}
 
@@ -11,6 +11,7 @@
                 <label for="intitule"></label>
                 <input type="text" id="intitule" name="intitule" placeholder="Intitulé" class="input intitule_insertion">
             </li>
+
             <li class="input type_contrat_insertion">
                 <label for="type_contrat"></label>
                 <select id="type_contrat" name="type_contrat" class="input type_contrat_insertion">
@@ -22,7 +23,7 @@
             <li class="input date_debut_insertion">
                 <label for="date_debut_avant">Commence avant le : </label>
                 <input type="date" id="date_debut_avant" name="date_debut_avant" class="input date_debut_avant_insertion">
-                <label for="date_debut_apres">Commence après le : </label>
+                <label for="date_debut_apres">et après le : </label>
                 <input type="date" id="date_debut_apres" name="date_debut_apres" class="input date_debut_apres_insertion">
             </li>
             <li class="input duree_insertion">
@@ -33,13 +34,9 @@
                 <label for="localisation"></label>
                 <input type="text" id="localisation" name="localisation" class="input localisation_insertion" placeholder="Localisation">
             </li>
-            <li class="input submit_insertion">
-                <input type="submit">
-            </li>
         </ul>
     </form>
-    <ul>
-        <h3>"{{ date }}"</h3>
+    <ul class="insertions">
         {% for insertion in insertions %}
             <li>
                 <a href="{{ path('app_insertions_professionnelles_id', {id: insertion.id }) }}" class="">
