@@ -242,7 +242,8 @@ footer {
     }
 
     .body-picture {
-        flex-grow: 1;
+        width: 1183px;
+        height: 960px;
         flex-shrink: 0;
         background: lightgray 50% / cover no-repeat;
     }
