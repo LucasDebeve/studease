@@ -248,14 +248,18 @@ footer {
     }
 
     .body-text {
+        display: flex;
         width: 720px;
         height: 960px;
         flex-shrink: 0;
         background: #FFF;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
 
     .body-slogan {
-        width: 558.6px;
+        width: 559px;
         height: 160px;
         flex-shrink: 0;
         color: #000;
@@ -263,8 +267,12 @@ footer {
         font-size: 56px;
         font-style: normal;
         font-weight: 400;
-        line-height: 80px; /* 142.857% */
+        line-height: 80px;
         letter-spacing: -0.84px;
+    }
+
+    .connect{
+        margin-left: -430px;
     }
 
     .body-info {
