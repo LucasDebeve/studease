@@ -4,29 +4,33 @@
 
 {% block body %}
 <div class="body-front">
-    <img class="body-picture" src="{{ asset('img/studease.jpg') }}" alt="Image d'Accueil"/>
     <section class="body-text">
         <h1 class="body-slogan">Ici, tu construis ton avenir</h1>
         <a class="nav-link-connect btn btn-primary" href="#">Se connecter</a>
     </section>
+    <img class="body-picture" src="{{ asset('img/studease.jpg') }}" alt="Image d'Accueil"/>
 </div>
 <div class="body-info">
     <h1 class="info-title">Qu'est ce que StudeEase ?</h1>
-    <section class="info-group">
-        <h2 class="group-title">Trouves le stage qui est fait pour toi</h2>
-        <blockquote class="group-content">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est.</blockquote>
-    </section>
-    <section class="info-group">
-        <h2 class="group-title">Trouves l’alternance qui te correspond</h2>
-        <blockquote class="group2-content">Amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.</blockquote>
-    </section>
-    <section class="info-group">
-        <h2 class="group-title">Une plateforme pour les étudiants</h2>
-        <blockquote class="group-content">Consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam.</blockquote>
-    </section>
-    <section class="info-group">
-        <h2 class="group-title">Lorem</h2>
-        <blockquote class="group4-content">Eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora.</blockquote>
-    </section>
+    <div class="info-part">
+        <section class="info-group">
+            <h2 class="group-title">Trouves le stage qui est fait pour toi</h2>
+            <blockquote class="group-content">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est.</blockquote>
+        </section>
+        <section class="info-group">
+            <h2 class="group-title">Trouves l’alternance qui te correspond</h2>
+            <blockquote class="group-content">Amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.</blockquote>
+        </section>
+    </div>
+    <div class="info-part">
+        <section class="info-group">
+            <h2 class="group-title">Une plateforme pour les étudiants</h2>
+            <blockquote class="group-content">Consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam.</blockquote>
+        </section>
+        <section class="info-group">
+            <h2 class="group-title">Lorem</h2>
+            <blockquote class="group-content">Eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora.</blockquote>
+        </section>
+    </div>
 </div>
 {% endblock %}

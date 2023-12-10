@@ -236,14 +236,13 @@ footer {
     }
 
     .body-front {
-        width: 1440px;
-        height: 960px;
+        display: flex;
         flex-shrink: 0;
+        flex-direction: row;
     }
 
     .body-picture {
-        width: 720px;
-        height: 960px;
+        flex-grow: 1;
         flex-shrink: 0;
         background: lightgray 50% / cover no-repeat;
     }
@@ -269,10 +268,10 @@ footer {
     }
 
     .body-info {
-        width: 1440px;
-        height: 676px;
+        display: flex;
         flex-shrink: 0;
         background: #FFF;
+        flex-direction: column;
     }
 
     .info-title {
@@ -286,6 +285,11 @@ footer {
         font-weight: 400;
         line-height: 72px; /* 150% */
         letter-spacing: -0.72px;
+    }
+
+    .info-part {
+        display: flex;
+        flex-direction: row;
     }
 
     .info-group {
