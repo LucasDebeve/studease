@@ -277,8 +277,11 @@ footer {
         letter-spacing: -0.84px;
     }
 
-    .connect{
-        margin-left: -430px;
+    .body-button{
+        display: flex;
+        width: 720px;
+        justify-content: flex-start;
+        margin-left: 165px;
     }
 
     .body-info {
