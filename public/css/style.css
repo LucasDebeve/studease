@@ -101,6 +101,11 @@
     display: none;
 }
 
+.body-info,
+.body-front {
+    display: none;
+}
+
 footer {
     display: flex;
     padding-bottom: 20px;
