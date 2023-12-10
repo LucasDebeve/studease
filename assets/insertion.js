@@ -11,6 +11,7 @@ function extractInsertion(insertionElt) {
     return {
         id: insertionElt.firstElementChild.children[0].lastChild.nodeValue,
         titre: insertionElt.firstElementChild.children[1].lastChild.nodeValue,
+        contrat: insertionElt.firstElementChild.children[3].lastChild.nodeValue,
         duree: parseInt(insertionElt.firstElementChild.children[2].children[0].lastChild.nodeValue, 10),
         dateDeb: insertionElt.firstElementChild.children[2].children[1].lastChild.nodeValue,
         query: insertionElt
@@ -29,10 +30,14 @@ function sauvegarderEtat(element) {
     };
 }
 function setAddFilterInsertionCallback(insertions) {
-    var insertionsList=extractInsertions(insertions);
-    var intituleInsertion = document.querySelector("input.input.intitule_insertion");
-    intituleInsertion.addEventListener("change", function () {
-        var intitule = document.getElementById("intitule").value.toString().toUpperCase();
+    const insertionsList = extractInsertions(insertions);
+    const intituleInsertion = document.querySelector("input.input.intitule_insertion");
+    const typeContrat = document.querySelector("select.input.type_contrat_insertion");
+    const dateDebPre = document.querySelector("input.input.date_debut_avant_insertion");
+    const dateDebPost = document.querySelector("input.input.date_debut_apres_insertion")
+
+    intituleInsertion.addEventListener("keyup", function () {
+        const intitule = document.getElementById("intitule").value.toString().toUpperCase();
         insertionsList.forEach(function (insertion) {
             if (!insertion['titre'].toUpperCase().includes(intitule)) {
                 if(insertions.contains(insertion['query'])) {
@@ -44,5 +49,43 @@ function setAddFilterInsertionCallback(insertions) {
                 }
             }
         });
+    });
+
+    typeContrat.addEventListener("change", function () {
+        const contrat = typeContrat.options[typeContrat.selectedIndex].value;
+        insertionsList.forEach(function (insertion) {
+            if (contrat === "") {
+                if (!insertions.contains(insertion['query'])) {
+                    insertions.appendChild(insertion['query']);
+                }
+            } else if(contrat === "stage") {
+                if (!insertion['contrat'].toUpperCase().includes("1")) {
+                    if(insertions.contains(insertion['query'])) {
+                        insertions.removeChild(insertion['query']);
+                    }
+                } else {
+                    if (!insertions.contains(insertion['query'])) {
+                        insertions.appendChild(insertion['query']);
+                    }
+                }
+            } else{
+                if (!insertion['contrat'].toUpperCase().includes("2")) {
+                    if(insertions.contains(insertion['query'])) {
+                        insertions.removeChild(insertion['query']);
+                    }
+                } else {
+                    if (!insertions.contains(insertion['query'])) {
+                        insertions.appendChild(insertion['query']);
+                    }
+                }
+            }
+        });
+    });
+
+    dateDebPre.addEventListener("change",()=>{
+        const dateDebBef= document.getElementById("date_debut_avant");
+        const dateDebAft = document.getElementById("date_debut_apres");
+        console.log(dateDebBef);
+        console.log(dateDebAft);
     });
 }

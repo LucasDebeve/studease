@@ -46,6 +46,7 @@
                         <div class="insertion__duree">{{ insertion.duree }}</div>, Début:
                         <div class="insertion__dateDeb">{{ insertion.dateDeb|date("d/m/Y") }}</div>
                     </div>
+                    <div class="insertion__contrat" hidden="hidden">{{ insertion.typePro }}</div>
                 </a>
             </li>
         {% endfor %}
