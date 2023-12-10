@@ -35,7 +35,7 @@ function setAddFilterInsertionCallback(insertions) {
     const typeContrat = document.querySelector("select.input.type_contrat_insertion");
     const dateDebPre = document.querySelector("input.input.date_debut_avant_insertion");
     const dateDebPost = document.querySelector("input.input.date_debut_apres_insertion");
-    const duree = document.querySelector("input.input.duree_insertion")
+    const duree = document.querySelector("input.input.duree_insertion");
 
     intituleInsertion.addEventListener("keyup", function () {
         const intitule = document.getElementById("intitule").value.toString().toUpperCase();
@@ -85,6 +85,28 @@ function setAddFilterInsertionCallback(insertions) {
 
     // ne fonctionne pas pour le moment
     dateDebPre.addEventListener("change",()=>{
+        const dateDebBef= new Date(document.getElementById("date_debut_avant").value);
+        const dateDebAft = new Date(document.getElementById("date_debut_apres").value);
+        dateDebAft.setHours(0,0,0,0);
+        dateDebBef.setHours(0,0,0,0);
+        insertionsList.forEach(function (insertion) {
+            let dateDeb= new Date(insertion.dateDeb);
+            dateDeb.setHours(0,0,0,0);
+            if(dateDebBef <= dateDeb <= dateDebAft){
+                if (!insertions.contains(insertion['query'])) {
+                    insertions.appendChild(insertion['query']);
+                }
+            }
+            else{
+                if (insertions.contains(insertion['query'])) {
+                    insertions.removeChild(insertion['query']);
+                }
+            }
+        });
+    });
+
+    // ne fonctionne pas pour le moment
+    dateDebPost.addEventListener("change",()=>{
         const dateDebBef= new Date(document.getElementById("date_debut_avant").value);
         const dateDebAft = new Date(document.getElementById("date_debut_apres").value);
         dateDebAft.setHours(0,0,0,0);
