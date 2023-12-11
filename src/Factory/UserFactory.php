@@ -61,6 +61,7 @@ final class UserFactory extends ModelFactory
             'tpUser' => 1,
             'ecole' => null,
             'formation' => null,
+            //'is_verified' => false,
         ];
     }
 
