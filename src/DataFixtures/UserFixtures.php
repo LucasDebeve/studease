@@ -37,7 +37,7 @@ class UserFixtures extends Fixture
             'descriptionEntreprise' => 'null',
             'tpUser' => 0,
             'roles' => ['ROLE_ADMIN'],
-            'is_verified' => true,
+            //'is_verified' => true,
         ]);
         UserFactory::createOne([
             'email' => 'axel@studease.com',
@@ -47,7 +47,7 @@ class UserFixtures extends Fixture
             'descriptionEntreprise' => 'null',
             'tpUser' => 0,
             'roles' => ['ROLE_ADMIN'],
-            'is_verified' => true,
+            //'is_verified' => true,
         ]);
         UserFactory::createOne([
             'email' => 'paco@studease.com',
@@ -57,7 +57,7 @@ class UserFixtures extends Fixture
             'descriptionEntreprise' => 'null',
             'tpUser' => 0,
             'roles' => ['ROLE_ADMIN'],
-            'is_verified' => true,
+            //'is_verified' => true,
         ]);
         UserFactory::createOne([
             'email' => 'nathan@studease.com',
@@ -67,7 +67,7 @@ class UserFixtures extends Fixture
             'descriptionEntreprise' => 'null',
             'tpUser' => 0,
             'roles' => ['ROLE_ADMIN'],
-            'is_verified' => true,
+            //'is_verified' => true,
         ]);
         UserFactory::createOne([
             'email' => 'justin@studease.com',
@@ -77,7 +77,7 @@ class UserFixtures extends Fixture
             'descriptionEntreprise' => 'null',
             'tpUser' => 0,
             'roles' => ['ROLE_ADMIN'],
-            'is_verified' => true,
+            //'is_verified' => true,
         ]);
 
         $manager->flush();
