@@ -76,6 +76,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $cv = null;
 
+    #[ORM\Column]
+    private ?bool $isVerified = null;
+
     public function __construct()
     {
         $this->insertions_professionnelles = new ArrayCollection();
@@ -379,6 +382,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCv(?string $cv): static
     {
         $this->cv = $cv;
+
+        return $this;
+    }
+
+    public function isIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
