@@ -83,6 +83,7 @@ class SecurityController extends AbstractController
 
             $avatar = $form->get('avatar')->getData();
             $password = $form->get('password')->getData();
+            $cv = $form->get('cv')->getData();
 
             if ($avatar) {
                 $new_filename = uniqid().'.'.$avatar->guessExtension();
@@ -99,6 +100,15 @@ class SecurityController extends AbstractController
             }
             if ($password) {
                 $user->setPassword($this->hasher->hashPassword($user, $password));
+            }
+            if ($cv) {
+                $new_filename = uniqid().'.'.$cv->guessExtension();
+                try {
+                    $cv->move($this->getParameter('cv_directory'), $new_filename);
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Une erreur est survenue lors de l\'upload du CV');
+                }
+                $user->setCv($new_filename);
             }
 
             $entityManager->flush();

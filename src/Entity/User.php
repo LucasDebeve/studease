@@ -70,10 +70,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'entreprise', targetEntity: Localisation::class, orphanRemoval: true)]
     private Collection $localisations;
 
+    #[ORM\OneToMany(mappedBy: 'candidat', targetEntity: Candidature::class, orphanRemoval: true)]
+    private Collection $candidatures;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $cv = null;
+
     public function __construct()
     {
         $this->insertions_professionnelles = new ArrayCollection();
         $this->localisations = new ArrayCollection();
+        $this->candidatures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -330,6 +337,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $localisation->setEntreprise(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidature>
+     */
+    public function getCandidatures(): Collection
+    {
+        return $this->candidatures;
+    }
+
+    public function addCandidature(Candidature $candidature): static
+    {
+        if (!$this->candidatures->contains($candidature)) {
+            $this->candidatures->add($candidature);
+            $candidature->setCandidat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidature(Candidature $candidature): static
+    {
+        if ($this->candidatures->removeElement($candidature)) {
+            // set the owning side to null (unless already changed)
+            if ($candidature->getCandidat() === $this) {
+                $candidature->setCandidat(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCv(): ?string
+    {
+        return $this->cv;
+    }
+
+    public function setCv(?string $cv): static
+    {
+        $this->cv = $cv;
 
         return $this;
     }

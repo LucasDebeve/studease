@@ -27,9 +27,14 @@
 /.php-cs-fixer.cache
 ###< friendsofphp/php-cs-fixer ###
 
+
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 /package-lock.json
+
+### CV ###
+/public/uploads/cv/
+
