@@ -97,11 +97,12 @@
     line-height: normal;
 }
 
-.nav-link-connect {
-
+.d-none {
+    display: none;
 }
 
-.d-none {
+.body-info,
+.body-front {
     display: none;
 }
 
@@ -238,6 +239,108 @@ footer {
         align-self: stretch;
         background: #FFF;
     }
+
+    .body-front {
+        display: flex;
+        flex-shrink: 0;
+        flex-direction: row;
+    }
+
+    .body-picture {
+        width: 1183px;
+        height: 960px;
+        flex-shrink: 0;
+        background: lightgray 50% / cover no-repeat;
+    }
+
+    .body-text {
+        display: flex;
+        width: 720px;
+        height: 960px;
+        flex-shrink: 0;
+        background: #FFF;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .body-slogan {
+        width: 559px;
+        height: 160px;
+        flex-shrink: 0;
+        color: #000;
+        font-family: Karla, sans-serif;
+        font-size: 56px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 80px;
+        letter-spacing: -0.84px;
+    }
+
+    .body-button{
+        display: flex;
+        width: 720px;
+        justify-content: flex-start;
+        margin-left: 165px;
+    }
+
+    .body-info {
+        display: flex;
+        flex-shrink: 0;
+        background: #FFF;
+        flex-direction: column;
+        margin-left: 100px;
+    }
+
+    .info-title {
+        display: flex;
+        width: 750px;
+        height: 70px;
+        flex-shrink: 0;
+        color: #000;
+        font-family: Karla, sans-serif;
+        font-size: 48px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 72px; /* 150% */
+        letter-spacing: -0.72px;
+    }
+
+    .info-part {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 100px;
+    }
+
+    .info-group {
+        width: 600px;
+        height: 150px;
+        flex-shrink: 0;
+    }
+
+    .group-title,
+    .group-content {
+        flex-shrink: 0;
+        color: #000;
+        font-family: Montserrat, sans-serif;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 36px;
+        letter-spacing: -0.36px;
+    }
+
+    .group-content {
+        height: 90px;
+        color: rgba(0, 0, 0, 0.80);
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 30px;
+        letter-spacing: -0.27px;
+        text-align: left;
+    }
+
 
     .footer-logo {
         display: block;
