@@ -25,7 +25,7 @@ class InsertionsProfessionnellesController extends AbstractController
         return $this->render('insertions_professionnelles/index.html.twig', ['insertions' => $insertions]);
     }
 
-    #[Route('/insertions-professionnelles/{id}', name: 'app_insertions_professionnelles_id')]
+    #[Route('/insertions-professionnelles/{id}', name: 'app_detail_insertions_professionnelles')]
     public function show(InsertionProfessionnelle $insertion): Response
     {
         return $this->render('insertions_professionnelles/show.html.twig', ['insertion' => $insertion]);
