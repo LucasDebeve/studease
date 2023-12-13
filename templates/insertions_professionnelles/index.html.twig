@@ -1,15 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Stages et Alternances disponibles{% endblock %}
+{% block javascripts %}{{ encore_entry_script_tags('insertions') }}{% endblock %}
+
+{% block title %}Stages et Alternances{% endblock %}
 
 {% block body %}
-    <h1>Stages et Alternances disponibles</h1>
-    <ul>
+<form class="stage_recherche" action="#" method="post">
+            <ul>
+                <li class="input intitule_insertion">
+                    <label for="intitule"></label>
+                    <input type="text" id="intitule" name="intitule" placeholder="Intitulé" class="input intitule_insertion">
+                </li>
+                <li class="input type_contrat_insertion">
+                    <label for="type_contrat"></label>
+                    <select id="type_contrat" name="type_contrat" class="input type_contrat_insertion">
+                        <option value="" selected>Type de Contrat</option>
+                        <option value="stage">Stage</option>
+                        <option value="alternance">Alternance</option>
+                    </select>
+                </li>
+                <li class="input date_debut_insertion">
+                    <label for="date_debut_avant">Commence avant le : </label>
+                    <input type="date" id="date_debut_avant" name="date_debut_avant" class="input date_debut_avant_insertion">
+                    <label for="date_debut_apres">et après le : </label>
+                    <input type="date" id="date_debut_apres" name="date_debut_apres" class="input date_debut_apres_insertion">
+                </li>
+                <li class="input duree_insertion">
+                    <input type="number" id="duree" name="duree" class="input duree_insertion" placeholder="Duree du stage">
+                    <label for="duree" class="label duree_insertion"> en jours</label>
+                </li>
+            </ul>
+        </form>
+        <ul class="insertions">
         {% for insertion in insertions %}
-            <li><a href="{{ path('app_insertions_professionnelles_id', {id: insertion.id }) }}">
-                    <h3>{{ insertion.titre }}</h3>Durée : {{ insertion.duree }}, Début
-                    : {{ insertion.dateDeb|date("d/m/Y") }}</a>
+    <li>
+                <a href="{{ path('app_insertions_professionnelles_id', {id: insertion.id }) }}" class="">
+                    <div class="insertion__id" hidden="hidden">{{ insertion.id }}</div>
+                    <h3 class="insertion__titre">{{ insertion.titre }}</h3>
+                    <div class="">Durée :
+                        <div class="insertion__duree">{{ insertion.duree }}</div>, Début:
+                        <div class="insertion__dateDeb">{{ insertion.dateDeb|date("d/m/Y") }}</div>
+                    </div>
+                    <div class="insertion__contrat" hidden="hidden">{{ insertion.typePro }}</div>
+                </a>
             </li>
         {% endfor %}
-    </ul>
+</ul>
 {% endblock %}
