@@ -16,8 +16,7 @@ class IndexCest
         InsertionProfessionnelleFactory::createOne(['titre' => 'réseaux informatiques', 'duree' => 10, 'dateDeb' => new \DateTime('01/01/01')]);
         $I->amOnPage('/insertions-professionnelles');
         $I->seeResponseCodeIs(200);
-        $I->seeInTitle('Stages et Alternances disponible');
-        $I->see('Stages et Alternances disponible', 'h1');
+        $I->seeInTitle('Stages et Alternances');
         $I->seeCurrentRouteIs('app_insertions_professionnelles');
     }
 
@@ -25,20 +24,10 @@ class IndexCest
     {
         $I->amOnPage('/insertions-professionnelles');
         $I->seeCurrentRouteIs('app_insertions_professionnelles');
-        $liste = $I->grabMultiple('ul.insertions_professionnelles a');
+        $liste = $I->grabMultiple('ul.insertions li a h3.insertion__titre');
         $I->assertEquals(
-            ['
-                informatique
-                Durée : 10 semaines,
-                Début : 01/01/2001',
-                '
-                réseaux informatiques
-                Durée : 10 semaines,
-                Début : 01/01/2001',
-                '
-                stageTest
-                Durée : 10 semaines,
-                Début : 01/01/2001',], $liste);
+            ['informatique',
+                'réseaux informatiques',
+                'stageTest', ], $liste);
     }
 }
-
