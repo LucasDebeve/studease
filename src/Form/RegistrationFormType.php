@@ -35,6 +35,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
+                'label' => 'J\'accepte les Conditions Générales d\'utilisation',
                 'constraints' => [
                     new IsTrue([
                         'message' => "Vous devez accepter les Conditions Générales d'utilisation",
@@ -68,7 +69,7 @@ class RegistrationFormType extends AbstractType
                     'label' => 'Afficher le mot de passe',
                     'required' => false,
                         'attr' => [
-                            'onclick' => 'showPassword()',
+                            'onclick' => 'showPassword(this)',
                         ],
                 ]
             )
