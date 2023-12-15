@@ -34,12 +34,12 @@
         <ul class="insertions">
         {% for insertion in insertions %}
     <li>
-                <a href="{{ path('app_insertions_professionnelles_id', {id: insertion.id }) }}" class="">
+                <a href="{{ path('app_detail_insertions_professionnelles', {id: insertion.id }) }}" class="">
                     <div class="insertion__id" hidden="hidden">{{ insertion.id }}</div>
                     <h3 class="insertion__titre">{{ insertion.titre }}</h3>
-                    <div class="">Durée :
-                        <div class="insertion__duree">{{ insertion.duree }}</div>, Début:
-                        <div class="insertion__dateDeb">{{ insertion.dateDeb|date("d/m/Y") }}</div>
+                    <div class="">
+                        Durée : <div class="insertion__duree">{{ insertion.duree }}</div>semaines,
+                        Début: <div class="insertion__dateDeb">{{ insertion.dateDeb|date("d/m/Y") }}</div>
                     </div>
                     <div class="insertion__contrat" hidden="hidden">{{ insertion.typePro }}</div>
                 </a>
