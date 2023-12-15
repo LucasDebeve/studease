@@ -4,7 +4,7 @@
 {% set noms = "#{user.firstname|capitalize} #{user.name|upper}" %}
 
 {% block body %}
-    <div class="container">
+    <div class="container-lg py-5">
         <div class="row gutters-sm">
             <div class="col-md-4 mb-3">
                 <div class="card mb-3">
@@ -24,20 +24,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="card mb-3 mb-lg-0">
-                    <div class="card-body p-0">
-                        <ul class="list-group list-group-flush rounded-3">
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                {% if user.cv %}
-                                    <a href="{{ asset('uploads/cv/' ~user.cv) }}" target="_blank">Afficher le CV
-                                        (PDF)</a>
-                                {% else %}
-                                    Aucun CV renseigné
-                                {% endif %}
-                            </li>
-                        </ul>
+                {% if user.tpUser == 1 %}
+                    <div class="card mb-3 mb-lg-0">
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush rounded-3">
+                                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                    {% if  user.cv %}
+                                        <a href="{{ asset('uploads/cv/' ~user.cv) }}" target="_blank">Afficher le CV
+                                            (PDF)</a>
+                                    {% else %}
+                                        Aucun CV renseigné
+                                    {% endif %}
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                {% endif %}
             </div>
 
             <div class="col-md-8">
@@ -114,10 +116,10 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 {% if user.tpUser == 1 %}
-                                <h6 class="d-flex align-items-center mb-3">Formation</h6>
+                                    <h6 class="d-flex align-items-center mb-3 fw-bold">Formation</h6>
                                     {{ user.formation.nom|default('Aucune formation renseignée') }}
                                 {% elseif user.tpUser == 2 %}
-                                    <h6 class="d-flex align-items-center mb-3">Localisations</h6>
+                                    <h6 class="d-flex align-items-center mb-3 fw-bold">Localisations</h6>
                                     <ul>
                                         {% for localisation in user.localisations %}
                                             <li>{{ localisation.adresse }}
@@ -132,7 +134,7 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 {% if user.tpUser == 1 %}
-                                <h6 class="d-flex align-items-center mb-3">Ecole</h6>
+                                    <h6 class="d-flex align-items-center mb-3 fw-bold">Ecole</h6>
                                 {{ user.ecole.nom|default('Aucune école renseignée') }}
                                 {% endif %}
                             </div>
