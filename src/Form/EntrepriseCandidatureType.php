@@ -14,7 +14,7 @@ class EntrepriseCandidatureType extends AbstractType
             ->add('status', ChoiceType::class, [
                 'choices' => [
                     'En attente' => 'en_attente',
-                    'Accepté' => "accepte",
+                    'Accepté' => 'accepte',
                     'Refusé' => 'refuse',
                 ],
                 'label' => 'Statut de la candidature',
