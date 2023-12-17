@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Studease - Connexion{% endblock %}
+
+{% block body %}
+    {% for user in users %}
+        <div>{{ user.email }}</div>
+    {% endfor %}
+
+
+
+{% endblock %}
