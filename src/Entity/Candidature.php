@@ -83,4 +83,11 @@ class Candidature
 
         return $this;
     }
+
+    public function getStatut(): string
+    {
+        return $this->statut;
+    }
+
+
 }
