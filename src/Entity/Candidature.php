@@ -89,5 +89,10 @@ class Candidature
         return $this->statut;
     }
 
+    public function setStatut(string $statut): static
+    {
+        $this->statut = $statut;
 
+        return $this;
+    }
 }
