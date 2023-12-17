@@ -1,10 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Studease - Connexion{% endblock %}
+{% block title %}Studease - Dashboard - Unverified{% endblock %}
 
 {% block body %}
     {% for user in users %}
-        <div>{{ user.email }}</div>
+        <ul>
+            <li>Nom : {{ user.name }}</li>
+            <li>Prénom : {{ user.firstname }}</li>
+            <li>Email : {{ user.email }}</li>
+            <li>Numéro de Téléphone : {{ user.telephone }}</li>
+            <li>Numéro Etudiant : {{ user.numEtud }}</li>
+            <li>Numéro de Siret : {{ user.numSiret }}</li>
+            <li>Description Entreprise : {{ user.descriptionEntreprise }}</li>
+            <li>Formulaire de Vérification à ajouter</li>
+        </ul>
+
     {% endfor %}
 
 
