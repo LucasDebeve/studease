@@ -28,6 +28,9 @@ class Candidature
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
+    #[ORM\Column(length: 255)]
+    private string $statut = 'en_attente';
+
     public function getId(): ?int
     {
         return $this->id;
