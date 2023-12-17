@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -117,5 +118,15 @@ class SecurityController extends AbstractController
         }
 
         return $this->render('registration/update.html.twig', ['user' => $id, 'form' => $form]);
+    }
+
+    #[Route('/dashboard/isVerified', name: 'app_dashboard_unverified')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function consultUnVerifiedUsers(UserRepository $repository): Response
+    {
+        $users = $repository->findUnverifiedUsers();
+        return $this->render('security/unverifiedUsers.html.twig', [
+            'users' => $users,
+        ]);
     }
 }
