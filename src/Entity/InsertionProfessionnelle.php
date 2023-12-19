@@ -28,7 +28,7 @@ class InsertionProfessionnelle
     #[ORM\Column(nullable: true)]
     private ?bool $teletravail = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 5000)]
     private ?string $titre = null;
 
     #[ORM\Column(nullable: true)]
