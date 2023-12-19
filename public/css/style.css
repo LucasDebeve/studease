@@ -2,6 +2,7 @@
 
 :root {
     --bs-body-font-family: "Karla", sans-serif !important;
+    --bs-primary-rgb: 255, 153, 64 !important;
 }
 
 .btn-primary {
@@ -111,78 +112,13 @@
 }
 
 footer {
-    display: flex;
-    padding-bottom: 20px;
-    flex-direction: column;
-    align-items: center;
-    background: #FFF;
     box-shadow: 0 0 1rem rgba(0, 0, 0, .15);
-}
-
-.footer-info {
-    display: flex;
-    padding: 32px 64px;
-    align-items: center;
-    gap: 80px;
-    align-self: stretch;
-    border-bottom: 1px solid #FF9940;
-    background: #FFF;
-}
-
-.footer-links {
-    display: flex;
-    padding: 20px 0;
-    justify-content: center;
-    align-items: center;
-    gap: 80px;
-    flex: 1 0 0;
-    align-self: stretch;
-}
-
-.footer-sitemap {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
-}
-
-.sitemap-title {
-    font-size: 25px;
-    font-weight: 700;
-}
-
-.sitemap-item {
-    font-size: 20px;
-    font-weight: 500;
-}
-
-.sitemap-link {
-    color: #000;
-    font-family: Karla, sans-serif;
-    font-style: normal;
-    line-height: normal;
-    text-decoration: none;
-}
-
-.footer-socials {
-    display: flex;
-    padding: 20px 64px;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    align-self: stretch;
 }
 
 .footer-icon {
     width: 42px;
     height: 42px;
     fill: #D9D9D9;
-}
-
-.footer-sign {
-    color: #5B5B5B;
-    font-size: 15px;
-    font-weight: 500;
 }
 
 .footer-logo {
