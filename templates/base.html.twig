@@ -30,9 +30,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_insertions_professionnelles') }}">Recherche</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_register') }}">Mes inscriptions</a>
-                    </li>
                     {% if app.user %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_user_profile') }}">Mon profil</a>
@@ -57,44 +54,46 @@
             crossorigin="anonymous"></script>
     {% block javascripts %}
     {% endblock %}
-    <footer>
-        <section class="footer-info">
-            <img class="footer-logo" src="{{ asset('img/logo.png') }}" alt="Logo StudEase"/>
-            <div class="row w-100 text-center text-lg-end">
-                <ul class="col-12 col-lg-6" style="list-style: none">
-                    <li>
-                        <h4 class="fw-bold">Plan du site</h4>
-                    </li>
-                    <li>
-                        <a href="#">Accueil</a>
-                    </li>
-                    <li>
-                        <a href="#">Recherche</a>
-                    </li>
-                </ul>
-                <ul class="col-12 col-lg-6" style="list-style: none">
-                    <li>
-                        <h4 class="fw-bold">Nous connaître</h4>
-                    </li>
-                    <li>
-                        <a class="link-underline link-underline-opacity-0" href="#">Mentions légales</a>
-                    </li>
-                    <li>
-                        <a href="#">Données personnelles et cookies</a>
-                    </li>
-                    <li>
-                        <a href="#">Gestion des cookies</a>
-                    </li>
-                </ul>
+    <footer class="d-flex pb-3 flex-column align-items-center">
+        <section class="px-3 py-5 w-100 border-bottom border-primary">
+            <div class="container-lg d-flex">
+                <img class="footer-logo" src="{{ asset('img/logo.png') }}" alt="Logo StudEase"/>
+                <div class="row w-100 text-center text-lg-end">
+                    <ul class="col-12 col-lg-6" style="list-style: none">
+                        <li>
+                            <h4 class="fw-bold">Plan du site</h4>
+                        </li>
+                        <li>
+                            <a href="#">Accueil</a>
+                        </li>
+                        <li>
+                            <a href="#">Recherche</a>
+                        </li>
+                    </ul>
+                    <ul class="col-12 col-lg-6" style="list-style: none">
+                        <li>
+                            <h4 class="fw-bold">Nous connaître</h4>
+                        </li>
+                        <li>
+                            <a class="link-underline link-underline-opacity-0" href="#">Mentions légales</a>
+                        </li>
+                        <li>
+                            <a href="#">Données personnelles et cookies</a>
+                        </li>
+                        <li>
+                            <a href="#">Gestion des cookies</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </section>
-        <section class="footer-socials">
+        <section class="d-flex px-1 py-3 justify-content-center align-items-center gap-5">
             <img class="footer-icon" src="{{ asset('img/ellipse.svg') }}" alt="Ellipse1"/>
             <img class="footer-icon" src="{{ asset('img/ellipse.svg') }}" alt="Ellipse2"/>
             <img class="footer-icon" src="{{ asset('img/ellipse.svg') }}" alt="Ellipse3"/>
             <img class="footer-icon" src="{{ asset('img/ellipse.svg') }}" alt="Ellipse4"/>
         </section>
-        <span class="footer-sign">© NewWayCorporation</span>
+        <span class="text-muted">© NewWayCorporation</span>
     </footer>
     </body>
 </html>
