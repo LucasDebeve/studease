@@ -3,30 +3,48 @@
 {% block title %}Studease - Inscription{% endblock %}
 
 {% block body %}
-    <h1>Inscription</h1>
+    <div class="container-lg my-5">
+        <h1 class="text-center fw-bold">INSCRIPTION</h1>
 
-    {{ form_errors(registrationForm) }}
+        {{ form_errors(registrationForm) }}
 
-    {{ form_start(registrationForm, {'attr': {'class': 'auth'}}) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {}) }}
-        {{ form_row(registrationForm.showPassword) }}
-        {{ form_row(registrationForm.tpUser) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">S'inscrire</button>
-    {{ form_end(registrationForm) }}
+        {{ form_start(registrationForm, {'attr': {'class': 'auth'}}) }}
+        <div class="mb-3">
+            {{ form_label(registrationForm.email) }}
+            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="mb-3">
+            {{ form_label(registrationForm.plainPassword) }}
+            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'password form-control'}}) }}
+        </div>
+        <div class="mb-3">
+            {{ form_widget(registrationForm.showPassword, {'attr': {'class': 'form-check-input'}}) }}
+            {{ form_label(registrationForm.showPassword) }}
+        </div>
+        <div class="mb-3">
+            {{ form_label(registrationForm.tpUser) }}
+            {{ form_widget(registrationForm.tpUser, {'attr': {'class': 'form-select'}}) }}
+        </div>
+        <div class="mb-3">
+            {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+            {{ form_label(registrationForm.agreeTerms, 'J\'accepte les ') }}
+            <a href="">Conditions Générale d'Utilisation</a>
+        </div>
+        <button type="submit" class="btn btn-primary rounded-0 w-100 mb-3">S'inscrire</button>
+        <div>Déjà inscris ? <a href="{{ path('app_login') }}">Connectez-vous</a></div>
+        {{ form_end(registrationForm) }}
+    </div>
 {% endblock %}
 
 {% block javascripts %}
     <script>
-    function showPassword() {
+        function showPassword(element) {
         const x = document.querySelectorAll(".password");
-        x.forEach(element => {
-            if (element.type === "password") {
-                element.type = "text";
+            x.forEach(el => {
+                if (element.checked) {
+                    el.type = "text";
             } else {
-                element.type = "password";
+                    el.type = "password";
             }
         });
     }
