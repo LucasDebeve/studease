@@ -4,7 +4,7 @@
 
 {% block body %}
     {% for user in users %}
-        <div><a href="/profile/{{user.id }}" ></a>{{ user.name }} {{ user.firstname }}</div>
+        <div><a href="/dashboard/unVerified/{{user.id }}" ></a>{{ user.name }} {{ user.firstname }}</div>
     {% endfor %}
 
 {% endblock %}
