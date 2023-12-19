@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\VerifyUserFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
@@ -120,13 +121,39 @@ class SecurityController extends AbstractController
         return $this->render('registration/update.html.twig', ['user' => $id, 'form' => $form]);
     }
 
-    #[Route('/dashboard/isVerified', name: 'app_dashboard_unverified')]
+    #[Route('/dashboard/unVerified', name: 'app_dashboard_unverified')]
     #[IsGranted('ROLE_ADMIN')]
     public function consultUnVerifiedUsers(UserRepository $repository): Response
     {
         $users = $repository->findUnverifiedUsers();
+
         return $this->render('security/unverifiedUsers.html.twig', [
             'users' => $users,
+        ]);
+    }
+
+    #[Route('/dashboard/unVerified/{id}', name: 'app_dashboard_verify')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function verifyUser(User $user): Response
+    {
+        $form = $this->createForm(VerifyUserFormType::class, $user);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->getClickedButton() === $form->get('confirm')) {
+                $user->setIsVerified(true);
+            } elseif ($form->getClickedButton() === $form->get('deny')) {
+                // Supprimer l'utilisateur si ça confirmation est refusée
+                // $this->delete();
+            }
+
+            return $this->redirectToRoute('app_dashboard_unverified');
+        } else {
+            $form->submit($form->getData());
+        }
+
+        return $this->render('security/verifyForm.html.twig', [
+            'user' => $user,
+            'form' => $form,
         ]);
     }
 }
