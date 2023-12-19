@@ -4,61 +4,48 @@
 
 {% block title %}Stages et Alternances{% endblock %}
 
-{% block stylesheet %}
-    <link rel="stylesheet" href="{{ asset('css/insertions/style.css') }}">
-{% endblock %}
-
 {% block body %}
-    <div class="container insertions">
-        <div class="row">
-            <form class="stage_recherche" action="#" method="post">
-                <ul>
-                    <li class="input intitule_insertion">
-                        <label for="intitule"></label>
-                        <input type="text" id="intitule" name="intitule" placeholder="Intitulé" class="input intitule_insertion">
-                    </li>
-                    <li class="input type_contrat_insertion">
-                        <label for="type_contrat"></label>
-                        <select id="type_contrat" name="type_contrat" class="input type_contrat_insertion">
-                            <option value="" selected>Type de Contrat</option>
-                            <option value="stage">Stage</option>
-                            <option value="alternance">Alternance</option>
-                        </select>
-                    </li>
-                    <li class="input date_debut_insertion">
-                        <label for="date_debut_avant">Commence avant le : </label>
-                        <input type="date" id="date_debut_avant" name="date_debut_avant" class="input date_debut_avant_insertion">
-                        <label for="date_debut_apres">et après le : </label>
-                        <input type="date" id="date_debut_apres" name="date_debut_apres" class="input date_debut_apres_insertion">
-                    </li>
-                    <li class="input duree_insertion">
-                        <input type="number" id="duree" name="duree" class="input duree_insertion" placeholder="Duree du stage">
-                        <label for="duree" class="label duree_insertion"> en jours</label>
-                    </li>
-                </ul>
-            </form>
-        </div>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3">
-            {% for key,insertion in insertions %}
-                <div class="col">
-                    <div class="insertion">
-                        <a href="{{ path('app_detail_insertions_professionnelles', {id: insertion.id }) }}" class="insertion">
-                            <div class="row">
-                                <div class="col">
-                                    <img src="{{ asset('img/default_profile.jpg') }}" alt="Logo de l'entreprise {{ insertion.company.name }}">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col insertion_intitule">{{ insertion.titre }}</div>
-                            </div>
-                            <div class="row insertion_infos">
-                                <div class="col insertion_entreprise">{{ insertion.company.name }}</div>
-                                <div class="col-md-auto insertion_duree">{{ insertion.duree }} jours</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+    <div class="badge text-bg-light">
+        <form class="stage_recherche" action="#" method="post">
+            <ul>
+                <li class="input intitule_insertion">
+                    <label for="intitule"></label>
+                    <input type="text" id="intitule" name="intitule" placeholder="Intitulé" class="input intitule_insertion">
+                </li>
+                <li class="input type_contrat_insertion">
+                    <label for="type_contrat"></label>
+                    <select id="type_contrat" name="type_contrat" class="input type_contrat_insertion">
+                        <option value="" selected>Type de Contrat</option>
+                        <option value="stage">Stage</option>
+                        <option value="alternance">Alternance</option>
+                    </select>
+                </li>
+                <li class="input date_debut_insertion">
+                    <label for="date_debut_avant">Commence avant le : </label>
+                    <input type="date" id="date_debut_avant" name="date_debut_avant" class="input date_debut_avant_insertion">
+                    <label for="date_debut_apres">et après le : </label>
+                    <input type="date" id="date_debut_apres" name="date_debut_apres" class="input date_debut_apres_insertion">
+                </li>
+                <li class="input duree_insertion">
+                    <input type="number" id="duree" name="duree" class="input duree_insertion" placeholder="Duree du stage">
+                    <label for="duree" class="label duree_insertion"> en jours</label>
+                </li>
+            </ul>
+        </form>
     </div>
+        <ul class="insertions">
+        {% for insertion in insertions %}
+    <li>
+                <a href="{{ path('app_detail_insertions_professionnelles', {id: insertion.id }) }}" class="">
+                    <div class="insertion__id" hidden="hidden">{{ insertion.id }}</div>
+                    <h3 class="insertion__titre">{{ insertion.titre }}</h3>
+                    <div class="">
+                        Durée : <div class="insertion__duree">{{ insertion.duree }}</div>semaines,
+                        Début: <div class="insertion__dateDeb">{{ insertion.dateDeb|date("d/m/Y") }}</div>
+                    </div>
+                    <div class="insertion__contrat" hidden="hidden">{{ insertion.typePro }}</div>
+                </a>
+            </li>
+        {% endfor %}
+</ul>
 {% endblock %}
