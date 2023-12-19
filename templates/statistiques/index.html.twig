@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Statistiques{% endblock %}
+
+{% block body %}
+    <div class="container-lg">
+        <h1>Statistiques</h1>
+        {% for cat in insertions_stats %}
+            <h3>{{ cat.typePro == 1 ? 'Stages' : 'Alternances'}}</h3>
+            <p>Total : {{ cat.count }}</p>
+            <p>Candidatures : {{ cat.count_candidatures }}</p>
+        {% endfor %}
+    </div>
+{% endblock %}
