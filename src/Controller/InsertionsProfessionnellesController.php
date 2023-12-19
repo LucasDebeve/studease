@@ -17,7 +17,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class InsertionsProfessionnellesController extends AbstractController
 {
-    #[Route('/insertions-professionnelles', name: 'app_insertions_professionnelles')]
+    #[Route('/insertions', name: 'app_insertions_professionnelles')]
     public function index(Request $request, InsertionProfessionnelleRepository $repository): Response
     {
         $insertions = $repository->search();
