@@ -5,7 +5,8 @@
 {% block title %}Stages et Alternances{% endblock %}
 
 {% block body %}
-<form class="stage_recherche" action="#" method="post">
+    <div class="badge text-bg-light">
+        <form class="stage_recherche" action="#" method="post">
             <ul>
                 <li class="input intitule_insertion">
                     <label for="intitule"></label>
@@ -31,6 +32,7 @@
                 </li>
             </ul>
         </form>
+    </div>
         <ul class="insertions">
         {% for insertion in insertions %}
     <li>
