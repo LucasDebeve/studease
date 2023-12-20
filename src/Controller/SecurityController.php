@@ -134,21 +134,23 @@ class SecurityController extends AbstractController
 
     #[Route('/dashboard/unVerified/{id}', name: 'app_dashboard_verify')]
     #[IsGranted('ROLE_ADMIN')]
-    public function verifyUser(User $user): Response
+    public function verifyUser(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(VerifyUserFormType::class, $user);
 
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->getClickedButton() === $form->get('confirm')) {
+            if ($form->get('confirm')->isClicked()) {
                 $user->setIsVerified(true);
-            } elseif ($form->getClickedButton() === $form->get('deny')) {
-                // Supprimer l'utilisateur si ça confirmation est refusée
-                // $this->delete();
+                $entityManager->flush();
+                $this->addFlash('success', 'Utilisateur confirmé');
+            } else {
+                $entityManager->remove($user);
+                $entityManager->flush();
+                $this->addFlash('success', 'Utilisateur supprimé');
             }
 
             return $this->redirectToRoute('app_dashboard_unverified');
-        } else {
-            $form->submit($form->getData());
         }
 
         return $this->render('security/verifyForm.html.twig', [
