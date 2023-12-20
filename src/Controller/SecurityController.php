@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\VerifyUserFormType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -117,5 +119,43 @@ class SecurityController extends AbstractController
         }
 
         return $this->render('registration/update.html.twig', ['user' => $id, 'form' => $form]);
+    }
+
+    #[Route('/dashboard/unVerified', name: 'app_dashboard_unverified')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function consultUnVerifiedUsers(UserRepository $repository): Response
+    {
+        $users = $repository->findUnverifiedUsers();
+
+        return $this->render('security/unverifiedUsers.html.twig', [
+            'users' => $users,
+        ]);
+    }
+
+    #[Route('/dashboard/unVerified/{id}', name: 'app_dashboard_verify')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function verifyUser(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(VerifyUserFormType::class, $user);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('confirm')->isClicked()) {
+                $user->setIsVerified(true);
+                $entityManager->flush();
+                $this->addFlash('success', 'Utilisateur confirmé');
+            } else {
+                $entityManager->remove($user);
+                $entityManager->flush();
+                $this->addFlash('success', 'Utilisateur supprimé');
+            }
+
+            return $this->redirectToRoute('app_dashboard_unverified');
+        }
+
+        return $this->render('security/verifyForm.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
     }
 }

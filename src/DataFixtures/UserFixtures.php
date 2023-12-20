@@ -29,6 +29,56 @@ class UserFixtures extends Fixture
             'roles' => ['ROLE_COMPANY'],
         ]);
         UserFactory::createMany(10);
+        UserFactory::createOne([
+            'email' => 'lucas@studease.com',
+            'firstname' => 'Lucas',
+            'name' => 'Debeve',
+            'numSiret' => 'null',
+            'descriptionEntreprise' => 'null',
+            'tpUser' => 0,
+            'roles' => ['ROLE_ADMIN'],
+            'isVerified' => true,
+        ]);
+        UserFactory::createOne([
+            'email' => 'axel@studease.com',
+            'firstname' => 'Axel',
+            'name' => 'Coudrot',
+            'numSiret' => 'null',
+            'descriptionEntreprise' => 'null',
+            'tpUser' => 0,
+            'roles' => ['ROLE_ADMIN'],
+            'isVerified' => true,
+        ]);
+        UserFactory::createOne([
+            'email' => 'paco@studease.com',
+            'firstname' => 'Paco',
+            'name' => 'Jacquemain',
+            'numSiret' => 'null',
+            'descriptionEntreprise' => 'null',
+            'tpUser' => 0,
+            'roles' => ['ROLE_ADMIN'],
+            'isVerified' => true,
+        ]);
+        UserFactory::createOne([
+            'email' => 'nathan@studease.com',
+            'firstname' => 'Nathan',
+            'name' => 'Eullafroy',
+            'numSiret' => 'null',
+            'descriptionEntreprise' => 'null',
+            'tpUser' => 0,
+            'roles' => ['ROLE_ADMIN'],
+            'isVerified' => true,
+        ]);
+        UserFactory::createOne([
+            'email' => 'justin@studease.com',
+            'firstname' => 'Justin',
+            'name' => 'Pinguard',
+            'numSiret' => 'null',
+            'descriptionEntreprise' => 'null',
+            'tpUser' => 0,
+            'roles' => ['ROLE_ADMIN'],
+            'isVerified' => true,
+        ]);
 
         $manager->flush();
     }
