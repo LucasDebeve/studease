@@ -17,7 +17,7 @@ class Candidature
     #[ORM\Column(type: Types::TEXT)]
     private ?string $motivation = null;
 
-    #[ORM\ManyToOne(inversedBy: 'candidatures')]
+    #[ORM\ManyToOne(inversedBy: 'mes_candidatures')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $candidat = null;
 
