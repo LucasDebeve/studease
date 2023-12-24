@@ -40,7 +40,7 @@ class InsertionProfessionnelle
     #[ORM\Column]
     private ?int $duree = null;
 
-    #[ORM\ManyToOne(inversedBy: 'insertions_professionnelles')]
+    #[ORM\ManyToOne(inversedBy: 'InsertionsProfessionnelles')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $company = null;
 

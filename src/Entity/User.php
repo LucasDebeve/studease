@@ -56,7 +56,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $tpUser = null;
 
-    #[ORM\OneToMany(mappedBy: 'company', targetEntity: InsertionProfessionnelle::class)]
+    #[ORM\OneToMany(mappedBy: 'Company', targetEntity: InsertionProfessionnelle::class)]
     private Collection $insertions_professionnelles;
 
     private $rawAvatar;
@@ -71,7 +71,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $localisations;
 
     #[ORM\OneToMany(mappedBy: 'candidat', targetEntity: Candidature::class, orphanRemoval: true)]
-    private Collection $mes_candidatures;
+    private Collection $candidatures;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $cv = null;
