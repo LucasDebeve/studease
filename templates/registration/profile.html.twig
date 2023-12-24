@@ -2,6 +2,7 @@
 
 {# variable noms #}
 {% set noms = "#{user.firstname|capitalize} #{user.name|upper}" %}
+{% dump() %}
 
 {% block body %}
     <div class="container-lg py-5">
@@ -144,6 +145,21 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 <h6 class="d-flex align-items-center mb-3 fw-bold">En attente</h6>
+                                {% for insertion in user.insertions_professionnelles %}
+                                    {% if insertion.dateFin >= {{ "now"|date("m/d/Y") }} %}
+                                        <li>
+                                            <a href="{{ path('app_detail_insertions_professionnelles', {id: insertion.id }) }}" class="">
+                                                <div class="insertion__id" hidden="hidden">{{ insertion.id }}</div>
+                                                <h3 class="insertion__titre">{{ insertion.titre }}</h3>
+                                                <div class="">
+                                                    Durée : <div class="insertion__duree">{{ insertion.duree }}</div>semaines,
+                                                    Début: <div class="insertion__dateDeb">{{ insertion.dateDeb|date("d/m/Y") }}</div>
+                                                </div>
+                                                <div class="insertion__contrat" hidden="hidden">{{ insertion.typePro }}</div>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -151,6 +167,21 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 <h6 class="d-flex align-items-center mb-3 fw-bold">Historique</h6>
+                                {% for insertion in user.insertions_professionnelles %}
+                                    {% if insertion.dateFin < {{ "now"|date("m/d/Y") }} %}
+                                        <li>
+                                            <a href="{{ path('app_detail_insertions_professionnelles', {id: insertion.id }) }}" class="">
+                                                <div class="insertion__id" hidden="hidden">{{ insertion.id }}</div>
+                                                <h3 class="insertion__titre">{{ insertion.titre }}</h3>
+                                                <div class="">
+                                                    Durée : <div class="insertion__duree">{{ insertion.duree }}</div>semaines,
+                                                    Début: <div class="insertion__dateDeb">{{ insertion.dateDeb|date("d/m/Y") }}</div>
+                                                </div>
+                                                <div class="insertion__contrat" hidden="hidden">{{ insertion.typePro }}</div>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
