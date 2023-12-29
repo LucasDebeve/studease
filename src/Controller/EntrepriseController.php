@@ -5,21 +5,28 @@ namespace App\Controller;
 use App\Entity\Candidature;
 use App\Form\EntrepriseCandidatureType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class EntrepriseController extends AbstractController
 {
-    #[Route('/candidature/{id}/update', name: 'app_candidature_update', requirements: ['id' => '\d+'])]
-    public function updateStatut(Request $request, EntityManagerInterface $entityManager, Candidature $candidature): Response
-    {
-        $form = $this->createForm(EntrepriseCandidatureType::class, $candidature);
 
+
+    #[Route('/candidatures/{id}/statut', name: 'app_candidature_statut')]
+    public function updateStatut(EntityManagerInterface $entityManager, Request $request, Candidature $candidature): Response
+    {
+        $form = $this->createForm(EntrepriseCandidatureType::class, ['Statut' => $candidature->getStatut()]);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $nouveauStatut = $form->get('Statut')->getData();
+
+            $candidature->setStatut($nouveauStatut);
             $entityManager->flush();
+
+            return $this->redirectToRoute('app_candidature_list');
         }
 
         return $this->render('entreprise/modifier_candidature.html.twig', [
