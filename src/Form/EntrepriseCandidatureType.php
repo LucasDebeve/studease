@@ -8,16 +8,15 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class EntrepriseCandidatureType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('status', ChoiceType::class, [
+            ->add('Statut', ChoiceType::class, [
                 'choices' => [
-                    'En attente' => 'en_attente',
-                    'Accepté' => 'accepte',
-                    'Refusé' => 'refuse',
+                    'En attente' => 0,
+                    'Accepté' => 1,
+                    'Refusé' => 2,
                 ],
-                'label' => 'Statut de la candidature',
             ]);
     }
 }
