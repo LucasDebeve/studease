@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CandidatureRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CandidatureRepository::class)]
 class Candidature
@@ -28,8 +29,9 @@ class Candidature
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\Column(length: 255)]
-    private string $statut = 'en_attente';
+    #[ORM\Column]
+    #[Assert\Choice(choices: [0, 1, 2])]
+    private int $statut = 0;
 
     public function getId(): ?int
     {
@@ -84,12 +86,12 @@ class Candidature
         return $this;
     }
 
-    public function getStatut(): string
+    public function getStatut(): int
     {
         return $this->statut;
     }
 
-    public function setStatut(string $statut): static
+    public function setStatut(int $statut): self
     {
         $this->statut = $statut;
 
