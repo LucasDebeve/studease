@@ -3,9 +3,9 @@
 {% block title %}{{ titre }}{% endblock %}
 {% block body %}
     <h1>{{ titre }}</h1>
+
     {{ form_start(form) }}
-    {{ form_row(form.status) }}
-
+    {{ form_row(form.nouveauStatut) }}
     <button type="submit">Enregistrer</button>
-
     {{ form_end(form) }}
+{% endblock %}
