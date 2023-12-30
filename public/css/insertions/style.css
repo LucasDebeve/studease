@@ -1,0 +1,113 @@
+.type__1{
+    border-color: green;
+}
+
+.type__2{
+    border-color: red;
+}
+.resultats {
+    align-items: flex-start;
+    background-color: #ffffff;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 10px;
+    height: 1340px;
+    padding: 30px 15px;
+    position: relative;
+    width: 1251px;
+}
+
+.resultats .resultat {
+    align-items: flex-start;
+    background-color: #f6f6f6;
+    border: 1px solid;
+    border-color: #00ac8c;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 250px;
+    padding: 10px;
+    position: relative;
+    width: 400px;
+}
+.resultat {
+    align-items: flex-start;
+    background-color: #f6f6f6;
+    border: 1px solid;
+    border-color: #00ac8c;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 250px;
+    padding: 10px;
+    position: relative;
+    width: 400px;
+}
+
+.resultat .entreprise {
+    background-color: #d9d9d9;
+    border-radius: 64px;
+    height: 128px;
+    position: relative;
+    width: 128px;
+}
+
+.resultat .infos {
+    align-items: flex-start;
+    align-self: stretch;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 10px;
+    position: relative;
+    width: 100%;
+}
+
+.resultat .intitul {
+    align-self: stretch;
+    color: #000000;
+    font-family: "Karla-Medium", Helvetica;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    margin-top: -1px;
+    position: relative;
+}
+
+.resultat .sub-info {
+    align-items: flex-end;
+    align-self: stretch;
+    display: flex;
+    flex: 1;
+    flex-grow: 1;
+    gap: 10px;
+    position: relative;
+    width: 100%;
+}
+
+.resultat .text-wrapper {
+    color: #4a4a4a;
+    flex: 1;
+    font-family: "Karla-Medium", Helvetica;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.24px;
+    line-height: normal;
+    position: relative;
+}
+
+.resultat .div {
+    color: #4a4a4a;
+    font-family: "Karla-Medium", Helvetica;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.24px;
+    line-height: normal;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+}
