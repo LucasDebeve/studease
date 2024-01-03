@@ -142,46 +142,29 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 mb-3">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h6 class="d-flex align-items-center mb-3 fw-bold">En attente</h6>
-                                {% if user.tpUser == 1 %}
+                    {% if user.tpUser == 1 %}
+                    <div class="col-sm-6 mb-3 ">
+                        <div class="card">
+                            <div class="card-body"   style="max-height: 200px; overflow-y: auto;">
+                                <h6 class="d-flex align-items-center mb-3 fw-bold">Mes insertions</h6>
                                     {% for candidature in user.candidatures %}
-                                        {% if candidature.insertionprofessionnelle.dateDeb >= "now"|date("m/d/Y") %}
-                                            <a href="{{ path('app_detail_insertions_professionnelles', {id: candidature.insertionprofessionnelle.id }) }}" class="mb-3 fw-bold">
-                                                {{ candidature.insertionprofessionnelle.titre }}
-                                                <br>
-                                                date de début : {{ candidature.insertionprofessionnelle.dateDeb|date('m/d/Y')  }}
+                                            <a href="{{ path('app_detail_insertions_professionnelles', {id: candidature.insertionprofessionnelle.id }) }}" class="text-decoration-none text-reset">
+                                                    <div class="card w-200 ">
+                                                        <div class="card-body">
+                                                            <span class = "fw-bold" >
+                                                                {{ candidature.insertionprofessionnelle.titre }}
+                                                            </span>
+                                                            <br>
+                                                                Date de début : <span class = "fw-bold"> {{ candidature.insertionprofessionnelle.dateDeb|date('m/d/Y')  }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                             </a>
-                                            <br>
-                                            <br>
-                                        {% endif %}
                                     {% endfor %}
-                                {% endif %}
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 mb-3">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h6 class="d-flex align-items-center mb-3 fw-bold">Historique</h6>
-                                {% if user.tpUser == 1 %}
-                                    {% for candidature in user.candidatures %}
-                                        {% if candidature.insertionprofessionnelle.dateDeb < "now"|date("m/d/Y") %}
-                                            <a href="{{ path('app_detail_insertions_professionnelles', {id: candidature.insertionprofessionnelle.id }) }}" class="d-flex align-items-center mb-3 fw-bold">
-                                                {{ candidature.insertionprofessionnelle.titre }}
-                                                <br>
-                                                date de début : {{ candidature.insertionprofessionnelle.dateDeb|date('m/d/Y') }}
-                                            </a>
-                                            <br>
-                                            <br>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
