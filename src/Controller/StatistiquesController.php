@@ -17,6 +17,7 @@ class StatistiquesController extends AbstractController
         $insertions = $insertions_repo->general_stats();
         // Nombre d'utilisateur par type d'utilisateur
         $users = $userRepository->users_stats();
+
         // Nombre d'entreprise et d'étudiant
         return $this->render('statistiques/index.html.twig', [
             'insertions_stats' => $insertions,

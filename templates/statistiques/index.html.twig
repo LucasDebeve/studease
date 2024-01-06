@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container-lg">
         <h1>Statistiques</h1>
-        <div class="d-flex w-100 flex-column flex-lg-row">
+        <div class="d-flex w-100 flex-column flex-lg-row mb-4">
             <div class="stats flex-grow-1">
                 <h3>Stages</h3>
                 <p>Total : {{ insertions_stats.0.count }}</p>
@@ -39,11 +39,43 @@
             </div>
         </div>
 
-
-        <h3>Utilisateurs</h3>
-        {% for user in users_stats %}
-            <h4>{{ user.tpUser == 1 ? 'Etudiant' : user.tpUser == 2 ? 'Entreprise' : 'Administrateur' }}</h4>
-            <p>Total : {{ user.count }}</p>
-        {% endfor %}
+        <div class="d-flex w-100 flex-column flex-lg-row mb-4">
+            <div class="stats flex-grow-1">
+                <h3>Utilisateurs</h3>
+                {% for user in users_stats %}
+                    <h4>{{ user.tpUser == 1 ? 'Etudiant' : user.tpUser == 2 ? 'Entreprise' : 'Administrateur' }}</h4>
+                    <p>Total : {{ user.count }}</p>
+                {% endfor %}
+            </div>
+            <div class="chart border d-flex flex-column flex-grow-1 p-2">
+                <h4 class="text-center">Nombre d'utilisateur par catégorie</h4>
+                <div class="chart__content d-flex flex-grow-1">
+                    <div class="axe-y px-2 pb-4 d-flex flex-column-reverse justify-content-between">
+                        {% if users_stats|length == 1 %}
+                            {% set maxi = users_stats.0.count %}
+                        {% elseif users_stats|length == 2 %}
+                            {% set maxi = max(users_stats.0.count, users_stats.1.count) %}
+                        {% else %}
+                            {% set maxi = max(users_stats.0.count, users_stats.1.count, users_stats.2.count) %}
+                        {% endif %}
+                        {% for i in range(0, maxi, 10) %}
+                            <div class="axe-y__item pt-2">{{ i }}</div>
+                        {% endfor %}
+                        <div class="axe-y__item pt-2">{{ maxi + 10 - (maxi % 10) }}</div>
+                    </div>
+                    <div class="chart__right d-flex flex-column-reverse flex-grow-1">
+                        <div class="chart__bars d-flex justify-content-evenly flex-grow-1 pt-4">
+                            {% for user in users_stats %}
+                                <div class="chart__item pt-2 d-flex flex-column justify-content-end align-items-center flex-grow-1">
+                                    <div class="chart__bars__item {{ user.tpUser == 1 ? 'etudiant' : user.tpUser == 0 ? 'admin' : 'entreprise' }}"
+                                         style="height: {{ user.count * 100 / (maxi + 10 - (maxi % 10)) }}%"></div>
+                                    <div class="axe-x__item">{{ user.tpUser == 1 ? 'Etudiant' : user.tpUser == 0 ? 'Administrateur' : 'Entrepise' }}</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
