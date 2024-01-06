@@ -188,6 +188,18 @@ footer {
     display: none;
 }
 
+.chart__bars__item {
+    width: 20px;
+}
+
+.chart__bars__item.alternance {
+    background-color: #A3A6BC;
+}
+
+.chart__bars__item.stage {
+    background-color: #80D5C6;
+}
+
 @media (min-width: 992px) {
     .nav-item {
         align-items: center;

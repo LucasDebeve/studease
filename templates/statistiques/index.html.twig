@@ -5,10 +5,45 @@
 {% block body %}
     <div class="container-lg">
         <h1>Statistiques</h1>
-        {% for cat in insertions_stats %}
-            <h3>{{ cat.typePro == 1 ? 'Stages' : 'Alternances'}}</h3>
-            <p>Total : {{ cat.count }}</p>
-            <p>Candidatures : {{ cat.count_candidatures }}</p>
+        <div class="d-flex w-100 flex-column flex-lg-row">
+            <div class="stats flex-grow-1">
+                <h3>Stages</h3>
+                <p>Total : {{ insertions_stats.0.count }}</p>
+                <p>Candidatures : {{ insertions_stats.0.count_candidatures }}</p>
+
+                <h3>Alternances</h3>
+                <p>Total : {{ insertions_stats.1.count }}</p>
+                <p>Candidatures : {{ insertions_stats.1.count_candidatures }}</p>
+            </div>
+            <div class="chart border d-flex flex-column flex-grow-1 p-2">
+                <h4 class="text-center">Nombre de Stages et Alternances publiés</h4>
+                <div class="chart__content d-flex flex-grow-1">
+                    <div class="axe-y px-2 pb-4 d-flex flex-column-reverse justify-content-between">
+                        {% for i in range(0, max(insertions_stats.0.count, insertions_stats.1.count), 10) %}
+                            <div class="axe-y__item pt-2">{{ i }}</div>
+                        {% endfor %}
+                        <div class="axe-y__item pt-2">{{ max(insertions_stats.0.count, insertions_stats.1.count) + 10 - (max(insertions_stats.0.count, insertions_stats.1.count) % 10) }}</div>
+                    </div>
+                    <div class="chart__right d-flex flex-column-reverse flex-grow-1">
+                        <div class="chart__bars d-flex justify-content-evenly flex-grow-1 pt-4">
+                            {% for insertion in insertions_stats %}
+                                <div class="chart__item pt-2 d-flex flex-column justify-content-end align-items-center flex-grow-1">
+                                    <div class="chart__bars__item {{ insertion.typePro == 1 ? 'stage' : 'alternance' }}"
+                                         style="height: {{ insertion.count * 100 / (max(insertions_stats.0.count, insertions_stats.1.count) + 10 - (max(insertions_stats.0.count, insertions_stats.1.count) % 10)) }}%"></div>
+                                    <div class="axe-x__item">{{ insertion.typePro == 1 ? 'Stages' : 'Alternance' }}</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <h3>Utilisateurs</h3>
+        {% for user in users_stats %}
+            <h4>{{ user.tpUser == 1 ? 'Etudiant' : user.tpUser == 2 ? 'Entreprise' : 'Administrateur' }}</h4>
+            <p>Total : {{ user.count }}</p>
         {% endfor %}
     </div>
 {% endblock %}
