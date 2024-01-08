@@ -35,6 +35,6 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 /package-lock.json
 
-### CV ###
-/public/uploads/cv/
+### Upload ###
+/public/uploads/
 
