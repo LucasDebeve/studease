@@ -26,14 +26,14 @@ class InsertionsProfessionnellesController extends AbstractController
         return $this->render('insertions_professionnelles/index.html.twig', ['insertions' => $insertions]);
     }
 
-    #[Route('/insertions-professionnelles/{id}', name: 'app_detail_insertions_professionnelles')]
+    #[Route('/insertions/{id}', name: 'app_detail_insertions_professionnelles')]
     public function show(InsertionProfessionnelle $insertion): Response
     {
         return $this->render('insertions_professionnelles/show.html.twig', ['insertion' => $insertion]);
     }
 
-    #[Route('/insertions-professionnelles/{id}/candidatures/', name: 'app_candidatures')]
-    // #[IsGranted('ROLE_COMPANY')]
+    #[Route('/insertions/{id}/candidatures/', name: 'app_candidatures')]
+    #[IsGranted('ROLE_COMPANY')]
     public function candidatures(
         #[MapEntity(expr: 'repository.findWithCandidaturesAndCandidats(id)')]
         InsertionProfessionnelle $id, CandidatureRepository $repository, Request $request, EntityManagerInterface $entityManager): Response
@@ -56,7 +56,7 @@ class InsertionsProfessionnellesController extends AbstractController
         return $this->render('insertions_professionnelles/candidatures.html.twig', ['insertion' => $id]);
     }
 
-    #[Route('/insertions-professionnelles/{id}/candidater', name: 'app_candidater')]
+    #[Route('/insertions/{id}/candidater', name: 'app_candidater')]
     #[IsGranted('ROLE_STUDENT')]
     public function candidater(InsertionProfessionnelle $insertion,
         EntityManagerInterface $entityManager,
