@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Candidature;
 use App\Entity\InsertionProfessionnelle;
 use App\Form\CandidatureType;
+use App\Form\InsertionProType;
 use App\Repository\CandidatureRepository;
 use App\Repository\InsertionProfessionnelleRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -106,6 +107,7 @@ class InsertionsProfessionnellesController extends AbstractController
     #[Route('/insertions-professionnelles/{id}/update', name: 'app_update_insertions_pro', requirements: ['id' => '\d+'])]
     public function update(InsertionProfessionnelle $insertion)
     {
+        $form = $this->createForm(InsertionProType::class, $insertion);
         return $this->render('insertions_professionnelles/update.html.twig', [
             'insertion' => $insertion,
             'form' => $form]);
