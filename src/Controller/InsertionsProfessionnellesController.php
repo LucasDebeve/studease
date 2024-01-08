@@ -91,7 +91,7 @@ class InsertionsProfessionnellesController extends AbstractController
         return $this->render('insertions_professionnelles/candidater.html.twig', ['insertion' => $insertion, 'form' => $form]);
     }
 
-    #[Route('/insertions-professionnelles/{id}/update', name: 'app_update_insertions_pro')]
+    #[Route('/insertions-professionnelles/{id}/update', name: 'app_update_insertions_pro', requirements: ['id' => '\d+'])]
     public function update(InsertionProfessionnelle $insertion)
     {
     }
