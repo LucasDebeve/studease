@@ -29,6 +29,7 @@
                             {% for insertion in insertions_stats %}
                                 <div class="chart__item pt-2 d-flex flex-column justify-content-end align-items-center flex-grow-1">
                                     <div class="chart__bars__item {{ insertion.typePro == 1 ? 'stage' : 'alternance' }}"
+                                         data-bs-toggle="tooltip" data-bs-title="{{ insertion.count }}"
                                          style="height: {{ insertion.count * 100 / (max(insertions_stats.0.count, insertions_stats.1.count) + 10 - (max(insertions_stats.0.count, insertions_stats.1.count) % 10)) }}%"></div>
                                     <div class="axe-x__item">{{ insertion.typePro == 1 ? 'Stages' : 'Alternance' }}</div>
                                 </div>
@@ -68,6 +69,7 @@
                             {% for user in users_stats %}
                                 <div class="chart__item pt-2 d-flex flex-column justify-content-end align-items-center flex-grow-1">
                                     <div class="chart__bars__item {{ user.tpUser == 1 ? 'etudiant' : user.tpUser == 0 ? 'admin' : 'entreprise' }}"
+                                         data-bs-toggle="tooltip" data-bs-title="{{ user.count }}"
                                          style="height: {{ user.count * 100 / (maxi + 10 - (maxi % 10)) }}%"></div>
                                     <div class="axe-x__item">{{ user.tpUser == 1 ? 'Etudiant' : user.tpUser == 0 ? 'Administrateur' : 'Entrepise' }}</div>
                                 </div>
@@ -79,3 +81,12 @@
         </div>
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
+{% endblock %}
+
