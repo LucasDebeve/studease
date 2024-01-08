@@ -31,6 +31,11 @@ composer install
 composer run start
 ```
 
+### Load the database
+```bash
+composer run db
+```
+
 ## Tests
 
 ### [PHP CS Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
