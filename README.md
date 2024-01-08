@@ -74,3 +74,8 @@ Peter Parker
 Tony Stark
 - Email : tony@example.com
 - password : test
+
+### Administrator
+Homer Simpson
+- Email : homer@studease.com
+- password : test
