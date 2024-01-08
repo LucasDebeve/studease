@@ -51,6 +51,7 @@ final class CandidatureFactory extends ModelFactory
             'insertion_professionnelle' => InsertionProfessionnelleFactory::random(),
             'motivation' => self::faker()->text(300),
             'date' => self::faker()->dateTimeBetween('-1 week', 'now'),
+            'statut' => 0,
         ];
     }
 

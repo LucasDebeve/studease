@@ -40,6 +40,14 @@
                                     {% else %}
                                         <small class="text-muted">Envoyé hier</small>
                                     {% endif %}
+                                    <form method="post" action="{{ path('app_candidatures', {'id': insertion.id}) }}">
+                                        <input type="hidden" name="id_candidature" value="{{ candidature.id }}">
+                                        <select name="Statut" onchange="this.form.submit()">
+                                            <option value="0" {{ candidature.statut == 0 ? "selected='selected'" : "" }}>En Attente</option>
+                                            <option value="1" {{ candidature.statut == 1 ? "selected='selected'" : ""}}>Accepté</option>
+                                            <option value="2" {{ candidature.statut == 2 ? "selected='selected'" : ""}}>Refusé</option>
+                                        </select>
+                                    </form>
                                 </div>
                             </div>
                         </label>
