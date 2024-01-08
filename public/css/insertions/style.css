@@ -5,39 +5,28 @@
     flex-direction: column;
     height: 100%;
 }
-.resultat {
-    align-items: flex-start;
+
+.container.insertions>.row{
+    padding: 15px 15px 15px 15px;
+    background: #FFF;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+}
+
+div.insertion{
     background-color: #f6f6f6;
-    border: 1px solid;
-    border-color: #00ac8c;
+    border: 2px solid #00ac8c;
     border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    height: 250px;
     padding: 10px;
-    position: relative;
-    width: 400px;
+    height: 100%;
+    margin-bottom: 10px;
 }
-
-.resultat .entreprise {
-    background-color: #d9d9d9;
-    border-radius: 64px;
-    height: 128px;
-    position: relative;
-    width: 128px;
-}
-
-.resultat .infos {
-    align-items: flex-start;
-    align-self: stretch;
+.row.justify-content-around>*{
     display: flex;
-    flex: 1;
-    flex-direction: column;
-    flex-grow: 1;
-    gap: 10px;
-    position: relative;
-    width: 100%;
+    align-items: center;
+}
+div.insertion>a{
+    display: grid;
+    gap:10px
 }
 
 .resultat .intitul {
