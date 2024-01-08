@@ -43,3 +43,15 @@ composer run test:cs
 ```bash
 composer run fix:cs
 ```
+
+### [Codeception](https://github.com/codeception/codeception)
+#### Run tests
+```bash
+composer run test:codeception
+```
+
+### Others
+#### Run all tests
+```bash
+composer run test
+```
