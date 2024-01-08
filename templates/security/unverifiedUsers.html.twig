@@ -3,8 +3,12 @@
 {% block title %}Studease - Dashboard - Unverified{% endblock %}
 
 {% block body %}
-    {% for user in users %}
-        <div><a href="/dashboard/unVerified/{{user.id }}" >{{ user.name }} {{ user.firstname }}</a></div>
+    <div class="container-lg py-5">
+{% for user in users %}
+        <div class="row gutters-sm">
+            <div><span class="material-symbols-outlined">visibility</span><a href="/dashboard/unVerified/{{user.id }}" >{{ user.name }} {{ user.firstname }}</a></div>
+        </div>
     {% endfor %}
+    </div>
 
 {% endblock %}
