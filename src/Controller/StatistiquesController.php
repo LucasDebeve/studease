@@ -12,7 +12,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class StatistiquesController extends AbstractController
 {
     #[Route('/stats', name: 'app_stats')]
-    // #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(InsertionProfessionnelleRepository $insertions_repo, UserRepository $userRepository): Response
     {
         // Nombre de propositions et candidatures par type d'insertion
@@ -20,7 +20,6 @@ class StatistiquesController extends AbstractController
         // Nombre d'utilisateur par type d'utilisateur
         $users = $userRepository->users_stats();
 
-        // Nombre d'entreprise et d'étudiant
         return $this->render('statistiques/index.html.twig', [
             'insertions_stats' => $insertions,
             'users_stats' => $users,
