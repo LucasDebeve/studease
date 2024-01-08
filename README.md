@@ -1,7 +1,9 @@
 # Studease
 
 ## Description
-Studease is a web application realized in Academic Project at the IUT of Reims. It allows students to find an internship. 
+Studease is a web application realized in Academic Project at the IUT of Reims. It allows students to find an internship.
+Students can apply for multiples interships offered by various companies. Companies propose interships
+and can review students applications to accept or refuse them for each intership.
 
 ## Authors
 - [COUDROT Axel](https://iut-info.univ-reims.fr/gitlab/coud0011/)
