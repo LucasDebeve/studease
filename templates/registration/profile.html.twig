@@ -140,6 +140,29 @@
                             </div>
                         </div>
                     </div>
+                    {% if user.tpUser == 1 %}
+                    <div class="col-sm-6 mb-3 ">
+                        <div class="card">
+                            <div class="card-body"   style="max-height: 200px; overflow-y: auto;">
+                                <h6 class="d-flex align-items-center mb-3 fw-bold">Mes insertions</h6>
+                                    {% for candidature in user.candidatures %}
+                                            <a href="{{ path('app_detail_insertions_professionnelles', {id: candidature.insertionprofessionnelle.id }) }}" class="text-decoration-none text-reset">
+                                                    <div class="card w-200 ">
+                                                        <div class="card-body">
+                                                            <span class = "fw-bold" >
+                                                                {{ candidature.insertionprofessionnelle.titre }}
+                                                            </span>
+                                                            <br>
+                                                                Date de début : <span class = "fw-bold"> {{ candidature.insertionprofessionnelle.dateDeb|date('m/d/Y')  }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                            </a>
+                                    {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

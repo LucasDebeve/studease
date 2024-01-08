@@ -12,13 +12,14 @@ class InsertionsProfessionnellesFixtures extends Fixture implements DependentFix
     public function load(ObjectManager $manager): void
     {
         InsertionProfessionnelleFactory::createMany(50);
-
         $manager->flush();
     }
+
     public function getDependencies(): array
     {
         return [
             UserFixtures::class,
+            LocalisationFixtures::class,
         ];
     }
 }
