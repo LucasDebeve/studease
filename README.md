@@ -69,3 +69,8 @@ Users access for each functionality on the website
 Peter Parker
 - Email : peter@example.com
 - password : test
+
+### Company
+Tony Stark
+- Email : tony@example.com
+- password : test
