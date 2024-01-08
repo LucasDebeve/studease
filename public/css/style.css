@@ -125,6 +125,22 @@ footer {
     display: none;
 }
 
+.chart__bars__item {
+    width: 20px;
+}
+
+.chart__bars__item.alternance, .chart__bars__item.entreprise {
+    background-color: #A3A6BC;
+}
+
+.chart__bars__item.stage, .chart__bars__item.etudiant {
+    background-color: #80D5C6;
+}
+
+.chart__bars__item.admin {
+    background-color: #FFCC9F;
+}
+
 .body-picture {
     height: 80vh;
     object-fit: cover;

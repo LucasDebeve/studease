@@ -33,6 +33,18 @@ class InsertionProfessionnelleRepository extends ServiceEntityRepository
         return $qb->getQuery()->execute();
     }
 
+    public function general_stats(): array
+    {
+        $qb = $this->createQueryBuilder('insertions');
+        $qb->select('insertions.typePro')
+            ->addSelect('COUNT(insertions.id) as count')
+            ->addSelect('COUNT(candidatures.id) as count_candidatures')
+            ->leftJoin('insertions.candidatures', 'candidatures')
+            ->addGroupBy('insertions.typePro');
+
+        return $qb->getQuery()->getResult();
+    }
+
     /**
      * @throws NonUniqueResultException
      */
