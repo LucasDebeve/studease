@@ -47,7 +47,7 @@ final class InsertionProfessionnelleFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'company' => null === UserFactory::random(['tpUser' => 2]) ? UserFactory::new() : UserFactory::random(['tpUser' => 2]),
+            'company' => UserFactory::random(['tpUser' => 2]),
             'dateDeb' => self::faker()->dateTime(),
             'descInsPro' => self::faker()->text(),
             'duree' => self::faker()->randomNumber(),
