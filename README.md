@@ -62,3 +62,10 @@ composer run test:codeception
 ```bash
 composer run test
 ```
+
+## Users
+Users access for each functionality on the website
+### Student
+Peter Parker
+- Email : peter@example.com
+- password : test
