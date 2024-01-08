@@ -59,7 +59,7 @@ final class LocalisationFactory extends ModelFactory
             ]),
             'latitude' => self::faker()->latitude(),
             'longitude' => self::faker()->longitude(),
-            'pays' => self::faker()->country(),
+            'pays' => self::faker()->countryCode(),
             'ville' => self::faker()->city(),
         ];
     }
