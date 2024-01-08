@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block body %}
-    {% dump(insertions) %}
     <div class="container insertions">
         <div class="row">
             <form class="stage_recherche" action="#" method="post">
@@ -40,28 +39,26 @@
             </form>
         </div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3">
-        {% for key,insertion in insertions %}
-            <div class="col">
-                <div class="insertion">
-                    <a href="{{ path('app_detail_insertions_professionnelles', {id: insertion.id }) }}" class="insertion">
-                        <div class="row">
-                            <div class="col">
-                                <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="64" cy="64" r="64" fill="#D9D9D9"/>
-                                </svg>
+            {% for key,insertion in insertions %}
+                <div class="col">
+                    <div class="insertion">
+                        <a href="{{ path('app_detail_insertions_professionnelles', {id: insertion.id }) }}" class="insertion">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="{{ asset('img/default_profile.jpg') }}" alt="Logo de l'entreprise {{ insertion.company.name }}">
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col insertion_intitule">{{ insertion.titre }}</div>
-                        </div>
-                        <div class="row insertion_infos">
-                            <div class="col insertion_entreprise">Entreprise</div>
-                            <div class="col-md-auto insertion_duree">{{ insertion.duree }} jours</div>
-                        </div>
-                    </a>
+                            <div class="row">
+                                <div class="col insertion_intitule">{{ insertion.titre }}</div>
+                            </div>
+                            <div class="row insertion_infos">
+                                <div class="col insertion_entreprise">{{ insertion.company.name }}</div>
+                                <div class="col-md-auto insertion_duree">{{ insertion.duree }} jours</div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
