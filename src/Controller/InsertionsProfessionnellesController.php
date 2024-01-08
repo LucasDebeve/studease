@@ -32,12 +32,21 @@ class InsertionsProfessionnellesController extends AbstractController
     }
 
     #[Route('/insertions-professionnelles/{id}/candidatures/', name: 'app_candidatures')]
-    #[IsGranted('ROLE_COMPANY')]
+    // #[IsGranted('ROLE_COMPANY')]
     public function candidatures(
         #[MapEntity(expr: 'repository.findWithCandidaturesAndCandidats(id)')]
-        InsertionProfessionnelle $id, CandidatureRepository $repository): Response
+        InsertionProfessionnelle $id, CandidatureRepository $repository, Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
+        $statut = $request->get('Statut');
+        $candidatureId = $request->get('id_candidature');
+
+        if ($statut and $candidatureId) {
+            $candidature = $repository->find($candidatureId);
+            $candidature->setStatut((int) $statut);
+            $entityManager->persist($candidature);
+            $entityManager->flush();
+        }
 
         if ($user !== $id->getCompany()) {
             // return $this->redirectToRoute('app_insertions_professionnelles_id', ['id' => $id->getId()]);
@@ -66,7 +75,7 @@ class InsertionsProfessionnellesController extends AbstractController
 
             $this->addFlash('success', 'Votre candidature a bien été prise en compte.');
 
-            return $this->redirectToRoute('app_insertions_professionnelles_id', ['id' => $insertion->getId()]);
+            return $this->redirectToRoute('app_detail_insertions_professionnelles', ['id' => $insertion->getId()]);
         }
 
         $candidature = $insertion->getCandidatures()->filter(function ($candidature) {
@@ -75,7 +84,8 @@ class InsertionsProfessionnellesController extends AbstractController
 
         if ($candidature) {
             $this->addFlash('danger', 'Vous avez déjà candidaté à cette insertion professionnelle.');
-            return $this->redirectToRoute('app_insertions_professionnelles_id', ['id' => $insertion->getId()]);
+
+            return $this->redirectToRoute('app_detail_insertions_professionnelles', ['id' => $insertion->getId()]);
         }
 
         return $this->render('insertions_professionnelles/candidater.html.twig', ['insertion' => $insertion, 'form' => $form]);
