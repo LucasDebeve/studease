@@ -1,35 +1,9 @@
-.type__1{
-    border-color: green;
-}
-
-.type__2{
-    border-color: red;
-}
-.resultats {
-    align-items: flex-start;
-    background-color: #ffffff;
+.container.insertions{
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px 10px;
-    height: 1340px;
-    padding: 30px 15px;
-    position: relative;
-    width: 1251px;
-}
-
-.resultats .resultat {
-    align-items: flex-start;
-    background-color: #f6f6f6;
-    border: 1px solid;
-    border-color: #00ac8c;
-    border-radius: 5px;
-    display: flex;
+    margin-top: 55px;
+    gap: 30px;
     flex-direction: column;
-    gap: 10px;
-    height: 250px;
-    padding: 10px;
-    position: relative;
-    width: 400px;
+    height: 100%;
 }
 .resultat {
     align-items: flex-start;
