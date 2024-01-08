@@ -8,13 +8,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AvatarField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
@@ -77,8 +75,7 @@ class UserCrudController extends AbstractCrudController
                         return $res;
                     }
                 )
-                ->setColumns(12)
-            ,
+                ->setColumns(12),
             ChoiceField::new('tpUser', 'Type d\'utilisateur')
                 ->setChoices([
                     'Administrateur' => 0,
@@ -91,18 +88,15 @@ class UserCrudController extends AbstractCrudController
             FormField::addTab('Pour les étudiants'),
             IntegerField::new('numEtud', 'Numéro étudiant')
                 ->hideOnIndex()
-                ->setColumns(12)
-            ,
+                ->setColumns(12),
             AssociationField::new('formation', 'Formation')
                 ->setFormTypeOptions(['choice_label' => 'nom'])
                 ->hideOnIndex()
-                ->setColumns(6)
-            ,
+                ->setColumns(6),
             AssociationField::new('ecole', 'Ecole')
                 ->setFormTypeOptions(['choice_label' => 'nom'])
                 ->hideOnIndex()
-                ->setColumns(6)
-            ,
+                ->setColumns(6),
 
             FormField::addTab('Pour les entreprises'),
             TextareaField::new('descriptionEntreprise', 'Description de l\'entreprise')
@@ -112,14 +106,12 @@ class UserCrudController extends AbstractCrudController
                 ->hideOnIndex()
                 ->setColumns(6),
             AssociationField::new('localisations', 'Localisations')
-                ->setFormTypeOptions(['choice_label' =>
-                    function ($localisation) {
-                        return $localisation->getAdresse() . ' - ' . $localisation->getVille();
-                    }
+                ->setFormTypeOptions(['choice_label' => function ($localisation) {
+                    return $localisation->getAdresse().' - '.$localisation->getVille();
+                },
                 ])
                 ->hideOnIndex()
-                ->setColumns(6)
-            ,
+                ->setColumns(6),
         ];
     }
 
