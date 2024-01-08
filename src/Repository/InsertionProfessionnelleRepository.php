@@ -28,7 +28,10 @@ class InsertionProfessionnelleRepository extends ServiceEntityRepository
     public function search(): array
     {
         $qb = $this->createQueryBuilder('p');
-        $qb->orderBy('p.titre');
+        $qb->select('p')
+            ->leftJoin('p.company', 'company')
+            ->orderBy('p.titre');
+
 
         return $qb->getQuery()->execute();
     }
