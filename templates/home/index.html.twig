@@ -3,36 +3,51 @@
 {% block title %}StudEase{% endblock %}
 
 {% block body %}
-<div class="body-front">
-    <section class="body-text">
-        <h1 class="body-slogan">Ici, tu construis ton avenir</h1>
-        <span class="body-button">
-            <a class="connect btn btn-primary rounded-0" href="{{ path('app_login') }}">Se connecter</a>
-        </span>
-    </section>
-    <img class="body-picture" src="{{ asset('img/studease.jpg') }}" alt="Image d'Accueil"/>
-</div>
-<div class="body-info">
-    <h1 class="info-title">Qu'est ce que StudeEase ?</h1>
-    <div class="info-part">
-        <section class="info-group">
-            <h2 class="group-title">Trouves le stage qui est fait pour toi</h2>
-            <blockquote class="group-content">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est.</blockquote>
-        </section>
-        <section class="info-group">
-            <h2 class="group-title">Trouves l’alternance qui te correspond</h2>
-            <blockquote class="group-content">Amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.</blockquote>
+    <div class="row mb-5">
+        <div class="col-12 col-lg-6">
+            <img class="body-picture object-fit-cover w-100" src="{{ asset('img/studease.jpg') }}"
+                 alt="Image d'Accueil"/>
+        </div>
+        <div class="col-12 col-lg-6 order-lg-first text-center text-lg-start d-flex flex-column justify-content-lg-center align-items-lg-center my-5">
+            <h1>Ici, tu construis ton avenir</h1>
+            {% if app.user %}
+                <a class="connect btn btn-primary rounded-0 mx-5" href="{{ path('app_user_profile') }}">Mon profil</a>
+            {% else %}
+                <a class="connect btn btn-primary rounded-0 mx-5" href="{{ path('app_login') }}">Se connecter</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container-lg">
+        <section class="mb-5">
+            <h1 class="fw-bold">Qu'est ce que StudeEase ?</h1>
+            <div class="row">
+                <article class="col-12 col-lg-6">
+                    <h2>Trouves le stage qui est fait pour toi</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus cumque delectus dignissimos
+                        dolor, doloribus dolorum, eum exercitationem hic illum minima modi nisi perferendis placeat
+                        quidem repudiandae veniam vitae voluptatem.</p>
+                </article>
+                <article class="col-12 col-lg-6">
+                    <h2>Trouves l’alternance qui te correspond</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus cumque delectus dignissimos
+                        dolor, doloribus dolorum, eum exercitationem hic illum minima modi nisi perferendis placeat
+                        quidem repudiandae veniam vitae voluptatem.</p>
+                </article>
+            </div>
+            <div class="row">
+                <article class="col-12 col-lg-6">
+                    <h2>Pour faciliter la vie des étudiants</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus cumque delectus dignissimos
+                        dolor, doloribus dolorum, eum exercitationem hic illum minima modi nisi perferendis placeat
+                        quidem repudiandae veniam vitae voluptatem.</p>
+                </article>
+                <article class="col-12 col-lg-6">
+                    <h2>Une aide à la gestion des candidatures pour les entreprises</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus cumque delectus dignissimos
+                        dolor, doloribus dolorum, eum exercitationem hic illum minima modi nisi perferendis placeat
+                        quidem repudiandae veniam vitae voluptatem.</p>
+                </article>
+            </div>
         </section>
     </div>
-    <div class="info-part">
-        <section class="info-group">
-            <h2 class="group-title">Une plateforme pour les étudiants</h2>
-            <blockquote class="group-content">Consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam.</blockquote>
-        </section>
-        <section class="info-group">
-            <h2 class="group-title">Lorem</h2>
-            <blockquote class="group-content">Eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora.</blockquote>
-        </section>
-    </div>
-</div>
 {% endblock %}
