@@ -8,6 +8,7 @@ use App\Entity\Formation;
 use App\Entity\InsertionProfessionnelle;
 use App\Entity\Localisation;
 use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -39,5 +40,10 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Candidature', 'fas fa-list', Candidature::class);
 
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+    }
+
+    public function configureAssets(): Assets
+    {
+        return parent::configureAssets()->addCssFile('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0');
     }
 }
