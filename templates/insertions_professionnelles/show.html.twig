@@ -1,5 +1,23 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheet %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+<script>
+    let map = L.map('map').setView([51.085, -0.09], 13);
+    L.tileLayer('http://openmapsurfer.uni-hd.de/tiles/roads/x={x}&y={y}&z={z}', {
+            attribution: '<a href="https://www.lije-creative.com">LIJE Creative</a>',
+            maxZoom: 18
+        }).addTo(map);
+</script>
+{% endblock %}
+
 {% block title %}
     {{ insertion.titre }}
 {% endblock %}
@@ -16,7 +34,7 @@
                 <a class="btn btn-primary rounded-0"
                    href="{{ path('app_candidater', {id: insertion.id} ) }}">Candidater</a>
             </div>
-            <div class="d-flex shadow p-3">
+            <div class="d-flex flex-column shadow p-3">
                 <div class="d-flex p-3 gap-4">
                     <img class="rounded-circle" height="150px"
                          src="{{ insertion.company.displayAvatar|default(asset('img/default_profile.jpg')) }}"
@@ -28,10 +46,28 @@
                         <p>{{ insertion.company.descriptionEntreprise }}</p>
                     </div>
                 </div>
+                <div id="map" style="height: 400px">
+
+                </div>
             </div>
         </div>
         <div class="d-flex">
 
         </div>
     </div>
+    <script type="text/javascript">
+
+        const map = new L.Map('map', {
+                center: new L.LatLng({{ insertion.company.localisations.0.latitude }},{{ insertion.company.localisations.0.longitude }}),
+                zoom: 9,
+                maxZoom: 18
+            }
+        );
+        const osm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+
+        let marker = L.marker([ {{ insertion.company.localisations.0.latitude }},{{ insertion.company.localisations.0.longitude }}]).addTo(map);
+
+        map.addLayer(osm);
+
+    </script>
 {% endblock %}
