@@ -25,12 +25,12 @@ class InsertionProType extends AbstractType
             ])
             ->add('dateFin', DateType::class, [
                 'empty_data' => ' ',
+                'required' => false,
             ])
             ->add('descInsPro', TextareaType::class, [
                 'empty_data' => ' ',
             ])
             ->add('teletravail', CheckboxType::class, [
-                'label' => 'Actif',
                 'required' => false,
             ])
             ->add('titre', TextType::class, [
@@ -38,14 +38,18 @@ class InsertionProType extends AbstractType
             ])
             ->add('revenus', MoneyType::class, [
                 'empty_data' => ' ',
+                'currency' => 'EUR',
             ])
             ->add('typePro', IntegerType::class, [
                 'empty_data' => ' ',
             ])
-            ->add('duree', DateIntervalType::class, [
+            ->add('duree', IntegerType::class, [
                 'empty_data' => ' ',
             ])
-        ;
+            ->add('company', EntityType::class, [
+                'class' => 'App\Entity\User',
+                'choice_label' => 'name',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
