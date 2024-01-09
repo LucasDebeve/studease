@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\InsertionProfessionnelle;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\Query\Parameter;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -25,8 +27,9 @@ class InsertionProfessionnelleRepository extends ServiceEntityRepository
     /**
      * @return array InsertionProfessionnelle[]
      */
-    public function search(): array
+    public function search(array $filters): array
     {
+        $parameters = new ArrayCollection([]);
         $qb = $this->createQueryBuilder('insertion')
             ->leftJoin('insertion.company', 'company')
             ->addSelect('company')
