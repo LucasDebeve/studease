@@ -111,7 +111,7 @@ class InsertionsProfessionnellesController extends AbstractController
         $form = $this->createForm(InsertionProType::class, $insertion);
 
         $form->handleRequest($request);
-        if ($form->isValid() && $form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $insertion = $form->getData();
             $insertion = $entityManager->getRepository(InsertionProfessionnelle::class)->find($insertion->getId());
 
@@ -119,8 +119,10 @@ class InsertionsProfessionnellesController extends AbstractController
                 throw $this->createNotFoundException('No insertion found for id'.$insertion->getId());
             }
             $entityManager->flush();
+
             return $this->redirectToRoute('app_detail_insertions_professionnelles', ['id' => $insertion->getId()]);
         }
+
         return $this->render('insertions_professionnelles/update.html.twig', [
             'insertion' => $insertion,
             'form' => $form,
@@ -129,8 +131,19 @@ class InsertionsProfessionnellesController extends AbstractController
     }
 
     #[Route('/insertions/create', name: 'app_create_insertions_pro')]
-    public function create(): Response
+    public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $insertion = new InsertionProfessionnelle();
+        $form = $this->createForm(InsertionProType::class, $insertion);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $insertion = $form->getData();
+            $entityManager->persist($insertion);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_detail_insertions_professionnelles', ['id' => $insertion->getId()]);
+        }
+
         return $this->render('insertions_professionnelles/create.html.twig', [
             'insertion' => $insertion,
             'form' => $form]);
