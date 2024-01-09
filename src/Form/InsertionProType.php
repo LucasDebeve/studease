@@ -41,7 +41,6 @@ class InsertionProType extends AbstractType
             ])
             ->add('revenus', MoneyType::class, [
                 'required' => false,
-                'currency' => '€/jour ouvrés',
             ])
             ->add('typePro', ChoiceType::class, [
                 'choices' => [
