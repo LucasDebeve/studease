@@ -32,8 +32,34 @@ class InsertionProfessionnelleRepository extends ServiceEntityRepository
         $parameters = new ArrayCollection([]);
         $qb = $this->createQueryBuilder('insertion')
             ->leftJoin('insertion.company', 'company')
-            ->addSelect('company')
-            ->orderBy('insertion.titre');
+            ->addSelect('company');
+        if ('' != $filters['intitule']) {
+            $qb->andWhere($qb->expr()->like('insertion.titre', ':intitule'));
+            $intitule = $filters['intitule'];
+            $parameters->add(new Parameter('intitule', '%'.$intitule.'%'));
+        }
+        if ('stage' == $filters['type_contrat']) {
+            $qb->andWhere('insertion.typePro = 1');
+        } elseif ('alternance' == $filters['type_contrat']) {
+            $qb->andWhere('insertion.typePro = 2');
+        }
+        if ('' != $filters['duree']) {
+            $duree = intval($filters['duree']);
+            $qb->andWhere('insertion.duree <= :duree_max')
+                ->andWhere('insertion.duree >= :duree_min');
+            $parameters->add(new Parameter('duree_max', $duree + 7));
+            $parameters->add(new Parameter('duree_min', $duree - 7));
+        }
+        if ('company' == $filters['order_by']) {
+            $qb->orderBy('company.name');
+        } elseif ('insertion' == $filters['order_by']) {
+            $qb->orderBy('insertion.titre');
+        } elseif ('duree' == $filters['order_by']) {
+            $qb->orderBy('insertion.duree');
+        } else {
+            $qb->orderBy('insertion.id');
+        }
+        $qb->setParameters($parameters);
 
         return $qb->getQuery()->getArrayResult();
     }
