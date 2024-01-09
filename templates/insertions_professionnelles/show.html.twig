@@ -5,13 +5,33 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ insertion.titre }}</h1>
-    <dl>
-        <dt><h3>Durée</h3></dt>
-        <dd>{{ insertion.duree }}</dd>
-        <dt><h3>Début</h3></dt>
-        <dd>{{ insertion.dateDeb|date("d/m/Y") }}</dd>
-        <dt><h3>Entreprise</h3></dt>
-        <dd>{{ insertion.company.name }} : {{ insertion.company.numSiret }}</dd>
-    </dl>
+    <div class="container-lg d-flex flex-column shadow my-5 gap-3 p-3">
+        <h1 class="text-center">{{ insertion.titre }}</h1>
+        <div class="d-flex p-3 gap-3">
+            <div class="d-flex flex-column">
+                <p>Type de contrat : {{ insertion.typePro == 1 ? 'Stage' : 'Alternance' }}</p>
+                <p>Durée : {{ insertion.duree }} jours</p>
+                <p>Description : </p>
+                <p>{{ insertion.descInsPro }}</p>
+                <a class="btn btn-primary rounded-0"
+                   href="{{ path('app_candidater', {id: insertion.id} ) }}">Candidater</a>
+            </div>
+            <div class="d-flex shadow p-3">
+                <div class="d-flex p-3 gap-4">
+                    <img class="rounded-circle" height="150px"
+                         src="{{ insertion.company.displayAvatar|default(asset('img/default_profile.jpg')) }}"
+                         alt="{{ insertion.company.name }}">
+                    <div class="flex-grow-1">
+                        <h2>
+                            <a href="{{ path('app_profile', {id: insertion.company.id}) }}">{{ insertion.company.name }}</a>
+                        </h2>
+                        <p>{{ insertion.company.descriptionEntreprise }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex">
+
+        </div>
+    </div>
 {% endblock %}
