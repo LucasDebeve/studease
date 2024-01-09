@@ -39,6 +39,9 @@ class InsertionsProfessionnellesController extends AbstractController
         return $this->render('insertions_professionnelles/index.html.twig', ['insertions' => $insertions, 'filters' => $filters]);
     }
 
+    /**
+     * @throws \Exception
+     */
     #[Route('/insertions/create', name: 'app_create_insertions_pro')]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -53,7 +56,11 @@ class InsertionsProfessionnellesController extends AbstractController
             $dateFin = $form->get('dateDeb')->getData();
 
             if ($dateFin && $dateDeb) {
-                $duree = $form->get('duree')->getData();
+                if (is_string($dateDeb) && is_string($dateFin)) {
+                    $dateDeb = new \DateTime($dateDeb);
+                    $dateFin = new \DateTime($dateFin);
+                }
+                $duree = $dateDeb->diff($dateFin)->days;
                 $insertion->setDuree((int) $duree);
             }
 
@@ -148,6 +155,9 @@ class InsertionsProfessionnellesController extends AbstractController
         return $this->render('insertions_professionnelles/candidater.html.twig', ['insertion' => $insertion, 'form' => $form]);
     }
 
+    /**
+     * @throws \Exception
+     */
     #[Route('/insertions/{id}/update', name: 'app_update_insertions_pro', requirements: ['id' => '\d+'])]
     public function update(Request $request, EntityManagerInterface $entityManager, InsertionProfessionnelle $insertion): Response
     {
@@ -162,7 +172,11 @@ class InsertionsProfessionnellesController extends AbstractController
             $dateFin = $form->get('dateDeb')->getData();
 
             if ($dateFin && $dateDeb) {
-                $duree = $form->get('duree')->getData();
+                if (is_string($dateDeb) && is_string($dateFin)) {
+                    $dateDeb = new \DateTime($dateDeb);
+                    $dateFin = new \DateTime($dateFin);
+                }
+                $duree = $dateDeb->diff($dateFin)->days;
                 $insertion->setDuree((int) $duree);
             }
 
