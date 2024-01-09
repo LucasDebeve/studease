@@ -7,8 +7,8 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container insertions">
-        <form class="row" action="{{ path('app_insertions_professionnelles') }}" method="post">
+    <div class="container-lg d-flex flex-column p-4 my-4 gap-3 h-100 shadow">
+        <form class="row" action="#" method="post">
             <div class="col intitule_insertion">
                 <label for="intitule"></label>
                 {% if filters.intitule=='' %}
@@ -74,26 +74,9 @@
                 <input type="submit" name="submit" value="Lancer le filtrage" class="input">
             </div>
         </form>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4">
             {% for key,insertion in insertions %}
-                <div class="col">
-                    <div class="insertion typepro_{{ insertion.typePro==1?'stage':'alternance' }}">
-                        <a href="{{ path('app_detail_insertions_professionnelles', {id: insertion.id }) }}" class="insertion">
-                            <div class="row">
-                                <div class="col">
-                                    <img class="rounded-circle" src="{{ insertion.company.displayAvatar|default(asset('img/default_profile.jpg')) }}" alt="Logo de l'entreprise {{ insertion.company.name }}"  width="150">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col insertion_intitule">{{ insertion.titre }}</div>
-                            </div>
-                            <div class="row insertion_infos">
-                                <div class="col insertion_entreprise">{{ insertion.company.name }}</div>
-                                <div class="col-md-auto insertion_duree">{{ insertion.duree }} jours ouvrés</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                {{ include('insertions_professionnelles/_result.html.twig', {insertion}) }}
             {% endfor %}
         </div>
     </div>
