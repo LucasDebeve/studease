@@ -64,6 +64,39 @@ class InsertionProfessionnelleRepository extends ServiceEntityRepository
         return $qb->getQuery()->getArrayResult();
     }
 
+    public function findWithCompanyAndLocalisation(int $id): ?array
+    {
+        $qb = $this->createQueryBuilder('insertion');
+        $qb->select('insertion')
+            ->leftJoin('insertion.company', 'company')
+            ->leftJoin('company.localisations', 'localisations')
+            ->addSelect('company')
+            ->addSelect('localisations')
+            ->andWhere('insertion.id = :id')
+            ->setParameter('id', $id);
+
+        $res = $qb->getQuery()->getArrayResult();
+        if (count($res) > 0) {
+            return $res[0];
+        } else {
+            return null;
+        }
+    }
+
+    public function getRecommandationsWithCompany(int $id): array
+    {
+        $qb = $this->createQueryBuilder('insertion');
+        $qb->select('insertion')
+            ->leftJoin('insertion.company', 'company')
+            ->addSelect('company')
+            ->andWhere('insertion.id != :id')
+            ->setParameter('id', $id)
+            ->orderBy('insertion.dateDeb', 'DESC')
+            ->setMaxResults(4);
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
     public function general_stats(): array
     {
         $qb = $this->createQueryBuilder('insertions');

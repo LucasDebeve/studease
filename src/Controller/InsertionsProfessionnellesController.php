@@ -33,14 +33,23 @@ class InsertionsProfessionnellesController extends AbstractController
             }
         }
         $insertions = $repository->search($filters);
-        dump($insertions);
         return $this->render('insertions_professionnelles/index.html.twig', ['insertions' => $insertions, 'filters' => $filters]);
     }
 
-    #[Route('/insertions/{id}', name: 'app_detail_insertions_professionnelles')]
-    public function show(InsertionProfessionnelle $insertion): Response
-    {
-        return $this->render('insertions_professionnelles/show.html.twig', ['insertion' => $insertion]);
+    #[Route('/insertions/{id}', name: 'app_detail_insertions_professionnelles', requirements: ['id' => "\d+"])]
+    public function show(
+        int $id,
+        InsertionProfessionnelleRepository $repository
+    ): Response {
+        $insertion = $repository->findWithCompanyAndLocalisation($id);
+        if (!$insertion) {
+            throw $this->createNotFoundException('Insertion professionnelle non trouvée.');
+        }
+        $recommandations = $repository->getRecommandationsWithCompany($insertion['id']);
+        return $this->render('insertions_professionnelles/show.html.twig', [
+            'insertion' => $insertion,
+            'recommandations' => $recommandations,
+        ]);
     }
 
     #[Route('/insertions/{id}/candidatures/', name: 'app_candidatures')]
