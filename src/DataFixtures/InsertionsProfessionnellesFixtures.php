@@ -29,7 +29,7 @@ class InsertionsProfessionnellesFixtures extends Fixture implements DependentFix
                 [
                     'typePro' => $typePro,
                     'titre' => $formationName['titre'],
-                    'revenu' => $revenu,
+                    'revenus' => $revenu,
                     'duree' => $duree,
                 ]
             );
