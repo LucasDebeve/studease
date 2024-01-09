@@ -39,7 +39,9 @@ class InsertionsProfessionnellesController extends AbstractController
     }
 
     #[Route('/insertions/{id}', name: 'app_detail_insertions_professionnelles')]
-    public function show(InsertionProfessionnelle $insertion): Response
+    public function show(
+        #[MapEntity(expr: 'repository.findWithCompany(id)')]
+        InsertionProfessionnelle $insertion): Response
     {
         return $this->render('insertions_professionnelles/show.html.twig', ['insertion' => $insertion]);
     }
