@@ -70,8 +70,8 @@ class InsertionsProfessionnellesController extends AbstractController
             $entityManager->flush();
         }
 
-        if ($user !== $id->getCompany()) {
-            // return $this->redirectToRoute('app_insertions_professionnelles_id', ['id' => $id->getId()]);
+        if ($user !== $id->getLocalisation()->getEntreprise()) {
+            return $this->redirectToRoute('app_detail_insertions_professionnelles', ['id' => $id->getId()]);
         }
 
         return $this->render('insertions_professionnelles/candidatures.html.twig', ['insertion' => $id]);
