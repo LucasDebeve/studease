@@ -24,7 +24,7 @@
                         </div>
                     </div>
                 </div>
-                {% if user.tpUser == 1 %}
+                {% if user.tpUser == 1 and (current_user == user or current_user.tpUser == 2 or current_user.tpUser == 0) %}
                     <div class="card mb-3 mb-lg-0">
                         <div class="card-body p-0">
                             <ul class="list-group list-group-flush rounded-3">
@@ -140,15 +140,23 @@
                             </div>
                         </div>
                     </div>
-                    {% if user.tpUser == 1 %}
+                    {% if user.tpUser == 1 and user == current_user %}
                     <div class="col-sm-6 mb-3 ">
                         <div class="card">
-                            <div class="card-body"   style="max-height: 200px; overflow-y: auto;">
+                            <div class="card-body" style="max-height: 400px; overflow-y: auto;">
                                 <h6 class="d-flex align-items-center mb-3 fw-bold">Mes insertions</h6>
                                     {% for candidature in user.candidatures %}
                                             <a href="{{ path('app_detail_insertions_professionnelles', {id: candidature.insertionprofessionnelle.id }) }}" class="text-decoration-none text-reset">
-                                                    <div class="card w-200 ">
+                                                <div class="card w-200 mb-3">
                                                         <div class="card-body">
+                                                            {% if candidature.statut == 0 %}
+                                                                <span class="badge bg-secondary">En attente</span>
+                                                            {% elseif candidature.statut == 1 %}
+                                                                <span class="badge bg-success">Accepté</span>
+                                                            {% elseif candidature.statut == 2 %}
+                                                                <span class="badge bg-danger">Refusé</span>
+                                                            {% endif %}
+                                                            <br>
                                                             <span class = "fw-bold" >
                                                                 {{ candidature.insertionprofessionnelle.titre }}
                                                             </span>
