@@ -40,10 +40,6 @@ class InsertionProfessionnelle
     #[ORM\Column]
     private ?int $duree = null;
 
-    #[ORM\ManyToOne(inversedBy: 'InsertionsProfessionnelles')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $company = null;
-
     #[ORM\OneToMany(mappedBy: 'insertion_professionnelle', targetEntity: Candidature::class, orphanRemoval: true)]
     private Collection $candidatures;
 
@@ -157,17 +153,6 @@ class InsertionProfessionnelle
         return $this;
     }
 
-    public function getCompany(): ?User
-    {
-        return $this->company;
-    }
-
-    public function setCompany(?User $Company): static
-    {
-        $this->company = $Company;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Candidature>

@@ -56,9 +56,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $tpUser = null;
 
-    #[ORM\OneToMany(mappedBy: 'Company', targetEntity: InsertionProfessionnelle::class)]
-    private Collection $insertions_professionnelles;
-
     private $rawAvatar;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
@@ -81,7 +78,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->insertions_professionnelles = new ArrayCollection();
         $this->localisations = new ArrayCollection();
         $this->candidatures = new ArrayCollection();
     }
@@ -252,21 +248,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, InsertionProfessionnelle>
-     */
-    public function getInsertionsProfessionnelles(): Collection
-    {
-        return $this->insertions_professionnelles;
-    }
-
-    public function addInsertionsProfessionnelle(InsertionProfessionnelle $insertionsProfessionnelle): static
-    {
-        if (!$this->insertions_professionnelles->contains($insertionsProfessionnelle)) {
-            $this->insertions_professionnelles->add($insertionsProfessionnelle);
-            $insertionsProfessionnelle->setCompany($this);
-        }
-    }
 
     public function displayAvatar()
     {
