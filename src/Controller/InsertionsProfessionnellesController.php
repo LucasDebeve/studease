@@ -120,6 +120,7 @@ class InsertionsProfessionnellesController extends AbstractController
             if (!$insertion) {
                 throw $this->createNotFoundException('No insertion found for id'.$insertion->getId());
             }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_detail_insertions_professionnelles', ['id' => $insertion->getId()]);
