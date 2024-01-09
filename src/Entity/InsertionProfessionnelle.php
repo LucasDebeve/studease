@@ -21,7 +21,6 @@ class InsertionProfessionnelle
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateDeb = null;
 
-    #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateFin = null;
 
@@ -29,7 +28,6 @@ class InsertionProfessionnelle
     #[ORM\Column(type: Types::TEXT)]
     private ?string $descInsPro = null;
 
-    #[Assert\NotBlank]
     #[Assert\Length(max: 1)]
     #[ORM\Column(nullable: true)]
     private ?bool $teletravail = null;
@@ -39,7 +37,6 @@ class InsertionProfessionnelle
     #[ORM\Column(length: 5000)]
     private ?string $titre = null;
 
-    #[Assert\NotBlank]
     #[ORM\Column(nullable: true)]
     private ?float $revenus = null;
 
@@ -48,8 +45,6 @@ class InsertionProfessionnelle
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $typePro = null;
 
-    #[Assert\NotBlank]
-    #[Assert\Length(max: 11)]
     #[ORM\Column]
     private ?int $duree = null;
 
