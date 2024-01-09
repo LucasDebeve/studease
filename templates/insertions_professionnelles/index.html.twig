@@ -39,7 +39,7 @@
                 </select>
             </div>
             <div class="col duree_insertion">
-                <input type="number" id="duree" name="duree" class="input duree_insertion" placeholder="Duree du stage">
+                <input type="number" id="duree" name="duree" class="input duree_insertion" placeholder="{% if filters.duree=='' %}Duree du stage{% else %}{{ filters.duree }}" value="{{ filters.duree }}{% endif %}">
                 <label for="duree" class="label duree_insertion"></label>
             </div>
             <div class="col">
