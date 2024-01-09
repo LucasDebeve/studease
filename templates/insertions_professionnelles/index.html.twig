@@ -20,10 +20,22 @@
             </div>
             <div class="col type_contrat_insertion">
                 <label for="type_contrat"></label>
+            {% if filters.type_contrat=='stage' %}
+                <select id="type_contrat" name="type_contrat" class="input type_contrat_insertion" style='color: #00ac8c'>
+                <option value="" style='color: #000000'>Type de Contrat</option>
+                <option style='color: #00ac8c' value="stage" selected>Stage</option>
+                <option style='color: #ac008c' value="alternance">Alternance</option>
+            {% elseif filters.type_contrat=='alternance' %}
+                <select id="type_contrat" name="type_contrat" class="input type_contrat_insertion" style='color: #ac008c'>
+                    <option value="" style='color: #000000'>Type de Contrat</option>
+                    <option style='color: #00ac8c' value="stage" selected>Stage</option>
+                    <option style='color: #ac008c' value="alternance" selected>Alternance</option>
+            {% else %}
                 <select id="type_contrat" name="type_contrat" class="input type_contrat_insertion">
-                    <option value="" selected>Type de Contrat</option>
+                    <option value="" selected style='color: #000000'>Type de Contrat</option>
                     <option style='color: #00ac8c' value="stage">Stage</option>
                     <option style='color: #ac008c' value="alternance">Alternance</option>
+            {% endif %}
                 </select>
             </div>
             <div class="col duree_insertion">
