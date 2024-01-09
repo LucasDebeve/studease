@@ -1,0 +1,12 @@
+{{ form_start(form) }}
+    {{ form_row(form.dateDeb, {'label': 'Début'}) }}
+    {{ form_row(form.dateFin, {'label': 'Fin'}) }}
+    {{ form_row(form.descInsPro, {'label': 'Description'}) }}
+    {{ form_row(form.teletravail, {'label': 'Télétravail'}) }}
+    {{ form_row(form.titre, {'label': 'Titre'}) }}
+    {{ form_row(form.revenus, {'label': 'Revenus'}) }}
+    {{ form_row(form.category, {'label': 'Catégorie', 'attr': {'placeholder': 'Sélectionnez une catégorie'}}) }}
+<br>
+<button class="btn btn-primary w-100" type="submit">{{ submit_label }}</button>
+{{ form_end(form) }}
+
