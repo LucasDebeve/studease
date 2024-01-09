@@ -32,11 +32,6 @@ form.row>.col>.input{
 form.row>.col>.input {
     color: rgba(0, 0, 0, 0.60);
 }
-form.row>.col>select[id='type_contrat'] {
-    form.row>.col>.input:not(select[id='type_contrat']){
-        color: red;
-    }
-}
 ::placeholder{
     color: rgba(0, 0, 0, 0.60);
     font-family: Karla, serif;
