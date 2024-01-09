@@ -4,7 +4,12 @@
 
 {% block body %}
     <h1>{{ titre }}</h1>
-    {{ include('insertions_professionnelles/_form.html.twig', {submit_label: 'Modifier', form: form}, with_context = false) }}
+    {{ include('insertions_professionnelles/_form.html.twig', {
+        submit_label: 'Modifier',
+        form: form,
+        disableTypePro: true,
+        disableCompany: true
+    }, with_context = false) }}
 {% endblock %}
 
 

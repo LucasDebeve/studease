@@ -5,9 +5,9 @@
     {{ form_row(form.teletravail, {'label': 'Télétravail'}) }}
     {{ form_row(form.titre, {'label': 'Titre'}) }}
     {{ form_row(form.revenus, {'label': 'Revenus'}) }}
-    {{ form_row(form.typePro, {'label': 'Type de Profession'}) }}
+    {{ form_row(form.typePro, {'label': 'Type de Profession', 'attr' : {'readonly': disableTypePro|default(false)}}) }}
     {{ form_row(form.duree, {'label': 'Durée'}) }}
-    {{ form_row(form.company, {'label': 'Entreprise', 'attr': {'placeholder': 'Sélectionnez le nom de votre entreprise'}}) }}
+    {{ form_row(form.company, {'label': 'Entreprise', 'attr': {'readonly': disableTypePro|default(false), 'placeholder': 'Sélectionnez le nom de votre entreprise'}}) }}
 <br>
 <button class="btn btn-primary w-100" type="submit">{{ submit_label }}</button>
 {{ form_end(form) }}
