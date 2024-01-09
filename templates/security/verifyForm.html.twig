@@ -79,6 +79,17 @@
                             </div>
                             <hr>
                         {% endif %}
+                        {% if user.tpUser == 1 %}
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="d-flex align-items-center mb-3 fw-bold">Numéro étudiant</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ user.numEtud|default('Aucune formation renseignée') }}
+                            </div>
+                        </div>
+                            <hr>
+                        {% endif %}
                         <div class="row">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Email</h6>
@@ -105,7 +116,6 @@
                                 Bay Area, San Francisco, CA
                             </div>
                         </div>
-                        <hr>
                         <div class="row">
                             {% if user.id == app.user.id %}
                                 <div class="col-sm-12">
