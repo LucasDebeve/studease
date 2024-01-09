@@ -53,7 +53,7 @@ final class InsertionProfessionnelleFactory extends ModelFactory
             'duree' => self::faker()->randomNumber(),
             'titre' => self::faker()->text(5000),
             'typePro' => self::faker()->numberBetween(1, 2),
-            'revenus' => self::faker()->randomFloat(2, 100, 100000),
+            'revenus' => self::faker()->numberBetween(0, 63),
         ];
     }
 

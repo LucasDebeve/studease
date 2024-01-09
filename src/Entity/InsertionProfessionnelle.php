@@ -47,6 +47,9 @@ class InsertionProfessionnelle
     #[ORM\OneToMany(mappedBy: 'insertion_professionnelle', targetEntity: Candidature::class, orphanRemoval: true)]
     private Collection $candidatures;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $revenu = null;
+
     public function __construct()
     {
         $this->candidatures = new ArrayCollection();
@@ -191,6 +194,18 @@ class InsertionProfessionnelle
                 $candidature->setInsertionProfessionnelle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRevenu(): ?int
+    {
+        return $this->revenu;
+    }
+
+    public function setRevenu(?int $revenu): static
+    {
+        $this->revenu = $revenu;
 
         return $this;
     }
