@@ -34,12 +34,6 @@ form.row>.col>label{
     height: 0;
 }
 
-.typepro_stage{
-    border: 2px solid #00ac8c;
-}
-.typepro_alternance{
-    border: 2px solid #ac008c;
-}
 .row.justify-content-around>*{
     display: flex;
     align-items: center;
