@@ -125,6 +125,15 @@ class InsertionsProfessionnellesController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $insertion = $form->getData();
+
+            $dateDeb = $form->get('dateDeb')->getData();
+            $dateFin = $form->get('dateDeb')->getData();
+
+            if ($dateFin && $dateDeb) {
+                $duree = $form->get('duree')->getData();
+                $insertion->setDuree((int) $duree);
+            }
+
             $insertion = $entityManager->getRepository(InsertionProfessionnelle::class)->find($insertion->getId());
 
             if (!$insertion) {
@@ -132,6 +141,8 @@ class InsertionsProfessionnellesController extends AbstractController
             }
 
             $entityManager->flush();
+
+            $this->addFlash('success', 'Modification apportée');
 
             return $this->redirectToRoute('app_detail_insertions_professionnelles', ['id' => $insertion->getId()]);
         }
@@ -151,8 +162,19 @@ class InsertionsProfessionnellesController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $insertion = $form->getData();
+
+            $dateDeb = $form->get('dateDeb')->getData();
+            $dateFin = $form->get('dateDeb')->getData();
+
+            if ($dateFin && $dateDeb) {
+                $duree = $form->get('duree')->getData();
+                $insertion->setDuree((int) $duree);
+            }
+
             $entityManager->persist($insertion);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Modification apportée');
 
             return $this->redirectToRoute('app_detail_insertions_professionnelles', ['id' => $insertion->getId()]);
         }
