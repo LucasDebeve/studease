@@ -8,7 +8,7 @@
 
 {% block body %}
     <div class="container insertions">
-        <form class="row" action="#" method="post">
+        <form class="row" action="{{ path('app_insertions_professionnelles') }}" method="post">
             <div class="col intitule_insertion">
                 <label for="intitule"></label>
                 <input type="text" id="intitule" name="intitule" placeholder="Intitulé" class="input intitule_insertion">
