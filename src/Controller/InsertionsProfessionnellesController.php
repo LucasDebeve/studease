@@ -20,8 +20,21 @@ class InsertionsProfessionnellesController extends AbstractController
     #[Route('/insertions', name: 'app_insertions_professionnelles')]
     public function index(Request $request, InsertionProfessionnelleRepository $repository): Response
     {
-        $insertions = $repository->search();
-        return $this->render('insertions_professionnelles/index.html.twig', ['insertions' => $insertions]);
+        $filters = $request->request->all();
+        if ([] == $filters) {
+            $filters['intitule'] = '';
+            $filters['type_contrat'] = '';
+            $filters['duree'] = '';
+            $filters['order_by'] = '';
+        } else {
+            if ('' != $filters['duree']) {
+                $temp = intval($filters['duree']);
+                $filters['duree'] = "$temp";
+            }
+        }
+        $insertions = $repository->search($filters);
+        dump($insertions);
+        return $this->render('insertions_professionnelles/index.html.twig', ['insertions' => $insertions, 'filters' => $filters]);
     }
 
     #[Route('/insertions/{id}', name: 'app_detail_insertions_professionnelles')]
