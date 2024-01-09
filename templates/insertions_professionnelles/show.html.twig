@@ -42,19 +42,19 @@
             <div class="d-flex flex-column shadow p-3 w-100">
                 <div class="d-flex p-3 gap-4">
                     <img class="rounded-circle" height="150px"
-                         src="{{ insertion.company.displayAvatar|default(asset('img/default_profile.jpg')) }}"
-                         alt="{{ insertion.company.name }}">
+                         src="{{ insertion.localisation.entreprise.displayAvatar|default(asset('img/default_profile.jpg')) }}"
+                         alt="{{ insertion.localisation.entreprise.name }}">
                     <div class="flex-grow-1">
                         <h2>
-                            <a href="{{ path('app_profile', {id: insertion.company.id}) }}">{{ insertion.company.name }}</a>
+                            <a href="{{ path('app_profile', {id: insertion.localisation.entreprise.id}) }}">{{ insertion.localisation.entreprise.name }}</a>
                         </h2>
-                        <p>{{ insertion.company.descriptionEntreprise }}</p>
+                        <p>{{ insertion.localisation.entreprise.descriptionEntreprise }}</p>
                     </div>
                 </div>
                 <div class="d-flex flex-column">
                     <p>
-                        <strong>Adresse :</strong> {{ insertion.company.localisations.0.adresse }}
-                        , {{ insertion.company.localisations.0.code_postal }} {{ insertion.company.localisations.0.ville }}
+                        <strong>Adresse :</strong> {{ insertion.localisation.adresse }}
+                        , {{ insertion.localisation.code_postal }} {{ insertion.localisation.ville }}
                     </p>
                     <div id="map" style="height: 400px">
                     </div>
@@ -71,14 +71,14 @@
     <script type="text/javascript">
 
         const map = new L.Map('map', {
-                center: new L.LatLng({{ insertion.company.localisations.0.latitude }},{{ insertion.company.localisations.0.longitude }}),
+            center: new L.LatLng({{ insertion.localisation.latitude }},{{ insertion.localisation.longitude }}),
                 zoom: 9,
                 maxZoom: 18
             }
         );
         const osm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
 
-        let marker = L.marker([ {{ insertion.company.localisations.0.latitude }},{{ insertion.company.localisations.0.longitude }}]).addTo(map);
+        let marker = L.marker([ {{ insertion.localisation.latitude }},{{ insertion.localisation.longitude }}]).addTo(map);
 
         map.addLayer(osm);
 

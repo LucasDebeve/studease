@@ -31,7 +31,9 @@ class InsertionProfessionnelleRepository extends ServiceEntityRepository
     {
         $parameters = new ArrayCollection([]);
         $qb = $this->createQueryBuilder('insertion')
-            ->leftJoin('insertion.company', 'company')
+            ->leftJoin('insertion.localisation', 'localisation')
+            ->leftJoin('localisation.entreprise', 'company')
+            ->addSelect('localisation')
             ->addSelect('company');
         if ('' != $filters['intitule']) {
             $qb->andWhere($qb->expr()->like('insertion.titre', ':intitule'));
@@ -68,10 +70,10 @@ class InsertionProfessionnelleRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('insertion');
         $qb->select('insertion')
-            ->leftJoin('insertion.company', 'company')
-            ->leftJoin('company.localisations', 'localisations')
+            ->leftJoin('insertion.localisation', 'localisation')
+            ->leftJoin('localisation.entreprise', 'company')
             ->addSelect('company')
-            ->addSelect('localisations')
+            ->addSelect('localisation')
             ->andWhere('insertion.id = :id')
             ->setParameter('id', $id);
 
@@ -87,7 +89,9 @@ class InsertionProfessionnelleRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('insertion');
         $qb->select('insertion')
-            ->leftJoin('insertion.company', 'company')
+            ->leftJoin('insertion.localisation', 'localisation')
+            ->leftJoin('localisation.entreprise', 'company')
+            ->addSelect('localisation')
             ->addSelect('company')
             ->andWhere('insertion.id != :id')
             ->setParameter('id', $id)

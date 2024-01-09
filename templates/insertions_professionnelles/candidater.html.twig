@@ -12,7 +12,7 @@
 
 {% block body %}
     {{ form_start(form, {'attr': {'class': 'd-flex flex-column gap-3 text-center p-4', 'style': 'height: 100vh'}} ) }}
-    <h1>Candidater chez {{ insertion.company.name }}</h1>
+    <h1>Candidater chez {{ insertion.localisation.entreprise.name }}</h1>
     <p>Vous êtes sur le point de candidater à l'offre {{ insertion.titre }}.</p>
     <div class="row flex-md-grow-1">
         <div class="col-md-2">
