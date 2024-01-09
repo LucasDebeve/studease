@@ -11,8 +11,14 @@ class InsertionsProfessionnellesFixtures extends Fixture implements DependentFix
 {
     public function load(ObjectManager $manager): void
     {
-        InsertionProfessionnelleFactory::createMany(50);
-        $manager->flush();
+        $formationNames = json_decode(file_get_contents(__DIR__.'/Data/insertions.json'), true)['stages'];
+        foreach ($formationNames as $formationName) {
+            InsertionProfessionnelleFactory::createOne(
+                [
+                    'titre' => $formationName['titre'],
+                ]
+            );
+        }
     }
 
     public function getDependencies(): array
