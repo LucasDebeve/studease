@@ -51,8 +51,13 @@
                         <p>{{ insertion.company.descriptionEntreprise }}</p>
                     </div>
                 </div>
-                <div id="map" style="height: 400px">
-
+                <div class="d-flex flex-column">
+                    <p>
+                        <strong>Adresse :</strong> {{ insertion.company.localisations.0.adresse }}
+                        , {{ insertion.company.localisations.0.code_postal }} {{ insertion.company.localisations.0.ville }}
+                    </p>
+                    <div id="map" style="height: 400px">
+                    </div>
                 </div>
             </div>
         </div>
