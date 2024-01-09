@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: InsertionProfessionnelleRepository::class)]
 class InsertionProfessionnelle
@@ -16,27 +17,39 @@ class InsertionProfessionnelle
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateDeb = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateFin = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $descInsPro = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 1)]
     #[ORM\Column(nullable: true)]
     private ?bool $teletravail = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 5000)]
     #[ORM\Column(length: 5000)]
     private ?string $titre = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(nullable: true)]
     private ?float $revenus = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 6)]
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $typePro = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 11)]
     #[ORM\Column]
     private ?int $duree = null;
 
