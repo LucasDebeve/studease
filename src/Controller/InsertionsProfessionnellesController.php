@@ -11,6 +11,7 @@ use App\Repository\InsertionProfessionnelleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,6 +36,7 @@ class InsertionsProfessionnellesController extends AbstractController
         }
         $insertions = $repository->search($filters);
         dump($insertions);
+
         return $this->render('insertions_professionnelles/index.html.twig', ['insertions' => $insertions, 'filters' => $filters]);
     }
 
@@ -149,5 +151,32 @@ class InsertionsProfessionnellesController extends AbstractController
         return $this->render('insertions_professionnelles/create.html.twig', [
             'insertion' => $insertion,
             'form' => $form]);
+    }
+
+    #[Route('/insertions/{id}/delete', name: 'app_delete_insertions_pro', requirements: ['id' => '\d+'])]
+    public function delete(Request $request, EntityManagerInterface $entityManager, InsertionProfessionnelle $insertion): Response
+    {
+        $form = $this->createFormBuilder($insertion)
+            ->add('delete', SubmitType::class, ['label' => 'Supprimer'])
+            ->add('cancel', SubmitType::class, ['label' => 'Annuler'])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if ($form->get('delete')->isClicked()) {
+                $entityManager->remove($insertion);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_insertions_professionnelles');
+            }
+
+            return $this->redirectToRoute('app_detail_insertions_professionnelles', ['id' => $insertion->getId()]);
+        }
+
+        return $this->render('insertions_professionnelles/delete.html.twig', [
+            'insertion' => $insertion,
+            'form' => $form->createView(),
+        ]);
     }
 }
