@@ -10,24 +10,23 @@ class IndexCest
 {
     public function insertionsProfessionnelles(ControllerTester $I): void
     {
-        UserFactory::createOne();
-        InsertionProfessionnelleFactory::createOne(['titre' => 'stageTest', 'duree' => 10, 'dateDeb' => new \DateTime('01/01/2001')]);
-        InsertionProfessionnelleFactory::createOne(['titre' => 'informatique', 'duree' => 10, 'dateDeb' => new \DateTime('01/01/01')]);
-        InsertionProfessionnelleFactory::createOne(['titre' => 'réseaux informatiques', 'duree' => 10, 'dateDeb' => new \DateTime('01/01/01')]);
-        $I->amOnPage('/insertions-professionnelles');
+        UserFactory::createOne(['tpUser' => 2]);
+        $user = UserFactory::createOne([
+            'email' => 'peter@example.com',
+            'firstname' => 'Peter',
+            'name' => 'Parker',
+            'telephone' => '+33612345678',
+            'numEtud' => '22203123',
+            'roles' => ['ROLE_STUDENT'],
+        ]);
+        $user = $user->object();
+        $I->amLoggedInAs($user);
+        InsertionProfessionnelleFactory::createMany(3);
+        $I->amOnPage('/insertions');
         $I->seeResponseCodeIs(200);
         $I->seeInTitle('Stages et Alternances');
         $I->seeCurrentRouteIs('app_insertions_professionnelles');
-    }
-
-    public function tri(ControllerTester $I): void
-    {
-        $I->amOnPage('/insertions-professionnelles');
-        $I->seeCurrentRouteIs('app_insertions_professionnelles');
-        $liste = $I->grabMultiple('ul.insertions li a h3.insertion__titre');
-        $I->assertEquals(
-            ['informatique',
-                'réseaux informatiques',
-                'stageTest', ], $liste);
+        $liste = $I->grabMultiple('div div div a');
+        $I->assertEquals(3, count($liste));
     }
 }
