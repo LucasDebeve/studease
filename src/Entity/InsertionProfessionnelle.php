@@ -47,6 +47,10 @@ class InsertionProfessionnelle
     #[ORM\OneToMany(mappedBy: 'insertion_professionnelle', targetEntity: Candidature::class, orphanRemoval: true)]
     private Collection $candidatures;
 
+    #[ORM\ManyToOne(inversedBy: 'insertionProfessionnelles')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Localisation $localisation = null;
+
     public function __construct()
     {
         $this->candidatures = new ArrayCollection();
@@ -191,6 +195,18 @@ class InsertionProfessionnelle
                 $candidature->setInsertionProfessionnelle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLocalisation(): ?Localisation
+    {
+        return $this->localisation;
+    }
+
+    public function setLocalisation(?Localisation $localisation): static
+    {
+        $this->localisation = $localisation;
 
         return $this;
     }
