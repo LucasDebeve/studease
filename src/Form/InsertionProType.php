@@ -49,6 +49,7 @@ class InsertionProType extends AbstractType
             ->add('company', EntityType::class, [
                 'class' => 'App\Entity\User',
                 'choice_label' => 'name',
+                'disabled' => true,
             ]);
     }
 

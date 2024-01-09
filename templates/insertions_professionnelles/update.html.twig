@@ -6,6 +6,7 @@
     <h1>{{ titre }}</h1>
     {{ include('insertions_professionnelles/_form.html.twig', {
         submit_label: 'Modifier',
+        current: current,
         form: form,
         disableTypePro: true,
         disableCompany: true
