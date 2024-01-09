@@ -21,7 +21,6 @@ class InsertionsProfessionnellesController extends AbstractController
     public function index(Request $request, InsertionProfessionnelleRepository $repository): Response
     {
         $insertions = $repository->search();
-        dump($insertions);
         return $this->render('insertions_professionnelles/index.html.twig', ['insertions' => $insertions]);
     }
 
