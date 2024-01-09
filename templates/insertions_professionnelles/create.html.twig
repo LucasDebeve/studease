@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
 {% set titre = "Création d'une nouvelle insertions professionnelles" %}
 {% block title %}{{ titre }}{% endblock %}
 
 {% block body %}
     <h1>{{ titre }}</h1>
-    {{ include('insertions_professionnelles/_form.html.twig', {submit_label: 'Ajouter', form: form}, with_context = false) }}
+    {{ include('insertions_professionnelles/_form.html.twig', {submit_label: 'Ajouter', form: form, current: current}, with_context = false) }}
 {% endblock %}
 
 
