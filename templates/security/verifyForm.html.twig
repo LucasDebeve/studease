@@ -156,19 +156,8 @@
             </div>
         </div>
     </div>
-    <ul>
-        <li>Nom : {{ user.name }}</li>
-        <li>Prénom : {{ user.firstname }}</li>
-        <li>Email : {{ user.email }}</li>
-        <li>Numéro de Téléphone : {{ user.telephone }}</li>
-        <li>Numéro Etudiant : {{ user.numEtud }}</li>
-        <li>Numéro de Siret : {{ user.numSiret }}</li>
-        <li>Description Entreprise : {{ user.descriptionEntreprise }}</li>
-    </ul>
     {{ form_start(form, {'attr': {'class': 'd-flex'}}) }}
         {{ form_row(form.confirm, {'label': 'Confirmer', 'attr': {'class': 'btn btn-primary'}}) }}
         {{ form_row(form.deny, {'label': 'Refuser', 'attr': {'class': 'btn btn-secondary'}}) }}
     {{ form_end(form) }}
-
-
 {% endblock %}
