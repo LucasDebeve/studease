@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Ecole;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CountryField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -26,5 +27,14 @@ class EcoleCrudController extends AbstractCrudController
             TextField::new('ville'),
             CountryField::new('pays'),
         ];
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('nom')
+            ->add('cp')
+            ->add('ville')
+            ->add('pays');
     }
 }

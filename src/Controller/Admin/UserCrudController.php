@@ -141,11 +141,11 @@ class UserCrudController extends AbstractCrudController
         return $filters
             ->add('email')
             ->add(
-                ChoiceFilter::new('roles')
+                ChoiceFilter::new('tpUser', 'Type d\'utilisateur')
                 ->setChoices([
-                    'Administrateur' => 'ROLE_ADMIN',
-                    'Etudiant' => 'ROLE_STUDENT',
-                    'Entreprise' => 'ROLE_COMPANY',
+                    'Administrateur' => 0,
+                    'Etudiant' => 1,
+                    'Entreprise' => 2,
                 ])
             )
             ->add('name')
