@@ -25,16 +25,18 @@
 {% block body %}
     <div class="container-lg d-flex flex-column shadow my-5 gap-3 p-3">
         <h1 class="text-center">{{ insertion.titre }}</h1>
-        <div class="d-flex p-3 gap-3">
-            <div class="d-flex flex-column">
-                <p>Type de contrat : {{ insertion.typePro == 1 ? 'Stage' : 'Alternance' }}</p>
-                <p>Durée : {{ insertion.duree }} jours</p>
-                <p>Description : </p>
-                <p>{{ insertion.descInsPro }}</p>
+        <div class="d-flex flex-column flex-lg-row gap-3">
+            <div class="d-flex flex-column w-50">
+                <p><strong>Type de contrat : </strong><span
+                            style="color: {{ insertion.typePro == 1 ? '#00ac8c' : '#ac008c' }}">{{ insertion.typePro == 1 ? 'Stage' : 'Alternance' }}</span>
+                </p>
+                <p><strong>Durée :</strong> {{ insertion.duree }} jours</p>
+                <p><strong>Description :</strong></p>
+                <p class="flex-grow-1">{{ insertion.descInsPro }}</p>
                 <a class="btn btn-primary rounded-0"
                    href="{{ path('app_candidater', {id: insertion.id} ) }}">Candidater</a>
             </div>
-            <div class="d-flex flex-column shadow p-3">
+            <div class="d-flex flex-column shadow p-3 w-50">
                 <div class="d-flex p-3 gap-4">
                     <img class="rounded-circle" height="150px"
                          src="{{ insertion.company.displayAvatar|default(asset('img/default_profile.jpg')) }}"
@@ -52,7 +54,7 @@
             </div>
         </div>
         <h2>Recommandations</h2>
-        <div class="row">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4">
             {% for recommandation in recommandations %}
                 {{ include('insertions_professionnelles/_result.html.twig', {insertion: recommandation}) }}
             {% endfor %}
