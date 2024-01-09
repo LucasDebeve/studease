@@ -46,23 +46,29 @@ class InsertionsProfessionnellesController extends AbstractController
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
         $company = $this->getUser();
+
         $insertion = new InsertionProfessionnelle();
         $insertion->setCompany($company);
+
         $form = $this->createForm(InsertionProType::class, $insertion);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $insertion = $form->getData();
 
             $dateDeb = $form->get('dateDeb')->getData();
-            $dateFin = $form->get('dateDeb')->getData();
+            $dateFin = $form->get('dateFin')->getData();
 
             if ($dateFin && $dateDeb) {
                 if (is_string($dateDeb) && is_string($dateFin)) {
-                    $dateDeb = new \DateTime($dateDeb);
-                    $dateFin = new \DateTime($dateFin);
+                    $dateA = new \DateTime($dateDeb);
+                    $dateB = new \DateTime($dateFin);
+                    $duree = $dateA->diff($dateB)->days;
+                    $insertion->setDuree((int) $duree);
+                } else {
+                    $duree = $dateDeb->diff($dateFin)->days;
+                    $insertion->setDuree((int) $duree);
                 }
-                $duree = $dateDeb->diff($dateFin)->days;
-                $insertion->setDuree((int) $duree);
             }
 
             $entityManager->persist($insertion);
@@ -164,6 +170,7 @@ class InsertionsProfessionnellesController extends AbstractController
     {
         $company = $this->getUser();
         $insertion->setCompany($company);
+
         $form = $this->createForm(InsertionProType::class, $insertion);
 
         $form->handleRequest($request);
@@ -171,15 +178,18 @@ class InsertionsProfessionnellesController extends AbstractController
             $insertion = $form->getData();
 
             $dateDeb = $form->get('dateDeb')->getData();
-            $dateFin = $form->get('dateDeb')->getData();
+            $dateFin = $form->get('dateFin')->getData();
 
             if ($dateFin && $dateDeb) {
                 if (is_string($dateDeb) && is_string($dateFin)) {
-                    $dateDeb = new \DateTime($dateDeb);
-                    $dateFin = new \DateTime($dateFin);
+                    $dateA = new \DateTime($dateDeb);
+                    $dateB = new \DateTime($dateFin);
+                    $duree = $dateA->diff($dateB)->days;
+                    $insertion->setDuree((int) $duree);
+                } else {
+                    $duree = $dateDeb->diff($dateFin)->days;
+                    $insertion->setDuree((int) $duree);
                 }
-                $duree = $dateDeb->diff($dateFin)->days;
-                $insertion->setDuree((int) $duree);
             }
 
             $insertion = $entityManager->getRepository(InsertionProfessionnelle::class)->find($insertion->getId());
