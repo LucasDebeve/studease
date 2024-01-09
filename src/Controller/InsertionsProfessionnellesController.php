@@ -116,11 +116,22 @@ class InsertionsProfessionnellesController extends AbstractController
     }
 
     #[Route('/insertions/{id}/update', name: 'app_update_insertions_pro', requirements: ['id' => '\d+'])]
-    public function update(InsertionProfessionnelle $insertion): Response
+    public function update(Request $request, EntityManagerInterface $entityManager, InsertionProfessionnelle $insertion): Response
     {
         $company = $this->getUser();
         $form = $this->createForm(InsertionProType::class, $insertion);
 
+        $form->handleRequest($request);
+        if ($form->isValid() && $form->isSubmitted()) {
+            $insertion = $form->getData();
+            $insertion = $entityManager->getRepository(InsertionProfessionnelle::class)->find($insertion->getId());
+
+            if (!$insertion) {
+                throw $this->createNotFoundException('No insertion found for id'.$insertion->getId());
+            }
+            $entityManager->flush();
+            return $this->redirectToRoute('app_detail_insertions_professionnelles', ['id' => $insertion->getId()]);
+        }
         return $this->render('insertions_professionnelles/update.html.twig', [
             'insertion' => $insertion,
             'form' => $form,
