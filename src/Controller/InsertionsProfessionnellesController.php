@@ -47,6 +47,7 @@ class InsertionsProfessionnellesController extends AbstractController
     {
         $company = $this->getUser();
         $insertion = new InsertionProfessionnelle();
+        $insertion->setCompany($company);
         $form = $this->createForm(InsertionProType::class, $insertion);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -162,6 +163,7 @@ class InsertionsProfessionnellesController extends AbstractController
     public function update(Request $request, EntityManagerInterface $entityManager, InsertionProfessionnelle $insertion): Response
     {
         $company = $this->getUser();
+        $insertion->setCompany($company);
         $form = $this->createForm(InsertionProType::class, $insertion);
 
         $form->handleRequest($request);
