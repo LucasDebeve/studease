@@ -105,7 +105,7 @@ class InsertionsProfessionnellesController extends AbstractController
     }
 
     #[Route('/insertions/{id}/update', name: 'app_update_insertions_pro', requirements: ['id' => '\d+'])]
-    public function update(InsertionProfessionnelle $insertion)
+    public function update(InsertionProfessionnelle $insertion): Response
     {
         $form = $this->createForm(InsertionProType::class, $insertion);
         return $this->render('insertions_professionnelles/update.html.twig', [
@@ -114,7 +114,7 @@ class InsertionsProfessionnellesController extends AbstractController
     }
 
     #[Route('/insertions/create', name: 'app_create_insertions_pro')]
-    public function create()
+    public function create(): Response
     {
         return $this->render('insertions_professionnelles/create.html.twig', [
             'insertion' => $insertion,
