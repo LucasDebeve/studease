@@ -303,16 +303,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeInsertionsProfessionnelle(InsertionProfessionnelle $insertionsProfessionnelle): static
-    {
-        if ($this->insertions_professionnelles->removeElement($insertionsProfessionnelle)) {
-            // set the owning side to null (unless already changed)
-            if ($insertionsProfessionnelle->getCompany() === $this) {
-                $insertionsProfessionnelle->setCompany(null);
-            }
-        }
-    }
-
     public function removeLocalisation(Localisation $localisation): static
     {
         if ($this->localisations->removeElement($localisation)) {

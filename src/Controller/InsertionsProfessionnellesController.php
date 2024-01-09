@@ -33,6 +33,7 @@ class InsertionsProfessionnellesController extends AbstractController
             }
         }
         $insertions = $repository->search($filters);
+
         return $this->render('insertions_professionnelles/index.html.twig', ['insertions' => $insertions, 'filters' => $filters]);
     }
 
