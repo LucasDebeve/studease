@@ -11,7 +11,12 @@
         <form class="row" action="{{ path('app_insertions_professionnelles') }}" method="post">
             <div class="col intitule_insertion">
                 <label for="intitule"></label>
-                <input type="text" id="intitule" name="intitule" placeholder="Intitulé" class="input intitule_insertion">
+                {% if filters.intitule=='' %}
+                    {% set intitule = "Intitulé" %}
+                {% else %}
+                    {% set intitule = filters.intitule %}
+                {% endif %}
+                <input type="text" id="intitule" name="intitule" placeholder="{{ intitule }}" {% if filters.intitule!='' %}value="{{ intitule }}"{% endif %} class="input intitule_insertion">
             </div>
             <div class="col type_contrat_insertion">
                 <label for="type_contrat"></label>
