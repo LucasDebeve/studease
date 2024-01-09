@@ -50,6 +50,8 @@ class InsertionProType extends AbstractType
             ])
             ->add('duree', IntegerType::class, [
                 'required' => false,
+                'empty_data' => ' ',
+                'mapped' => false,
             ])
             ->add('company', EntityType::class, [
                 'class' => 'App\Entity\User',
