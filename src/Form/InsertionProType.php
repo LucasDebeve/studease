@@ -24,24 +24,24 @@ class InsertionProType extends AbstractType
         $builder
             ->add('dateDeb', DateType::class, [
                 'required' => false,
-                'empty_data' => ' ',
             ])
             ->add('dateFin', DateType::class, [
-                'empty_data' => ' ',
                 'required' => false,
             ])
             ->add('descInsPro', TextareaType::class, [
+                'required' => false,
                 'empty_data' => ' ',
             ])
             ->add('teletravail', CheckboxType::class, [
                 'required' => false,
             ])
             ->add('titre', TextType::class, [
+                'required' => false,
                 'empty_data' => ' ',
             ])
             ->add('revenus', MoneyType::class, [
-                'empty_data' => ' ',
-                'currency' => 'EUR',
+                'required' => false,
+                'currency' => '€/jour ouvrés',
             ])
             ->add('typePro', ChoiceType::class, [
                 'choices' => [
@@ -51,7 +51,6 @@ class InsertionProType extends AbstractType
             ])
             ->add('duree', IntegerType::class, [
                 'required' => false,
-                'empty_data' => ' ',
             ])
             ->add('company', EntityType::class, [
                 'class' => 'App\Entity\User',
