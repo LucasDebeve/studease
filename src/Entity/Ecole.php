@@ -107,6 +107,7 @@ class Ecole
     public function inThisVille(string $ville): bool
     {
         $ville = strtolower($ville);
+
         return strtolower($this->ville) === $ville;
     }
 
