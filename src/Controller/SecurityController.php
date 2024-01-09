@@ -96,6 +96,7 @@ class SecurityController extends AbstractController
                         $new_filename
                     );
                 } catch (FileException $e) {
+                    $this->addFlash('error', 'Une erreur est survenue lors de l\'upload de l\'avatar');
                 }
 
                 $user->setAvatar(file_get_contents($this->getParameter('avatar_directory').'/'.$new_filename));

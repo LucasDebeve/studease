@@ -48,9 +48,9 @@ final class EcoleFactory extends ModelFactory
     {
         return [
             'nom' => self::faker()->word(),
-            'adresse' => self::faker()->address(),
+            'adresse' => self::faker()->streetAddress(),
             'cp' => self::faker()->randomNumber(5, true),
-            'pays' => self::faker()->country(),
+            'pays' => self::faker()->countryCode(),
             'ville' => self::faker()->city(),
         ];
     }
