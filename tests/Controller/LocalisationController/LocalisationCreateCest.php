@@ -25,4 +25,13 @@ class LocalisationCreateCest
         $I->amOnPage('/localisation/create');
         $I->seeCurrentUrlEquals('/login');
     }
+
+    public function accessIsRestrictedToCompanies(ControllerTester $I): void
+    {
+        $user = UserFactory::createOne(['roles' => ['ROLE_STUDENT']]);
+        $user = $user->object();
+        $I->amLoggedInAs($user);
+        $I->amOnPage('/localisation/create');
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+    }
 }
