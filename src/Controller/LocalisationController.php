@@ -7,6 +7,7 @@ use App\Form\LocalisationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -73,5 +74,35 @@ class LocalisationController extends AbstractController
         return $this->render('localisation/update.html.twig', ['localisation' => $id, 'form' => $form]);
     }
 
+    #[Route('/localisation/{id}/delete', name: 'app_localisation_delete')]
+    #[IsGranted('ROLE_COMPANY')]
+    public function delete(Request $request, Localisation $id, EntityManagerInterface $entityManager)
+    {
+        if ($id->getEntreprise() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
 
+        $form = $this->createFormBuilder($id)
+            ->add('delete', SubmitType::class)
+            ->add('cancel', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('delete')->isClicked()) {
+                $entityManager->remove($id);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Localisation supprimée.');
+
+                return $this->redirectToRoute('app_user_profile');
+            } else {
+                $this->addFlash('danger', 'Annulation de la supression.');
+
+                return $this->redirectToRoute('app_localisation_insertions', ['id' => $id->getId()]);
+            }
+        }
+
+        return $this->render('localisation/delete.html.twig', ['localisation' => $id, 'form' => $form]);
+    }
 }
