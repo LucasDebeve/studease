@@ -4,13 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Candidature;
 use App\Entity\InsertionProfessionnelle;
+use App\Entity\User;
 use App\Form\CandidatureType;
 use App\Form\InsertionProType;
 use App\Repository\CandidatureRepository;
 use App\Repository\InsertionProfessionnelleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use MongoDB\Driver\Exception\AuthenticationException;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,12 +24,90 @@ class InsertionsProfessionnellesController extends AbstractController
     #[Route('/insertions', name: 'app_insertions_professionnelles')]
     public function index(Request $request, InsertionProfessionnelleRepository $repository): Response
     {
-        $insertions = $repository->search();
-        return $this->render('insertions_professionnelles/index.html.twig', ['insertions' => $insertions]);
+        $filters = $request->request->all();
+        if ([] == $filters) {
+            $filters['intitule'] = '';
+            $filters['type_contrat'] = '';
+            $filters['duree'] = '';
+            $filters['order_by'] = '';
+        } else {
+            if ('' != $filters['duree']) {
+                $temp = intval($filters['duree']);
+                $filters['duree'] = "$temp";
+            }
+        }
+        $insertions = $repository->search($filters);
+        dump($insertions);
+
+        return $this->render('insertions_professionnelles/index.html.twig', ['insertions' => $insertions, 'filters' => $filters]);
+    }
+
+    #[Route('insertions/list', name: 'app_list_insertions_pro')]
+    public function listInsertionsPro(EntityManagerInterface $entityManager): Response
+    {
+        $company = $this->getUser();
+
+        if (!$company instanceof User) {
+            throw new AuthenticationException('User is not authenticated.');
+        }
+
+        $insertions = $entityManager->getRepository(InsertionProfessionnelle::class)->findBy(['company' => $company->getId()]);
+
+        return $this->render('insertions_professionnelles/list.html.twig', [
+            'insertions' => $insertions,
+            'current' => $company,
+        ]);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    #[Route('/insertions/create', name: 'app_create_insertions_pro')]
+    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $company = $this->getUser();
+
+        $insertion = new InsertionProfessionnelle();
+        $insertion->setCompany($company);
+
+        $form = $this->createForm(InsertionProType::class, $insertion);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $insertion = $form->getData();
+
+            $dateDeb = $form->get('dateDeb')->getData();
+            $dateFin = $form->get('dateFin')->getData();
+
+            if ($dateFin && $dateDeb) {
+                if (is_string($dateDeb) && is_string($dateFin)) {
+                    $dateA = new \DateTime($dateDeb);
+                    $dateB = new \DateTime($dateFin);
+                    $duree = $dateA->diff($dateB)->days;
+                    $insertion->setDuree((int) $duree);
+                } else {
+                    $duree = $dateDeb->diff($dateFin)->days;
+                    $insertion->setDuree((int) $duree);
+                }
+            }
+
+            $entityManager->persist($insertion);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Modification apportée');
+
+            return $this->redirectToRoute('app_detail_insertions_professionnelles', ['id' => $insertion->getId()]);
+        }
+
+        return $this->render('insertions_professionnelles/create.html.twig', [
+            'insertion' => $insertion,
+            'current' => $company,
+            'form' => $form]);
     }
 
     #[Route('/insertions/{id}', name: 'app_detail_insertions_professionnelles')]
-    public function show(InsertionProfessionnelle $insertion): Response
+    public function show(
+        InsertionProfessionnelle $insertion): Response
     {
         return $this->render('insertions_professionnelles/show.html.twig', ['insertion' => $insertion]);
     }
@@ -91,20 +172,80 @@ class InsertionsProfessionnellesController extends AbstractController
         return $this->render('insertions_professionnelles/candidater.html.twig', ['insertion' => $insertion, 'form' => $form]);
     }
 
+    /**
+     * @throws \Exception
+     */
     #[Route('/insertions/{id}/update', name: 'app_update_insertions_pro', requirements: ['id' => '\d+'])]
-    public function update(InsertionProfessionnelle $insertion): Response
+    public function update(Request $request, EntityManagerInterface $entityManager, InsertionProfessionnelle $insertion): Response
     {
+        $company = $this->getUser();
+        $insertion->setCompany($company);
+
         $form = $this->createForm(InsertionProType::class, $insertion);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $insertion = $form->getData();
+
+            $dateDeb = $form->get('dateDeb')->getData();
+            $dateFin = $form->get('dateFin')->getData();
+
+            if ($dateFin && $dateDeb) {
+                if (is_string($dateDeb) && is_string($dateFin)) {
+                    $dateA = new \DateTime($dateDeb);
+                    $dateB = new \DateTime($dateFin);
+                    $duree = $dateA->diff($dateB)->days;
+                    $insertion->setDuree((int) $duree);
+                } else {
+                    $duree = $dateDeb->diff($dateFin)->days;
+                    $insertion->setDuree((int) $duree);
+                }
+            }
+
+            $insertion = $entityManager->getRepository(InsertionProfessionnelle::class)->find($insertion->getId());
+
+            if (!$insertion) {
+                throw $this->createNotFoundException('No insertion found for id'.$insertion->getId());
+            }
+
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Modification apportée');
+
+            return $this->redirectToRoute('app_detail_insertions_professionnelles', ['id' => $insertion->getId()]);
+        }
+
         return $this->render('insertions_professionnelles/update.html.twig', [
             'insertion' => $insertion,
-            'form' => $form]);
+            'form' => $form->createView(),
+            'current' => $company,
+        ]);
     }
 
-    #[Route('/insertions/create', name: 'app_create_insertions_pro')]
-    public function create(): Response
+    #[Route('/insertions/{id}/delete', name: 'app_delete_insertions_pro', requirements: ['id' => '\d+'])]
+    public function delete(Request $request, EntityManagerInterface $entityManager, InsertionProfessionnelle $insertion): Response
     {
-        return $this->render('insertions_professionnelles/create.html.twig', [
+        $form = $this->createFormBuilder($insertion)
+            ->add('delete', SubmitType::class, ['label' => 'Supprimer'])
+            ->add('cancel', SubmitType::class, ['label' => 'Annuler'])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if ($form->get('delete')->isClicked()) {
+                $entityManager->remove($insertion);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_insertions_professionnelles');
+            }
+
+            return $this->redirectToRoute('app_detail_insertions_professionnelles', ['id' => $insertion->getId()]);
+        }
+
+        return $this->render('insertions_professionnelles/delete.html.twig', [
             'insertion' => $insertion,
-            'form' => $form]);
+            'form' => $form->createView(),
+        ]);
     }
 }
