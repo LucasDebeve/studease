@@ -6,8 +6,8 @@
     {{ form_row(form.titre, {'label': 'Titre'}) }}
     {{ form_row(form.revenus, {'label': 'Revenus'}) }}
     {{ form_row(form.typePro, {'label': 'Type de Profession'}) }}
-    {{ form_row(form.duree, {'label': 'Durée', 'value': duree is not null ? duree : null}) }}
-    {{ form_row(form.localisation, {'label': 'Localisation', 'data' : current, 'attr': {'readonly': true}}) }}
+    {{ form_row(form.duree, {'label': 'Durée (en jours)', 'value': duree is not null ? duree : null}) }}
+    {{ form_row(form.localisation, {'label': 'Localisation', 'attr': {'readonly': true}}) }}
 <br>
-<button class="btn btn-primary w-100" type="submit">{{ submit_label }}</button>
+<button class="btn btn-primary w-100 rounded-0" type="submit">{{ submit_label }}</button>
 {{ form_end(form) }}
