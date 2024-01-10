@@ -153,7 +153,6 @@ class InsertionProfessionnelle
         return $this;
     }
 
-
     /**
      * @return Collection<int, Candidature>
      */

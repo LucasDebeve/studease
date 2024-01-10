@@ -122,8 +122,9 @@
                                     <h6 class="d-flex align-items-center mb-3 fw-bold">Localisations</h6>
                                     <ul>
                                         {% for localisation in user.localisations %}
-                                            <li>{{ localisation.adresse }}
-                                                , {{ localisation.codepostal }} {{ localisation.ville }}</li>
+                                            <li>
+                                                <a href="{{ path("app_localisation_insertions", {id: localisation.id}) }}">{{ localisation.adresse }}
+                                                    , {{ localisation.codepostal }} {{ localisation.ville }}</a></li>
                                         {% endfor %}
                                     </ul>
                                 {% endif %}
