@@ -40,6 +40,7 @@ class RegistrationController extends AbstractController
                 default:
                     $user->setRoles(['ROLE_USER']);
             }
+            $user->setIsVerified(false);
 
             $entityManager->persist($user);
             $entityManager->flush();
