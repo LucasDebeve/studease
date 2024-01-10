@@ -14,6 +14,30 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class LocalisationController extends AbstractController
 {
+    #[Route('/localisation/create', name: 'app_localisation_delete')]
+    #[IsGranted('ROLE_COMPANY')]
+    public function create(Request $request, EntityManagerInterface $entityManager)
+    {
+        $localisation = new Localisation();
+        $form = $this->createForm(LocalisationType::class, $localisation);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $localisation = $form->getData();
+
+            $localisation->setEntreprise($this->getUser());
+
+            $entityManager->persist($localisation);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_localisation_insertions', ['id' => $localisation->getId()]);
+        }
+
+        $this->addFlash('success', 'Localisation créée.');
+
+        return $this->render('localisation/create.html.twig', ['form' => $form]);
+    }
+
     #[Route('/localisation/{id}', name: 'app_localisation_insertions')]
     #[IsGranted('IS_AUTHENTICATED')]
     public function index(
@@ -26,8 +50,13 @@ class LocalisationController extends AbstractController
     }
 
     #[Route('/localisation/{id}/update', name: 'app_localisation_update')]
+    #[IsGranted('ROLE_COMPANY')]
     public function update(EntityManagerInterface $entityManager, Localisation $id, Request $request)
     {
+        if ($id->getEntreprise() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
+
         $form = $this->createForm(LocalisationType::class, $id);
 
         $form->handleRequest($request);
@@ -43,4 +72,6 @@ class LocalisationController extends AbstractController
 
         return $this->render('localisation/update.html.twig', ['localisation' => $id, 'form' => $form]);
     }
+
+
 }

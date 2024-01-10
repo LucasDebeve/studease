@@ -5,10 +5,8 @@ namespace App\Form;
 use App\Entity\Localisation;
 use App\Entity\User;
 use Doctrine\ORM\EntityRepository;
-use phpDocumentor\Reflection\PseudoTypes\IntegerRange;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -54,17 +52,6 @@ class LocalisationType extends AbstractType
             ])
             ->add('pays', CountryType::class, [
                 'empty_data' => '',
-                'attr' => [
-                    'class' => 'form-select',
-                ],
-            ])
-            ->add('entreprise', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'name',
-                'query_builder' => function (EntityRepository $entityRepository) {
-                    return $entityRepository->createQueryBuilder('u')
-                        ->orderBy('u.name', 'ASC');
-                },
                 'attr' => [
                     'class' => 'form-select',
                 ],
