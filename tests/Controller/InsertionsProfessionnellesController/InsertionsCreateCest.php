@@ -15,6 +15,8 @@ class InsertionsCreateCest
         $I->amLoggedInAs($user);
         $I->amOnPage('/insertions/create');
         $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeInTitle("Création d'une nouvelle insertion professionnelle");
+        $I->see("Création d'une nouvelle insertion professionnelle", 'h1');
     }
 
     public function accessIsRestrictedToAuthenticatedUsers(ControllerTester $I): void
