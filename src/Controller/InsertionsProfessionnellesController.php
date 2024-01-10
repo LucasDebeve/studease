@@ -42,23 +42,6 @@ class InsertionsProfessionnellesController extends AbstractController
         return $this->render('insertions_professionnelles/index.html.twig', ['insertions' => $insertions, 'filters' => $filters]);
     }
 
-    #[Route('insertions/list', name: 'app_list_insertions_pro')]
-    #[IsGranted('ROLE_COMPANY')]
-    public function listInsertionsPro(EntityManagerInterface $entityManager): Response
-    {
-        $company = $this->getUser();
-
-        if (!$company instanceof User) {
-            throw new AuthenticationException('User is not authenticated.');
-        }
-        $insertions = $entityManager->getRepository(InsertionProfessionnelle::class)->findByCompany($company->getId());
-
-        return $this->render('insertions_professionnelles/list.html.twig', [
-            'insertions' => $insertions,
-            'current' => $company,
-        ]);
-    }
-
     /**
      * @throws \Exception
      */

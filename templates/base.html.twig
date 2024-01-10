@@ -28,11 +28,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    {% if is_granted('ROLE_COMPANY') %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_list_insertions_pro') }}">Insertions</a>
-                        </li>
-                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_insertions_professionnelles') }}">Recherche</a>
                     </li>
