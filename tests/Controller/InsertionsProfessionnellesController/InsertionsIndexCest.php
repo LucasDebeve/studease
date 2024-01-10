@@ -8,12 +8,12 @@ use App\Factory\LocalisationFactory;
 use App\Factory\UserFactory;
 use App\Tests\Support\ControllerTester;
 
-class IndexCest
+class InsertionsIndexCest
 {
     public function insertionsProfessionnelles(ControllerTester $I): void
     {
-        UserFactory::createOne(['tpUser' => 2]);
-        LocalisationFactory::createOne();
+        $user = UserFactory::createOne(['tpUser' => 2, 'isVerified' => true, 'roles' => ['ROLE_COMPANY']]);
+        LocalisationFactory::createOne(['entreprise' => $user]);
         $user = UserFactory::createOne(['roles' => ['ROLE_STUDENT']]);
         $user = $user->object();
         $I->amLoggedInAs($user);
