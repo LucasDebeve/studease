@@ -6,11 +6,11 @@ use App\Factory\UserFactory;
 use App\Tests\Support\ControllerTester;
 use Codeception\Util\HttpCode;
 
-class CreateCest
+class InsertionsCreateCest
 {
     public function form(ControllerTester $I): void
     {
-        $user = UserFactory::createOne(['tpUser' => 2, 'isVerified' => true]);
+        $user = UserFactory::createOne(['tpUser' => 2, 'isVerified' => true, 'roles' => ['ROLE_COMPANY']]);
         $user = $user->object();
         $I->amLoggedInAs($user);
         $I->amOnPage('/insertions/create');
