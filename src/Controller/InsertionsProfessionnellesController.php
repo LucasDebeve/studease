@@ -15,7 +15,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class InsertionsProfessionnellesController extends AbstractController
@@ -238,7 +237,7 @@ class InsertionsProfessionnellesController extends AbstractController
     #[IsGranted('ROLE_COMPANY')]
     public function delete(Request $request, EntityManagerInterface $entityManager, InsertionProfessionnelle $insertion): Response
     {
-        if ($insertion->$insertion->getLocalisation()->getEntreprise() !== $this->getUser()) {
+        if ($insertion->getLocalisation()->getEntreprise() !== $this->getUser()) {
             $this->addFlash('danger', 'Vous n\'avez pas les droits pour modifier cette insertion professionnelle.');
 
             return $this->redirectToRoute('app_detail_insertions_professionnelles', ['id' => $insertion->getId()]);

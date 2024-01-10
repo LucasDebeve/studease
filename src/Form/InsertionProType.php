@@ -49,7 +49,6 @@ class InsertionProType extends AbstractType
             ])
             ->add('duree', IntegerType::class, [
                 'empty_data' => '',
-                'mapped' => false,
                 'required' => false,
             ])
             ->add('localisation', EntityType::class, [
@@ -57,7 +56,6 @@ class InsertionProType extends AbstractType
                 'choice_label' => function ($localisation) {
                     return $localisation->getEntreprise()->getName().' - '.$localisation->getAdresse().', '.$localisation->getCodePostal().' '.$localisation->getVille();
                 },
-                'mapped' => false,
             ]);
     }
 
