@@ -7,55 +7,81 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container insertions">
-        <div class="row">
-            <form class="stage_recherche" action="#" method="post">
-                <ul>
-                    <li class="input intitule_insertion">
-                        <label for="intitule"></label>
-                        <input type="text" id="intitule" name="intitule" placeholder="Intitulé" class="input intitule_insertion">
-                    </li>
-                    <li class="input type_contrat_insertion">
-                        <label for="type_contrat"></label>
-                        <select id="type_contrat" name="type_contrat" class="input type_contrat_insertion">
-                            <option value="" selected>Type de Contrat</option>
-                            <option value="stage">Stage</option>
-                            <option value="alternance">Alternance</option>
-                        </select>
-                    </li>
-                    <li class="input date_debut_insertion">
-                        <label for="date_debut_avant">Commence avant le : </label>
-                        <input type="date" id="date_debut_avant" name="date_debut_avant" class="input date_debut_avant_insertion">
-                        <label for="date_debut_apres">et après le : </label>
-                        <input type="date" id="date_debut_apres" name="date_debut_apres" class="input date_debut_apres_insertion">
-                    </li>
-                    <li class="input duree_insertion">
-                        <input type="number" id="duree" name="duree" class="input duree_insertion" placeholder="Duree du stage">
-                        <label for="duree" class="label duree_insertion"> en jours</label>
-                    </li>
-                </ul>
-            </form>
-        </div>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3">
+    <div class="container-lg d-flex flex-column p-4 my-4 gap-3 h-100 shadow">
+        <form class="row" action="#" method="post">
+            <div class="col intitule_insertion">
+                <label for="intitule"></label>
+                {% if filters.intitule=='' %}
+                    {% set intitule = "Intitulé" %}
+                {% else %}
+                    {% set intitule = filters.intitule %}
+                {% endif %}
+                <input type="text" id="intitule" name="intitule" placeholder="{{ intitule }}"
+                       {% if filters.intitule!='' %}value="{{ intitule }}"{% endif %} class="input intitule_insertion">
+            </div>
+            <div class="col type_contrat_insertion">
+                <label for="type_contrat"></label>
+                {% if filters.type_contrat=='stage' %}
+                    <select id="type_contrat" name="type_contrat" class="input type_contrat_insertion"
+                            style='color: #00ac8c'>
+                        <option value="" style='color: #000000'>Type de Contrat</option>
+                        <option style='color: #00ac8c' value="stage" selected>Stage</option>
+                        <option style='color: #ac008c' value="alternance">Alternance</option>
+                    </select>
+                {% elseif filters.type_contrat=='alternance' %}
+                    <select id="type_contrat" name="type_contrat" class="input type_contrat_insertion"
+                            style='color: #ac008c'>
+                        <option value="" style='color: #000000'>Type de Contrat</option>
+                        <option style='color: #00ac8c' value="stage" selected>Stage</option>
+                        <option style='color: #ac008c' value="alternance" selected>Alternance</option>
+                    </select>
+                {% else %}
+                    <select id="type_contrat" name="type_contrat" class="input type_contrat_insertion">
+                        <option value="" selected style='color: #000000'>Type de Contrat</option>
+                        <option style='color: #00ac8c' value="stage">Stage</option>
+                        <option style='color: #ac008c' value="alternance">Alternance</option>
+                    </select>
+                {% endif %}
+            </div>
+            <div class="col duree_insertion">
+                <input type="number" id="duree" name="duree" class="input duree_insertion"
+                       placeholder="{% if filters.duree=='' %}Duree du stage{% else %}{{ filters.duree }}"
+                       value="{{ filters.duree }}{% endif %}">
+                <label for="duree" class="label duree_insertion"></label>
+            </div>
+            <div class="col">
+                <label for="order_by"></label>
+                <select id="order_by" name="order_by" class="input type_contrat_insertion">
+                    {% if filters.order_by=='insertion' %}
+                        <option value="">Critère de tri</option>
+                        <option value="insertion" selected>Intitulé</option>
+                        <option value="company">Entreprise</option>
+                        <option value="duree">Durée</option>
+                    {% elseif filters.order_by=='company' %}
+                        <option value="">Critère de tri</option>
+                        <option value="insertion">Intitulé</option>
+                        <option value="company" selected>Entreprise</option>
+                        <option value="duree">Durée</option>
+                    {% elseif filters.order_by=='duree' %}
+                        <option value="">Critère de tri</option>
+                        <option value="insertion">Intitulé</option>
+                        <option value="company">Entreprise</option>
+                        <option value="duree" selected>Durée</option>
+                    {% else %}
+                        <option value="" selected>Critère de tri</option>
+                        <option value="insertion">Intitulé</option>
+                        <option value="company">Entreprise</option>
+                        <option value="duree">Durée</option>
+                    {% endif %}
+                </select>
+            </div>
+            <div class="col">
+                <input type="submit" name="submit" value="Lancer le filtrage" class="input">
+            </div>
+        </form>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4">
             {% for key,insertion in insertions %}
-                <div class="col">
-                    <div class="insertion">
-                        <a href="{{ path('app_detail_insertions_professionnelles', {id: insertion.id }) }}" class="insertion">
-                            <div class="row">
-                                <div class="col">
-                                    <img src="{{ asset('img/default_profile.jpg') }}" alt="Logo de l'entreprise {{ insertion.company.name }}">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col insertion_intitule">{{ insertion.titre }}</div>
-                            </div>
-                            <div class="row insertion_infos">
-                                <div class="col insertion_entreprise">{{ insertion.company.name }}</div>
-                                <div class="col-md-auto insertion_duree">{{ insertion.duree }} jours</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                {{ include('insertions_professionnelles/_result.html.twig', {insertion, with_button: false}) }}
             {% endfor %}
         </div>
     </div>
