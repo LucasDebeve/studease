@@ -4,15 +4,16 @@
 {% block title %}{{ titre }}{% endblock %}
 
 {% block body %}
-    <h1>{{ titre }}</h1>
-    {{ include('insertions_professionnelles/_form.html.twig', {
-        submit_label: 'Modifier',
-        current: current,
-        duree: duree,
-        form: form,
-        disableTypePro: true,
-        disableLocalisation: true
-    }, with_context = false) }}
+    <div class="container-lg my-5 p-3 shadow">
+        <h1>{{ titre }}</h1>
+        {{ include('insertions_professionnelles/_form.html.twig', {
+            submit_label: 'Modifier',
+            duree: duree,
+            form: form,
+            disableTypePro: true,
+            disableLocalisation: true
+        }, with_context = false) }}
+    </div>
 {% endblock %}
 
 

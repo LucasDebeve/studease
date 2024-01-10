@@ -199,34 +199,38 @@ class InsertionsProfessionnellesController extends AbstractController
     #[IsGranted('ROLE_COMPANY')]
     public function update(Request $request, EntityManagerInterface $entityManager, InsertionProfessionnelle $insertion): Response
     {
-        $company = $this->getUser();
-
         $form = $this->createForm(InsertionProType::class, $insertion);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $insertion = $form->getData();
 
+            $localisation = $form->get('localisation')->getData();
+            if ($localisation->getEntreprise() == $this->getUser()) {
+                $insertion->setLocalisation($localisation);
+            } else {
+                $this->addFlash('danger', 'Localisation non valide');
+
+                return $this->redirectToRoute('app_update_insertions_pro', ['id' => $insertion->getId()]);
+            }
+
             $dateDeb = $form->get('dateDeb')->getData();
             $dateFin = $form->get('dateFin')->getData();
+            $duree = $form->get('duree')->getData();
 
             if ($dateFin && $dateDeb) {
                 if (is_string($dateDeb) && is_string($dateFin)) {
                     $dateA = new \DateTime($dateDeb);
                     $dateB = new \DateTime($dateFin);
                     $duree = $dateA->diff($dateB)->days;
-                    $insertion->setDuree((int) $duree);
                 } else {
                     $duree = $dateDeb->diff($dateFin)->days;
-                    $insertion->setDuree((int) $duree);
                 }
+            } elseif (!$dateFin) {
+                $insertion->setDateFin(null);
             }
-
-            $insertion = $entityManager->getRepository(InsertionProfessionnelle::class)->find($insertion->getId());
-
-            if (!$insertion) {
-                throw $this->createNotFoundException('No insertion found for id'.$insertion->getId());
-            }
+            $insertion->setDateDeb($dateDeb);
+            $insertion->setDuree((int) $duree);
 
             $entityManager->flush();
 
@@ -237,8 +241,7 @@ class InsertionsProfessionnellesController extends AbstractController
 
         return $this->render('insertions_professionnelles/update.html.twig', [
             'insertion' => $insertion,
-            'form' => $form->createView(),
-            'current' => $company,
+            'form' => $form,
             'duree' => $insertion->getDuree(),
         ]);
     }
