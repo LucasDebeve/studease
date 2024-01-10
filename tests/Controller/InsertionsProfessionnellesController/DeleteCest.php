@@ -26,4 +26,15 @@ class DeleteCest
         $I->amOnPage('/insertions/1/delete');
         $I->seeCurrentUrlEquals('/login');
     }
+
+    public function accessIsRestrictedToAuthors(ControllerTester $I): void
+    {
+        UserFactory::createOne(['tpUser' => 2, 'isVerified' => true]);
+        InsertionProfessionnelleFactory::createOne();
+        $user = UserFactory::createOne(['roles' => ['ROLE_STUDENT']]);
+        $user = $user->object();
+        $I->amLoggedInAs($user);
+        $I->amOnPage('/insertions/1/delete');
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+    }
 }
