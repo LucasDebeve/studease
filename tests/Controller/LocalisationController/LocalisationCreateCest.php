@@ -18,4 +18,11 @@ class LocalisationCreateCest
         $I->seeInTitle("Création d'une localisation");
         $I->see('Créer une localisation', 'h1');
     }
+
+
+    public function accessIsRestrictedToAuthenticatedUsers(ControllerTester $I): void
+    {
+        $I->amOnPage('/localisation/create');
+        $I->seeCurrentUrlEquals('/login');
+    }
 }
