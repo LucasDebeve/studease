@@ -43,6 +43,7 @@ class InsertionsProfessionnellesController extends AbstractController
     }
 
     #[Route('insertions/list', name: 'app_list_insertions_pro')]
+    #[IsGranted('ROLE_COMPANY')]
     public function listInsertionsPro(EntityManagerInterface $entityManager): Response
     {
         $company = $this->getUser();
@@ -63,6 +64,7 @@ class InsertionsProfessionnellesController extends AbstractController
      * @throws \Exception
      */
     #[Route('/insertions/create', name: 'app_create_insertions_pro')]
+    #[IsGranted('ROLE_COMPANY')]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
         $company = $this->getUser();
@@ -176,6 +178,7 @@ class InsertionsProfessionnellesController extends AbstractController
      * @throws \Exception
      */
     #[Route('/insertions/{id}/update', name: 'app_update_insertions_pro', requirements: ['id' => '\d+'])]
+    #[IsGranted('ROLE_COMPANY')]
     public function update(Request $request, EntityManagerInterface $entityManager, InsertionProfessionnelle $insertion): Response
     {
         $company = $this->getUser();
@@ -223,6 +226,7 @@ class InsertionsProfessionnellesController extends AbstractController
     }
 
     #[Route('/insertions/{id}/delete', name: 'app_delete_insertions_pro', requirements: ['id' => '\d+'])]
+    #[IsGranted('ROLE_COMPANY')]
     public function delete(Request $request, EntityManagerInterface $entityManager, InsertionProfessionnelle $insertion): Response
     {
         $form = $this->createFormBuilder($insertion)
