@@ -21,4 +21,12 @@ class LocalisationUpdateCest
         $I->seeInTitle('Edition de la localisation');
         $I->see('Editer la localisation', 'h1');
     }
+
+    public function accessIsRestrictedToAuthenticatedUsers(ControllerTester $I): void
+    {
+        UserFactory::createOne(['tpUser' => 2, 'isVerified' => true, 'roles' => ['ROLE_COMPANY']]);
+        LocalisationFactory::createOne();
+        $I->amOnPage('/localisation/1/update');
+        $I->seeCurrentUrlEquals('/login');
+    }
 }
