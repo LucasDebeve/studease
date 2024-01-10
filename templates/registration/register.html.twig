@@ -12,10 +12,16 @@
         <div class="mb-3">
             {{ form_label(registrationForm.email) }}
             {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+            {% if errors_email is defined %}
+                <div style="color: red">{{ errors_email.message }}</div>
+            {% endif %}
         </div>
         <div class="mb-3">
             {{ form_label(registrationForm.plainPassword) }}
             {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'password form-control'}}) }}
+            {% if errors_password is defined %}
+                <div style="color: red">{{ errors_password.message }}</div>
+            {% endif %}
         </div>
         <div class="mb-3">
             {{ form_widget(registrationForm.showPassword, {'attr': {'class': 'form-check-input'}}) }}
