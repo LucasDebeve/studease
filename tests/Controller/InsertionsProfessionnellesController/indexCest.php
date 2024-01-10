@@ -11,14 +11,7 @@ class IndexCest
     public function insertionsProfessionnelles(ControllerTester $I): void
     {
         UserFactory::createOne(['tpUser' => 2]);
-        $user = UserFactory::createOne([
-            'email' => 'peter@example.com',
-            'firstname' => 'Peter',
-            'name' => 'Parker',
-            'telephone' => '+33612345678',
-            'numEtud' => '22203123',
-            'roles' => ['ROLE_STUDENT'],
-        ]);
+        $user = UserFactory::createOne(['roles' => ['ROLE_STUDENT']]);
         $user = $user->object();
         $I->amLoggedInAs($user);
         InsertionProfessionnelleFactory::createMany(3);
