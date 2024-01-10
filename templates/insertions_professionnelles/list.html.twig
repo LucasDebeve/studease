@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% set titre = "Liste des Insertions" %}
+
+{% block title %}{{ titre }}{% endblock %}
+{% block body %}
+    <h1>{{ titre }}</h1>
+    {% if insertions is empty %}
+        <p>Aucun stages ou alternances rentrés pour le moment.</p>
+    {% else %}
+        <ul>
+            {% for insertion in insertions %}
+                <li>
+                    {{ insertion.dateDeb|date('d-m-Y') }} - {{ insertion.dateFin ? insertion.dateFin|date('d-m-Y') : 'En cours' }}
+                    - {{ insertion.descInsPro }} - {{ insertion.titre }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+
+
