@@ -33,16 +33,16 @@
                     </li>
                     {% if app.user and app.user.tpUser == 0 %}
                         <li class="nav-item  ps-3">
-                            <a class="nav-link" href="{{ path('admin') }}"><span class="material-symbols-outlined">settings</span></a>
+                            <a class="nav-link py-0" href="{{ path('admin') }}"><span class="material-symbols-outlined">settings</span></a>
                         </li>
                         <li class="nav-item ps-3">
-                            <a class="nav-link" href="{{ path('app_dashboard_unverified') }}"><span
+                            <a class="nav-link py-0" href="{{ path('app_dashboard_unverified') }}"><span
                                         class="material-symbols-outlined">checklist</span></a>
                         </li>
                     {% endif %}
                     {% if app.user %}
                         <li class="nav-item  ps-3">
-                            <a class="nav-link" href="{{ path('app_user_profile') }}"><span
+                            <a class="nav-link py-0" href="{{ path('app_user_profile') }}"><span
                                         class="material-symbols-outlined">account_circle</span></a>
                         </li>
                     {% endif %}
