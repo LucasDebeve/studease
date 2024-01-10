@@ -1,0 +1,10 @@
+{{ form_start(form, {'attr': {'class': 'd-flex flex-column gap-2'}}) }}
+        {{ form_row(form.adresse, {label: 'Adresse'}) }}
+        {{ form_row(form.code_postal, {label: 'Code Postal'}) }}
+        {{ form_row(form.ville, {label: 'Ville'}) }}
+        {{ form_row(form.pays, {label: 'Pays'}) }}
+        {{ form_row(form.latitude, {label: 'Latitude'}) }}
+        {{ form_row(form.longitude, {label: 'Longitude'}) }}
+        {{ form_row(form.entreprise, {label: 'Entreprise', placeholder: 'Entreprise ?'}) }}
+<input type="submit" class="rounded-0 btn btn-primary w-100 mt-3" value="{{ submit_label }}"/>
+{{ form_end(form) }}
