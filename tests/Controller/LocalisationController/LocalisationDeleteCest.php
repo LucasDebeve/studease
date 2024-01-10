@@ -20,4 +20,13 @@ class LocalisationDeleteCest
         $I->seeInTitle('Suppression de la localisation');
         $I->see('Suppression de la Localisation suivante', 'h1');
     }
+
+    public function accessIsRestrictedToAuthenticatedUsers(ControllerTester $I): void
+    {
+        UserFactory::createOne(['tpUser' => 2, 'isVerified' => true, 'roles' => ['ROLE_COMPANY']]);
+        LocalisationFactory::createOne();
+        $I->amOnPage('/localisation/1/delete');
+        $I->seeCurrentUrlEquals('/login');
+    }
+
 }
