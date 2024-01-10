@@ -27,4 +27,14 @@ class UpdateCest
         $I->seeCurrentUrlEquals('/login');
     }
 
+    public function accessIsRestrictedToAuthors(ControllerTester $I): void
+    {
+        UserFactory::createOne(['tpUser' => 2]);
+        InsertionProfessionnelleFactory::createOne();
+        $user = UserFactory::createOne(['tpUser' => 2]);
+        $user = $user->object();
+        $I->amLoggedInAs($user);
+        $I->amOnPage('/insertions/1/update');
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+    }
 }
