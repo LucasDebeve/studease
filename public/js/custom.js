@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
             navbarIcon.classList.remove('d-none');
         }
     })
-})
+});
+
 
 
 

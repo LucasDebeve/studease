@@ -222,6 +222,7 @@ class InsertionsProfessionnellesController extends AbstractController
             'insertion' => $insertion,
             'form' => $form->createView(),
             'current' => $company,
+            'duree' => $insertion->getDuree(),
         ]);
     }
 
