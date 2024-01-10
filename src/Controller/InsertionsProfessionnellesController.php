@@ -4,13 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Candidature;
 use App\Entity\InsertionProfessionnelle;
-use App\Entity\Localisation;
 use App\Entity\User;
 use App\Form\CandidatureType;
 use App\Form\InsertionProType;
 use App\Repository\CandidatureRepository;
 use App\Repository\InsertionProfessionnelleRepository;
-use App\Repository\LocalisationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use MongoDB\Driver\Exception\AuthenticationException;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
@@ -68,35 +66,39 @@ class InsertionsProfessionnellesController extends AbstractController
     #[IsGranted('ROLE_COMPANY')]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $company = $this->getUser();
         $insertion = new InsertionProfessionnelle();
 
         $form = $this->createForm(InsertionProType::class, $insertion);
-        $form->handleRequest($request);
 
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $insertion = $form->getData();
             $localisation = $form->get('localisation')->getData();
             if ($localisation->getEntreprise() == $this->getUser()) {
-                $insertion->setLocalisation($this->getUser());
+                $insertion->setLocalisation($localisation);
             } else {
                 $this->addFlash('danger', 'Localisation non valide');
+                return $this->redirectToRoute('app_create_insertions_pro');
             }
 
             $dateDeb = $form->get('dateDeb')->getData();
             $dateFin = $form->get('dateFin')->getData();
+            $duree = $form->get('duree')->getData();
 
             if ($dateFin && $dateDeb) {
                 if (is_string($dateDeb) && is_string($dateFin)) {
                     $dateA = new \DateTime($dateDeb);
                     $dateB = new \DateTime($dateFin);
                     $duree = $dateA->diff($dateB)->days;
-                    $insertion->setDuree((int) $duree);
                 } else {
                     $duree = $dateDeb->diff($dateFin)->days;
-                    $insertion->setDuree((int) $duree);
                 }
+            } elseif (!$dateFin) {
+                $insertion->setDateFin(null);
             }
+            $insertion->setDateDeb($dateDeb);
+            $insertion->setDuree((int) $duree);
+
 
             $entityManager->persist($insertion);
             $entityManager->flush();
@@ -108,18 +110,28 @@ class InsertionsProfessionnellesController extends AbstractController
 
         return $this->render('insertions_professionnelles/create.html.twig', [
             'insertion' => $insertion,
-            'current' => $company,
             'form' => $form,
             'duree' => $insertion->getDuree(),
             ]);
     }
 
-    #[Route('/insertions/{id}', name: 'app_detail_insertions_professionnelles')]
+    #[Route('/insertions/{id}', name: 'app_detail_insertions_professionnelles', requirements: ['id' => "\d+"])]
     public function show(
-        InsertionProfessionnelle $insertion): Response
-    {
-        return $this->render('insertions_professionnelles/show.html.twig', ['insertion' => $insertion]);
+        int $id,
+        InsertionProfessionnelleRepository $repository
+    ): Response {
+        $insertion = $repository->findWithCompanyAndLocalisation($id);
+        if (!$insertion) {
+            throw $this->createNotFoundException('Insertion professionnelle non trouvée.');
+        }
+        $recommandations = $repository->getRecommandationsWithCompany($insertion['id']);
+
+        return $this->render('insertions_professionnelles/show.html.twig', [
+            'insertion' => $insertion,
+            'recommandations' => $recommandations,
+        ]);
     }
+
 
     #[Route('/insertions/{id}/candidatures/', name: 'app_candidatures')]
     #[IsGranted('ROLE_COMPANY')]
