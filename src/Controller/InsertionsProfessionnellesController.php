@@ -4,19 +4,18 @@ namespace App\Controller;
 
 use App\Entity\Candidature;
 use App\Entity\InsertionProfessionnelle;
-use App\Entity\User;
 use App\Form\CandidatureType;
 use App\Form\InsertionProType;
 use App\Repository\CandidatureRepository;
 use App\Repository\InsertionProfessionnelleRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use MongoDB\Driver\Exception\AuthenticationException;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class InsertionsProfessionnellesController extends AbstractController
@@ -182,6 +181,12 @@ class InsertionsProfessionnellesController extends AbstractController
     #[IsGranted('ROLE_COMPANY')]
     public function update(Request $request, EntityManagerInterface $entityManager, InsertionProfessionnelle $insertion): Response
     {
+        if ($insertion->getLocalisation()->getEntreprise() !== $this->getUser()) {
+            $this->addFlash('danger', 'Vous n\'avez pas les droits pour modifier cette insertion professionnelle.');
+
+            return $this->redirectToRoute('app_detail_insertions_professionnelles', ['id' => $insertion->getId()]);
+        }
+
         $form = $this->createForm(InsertionProType::class, $insertion);
 
         $form->handleRequest($request);
@@ -233,6 +238,12 @@ class InsertionsProfessionnellesController extends AbstractController
     #[IsGranted('ROLE_COMPANY')]
     public function delete(Request $request, EntityManagerInterface $entityManager, InsertionProfessionnelle $insertion): Response
     {
+        if ($insertion->$insertion->getLocalisation()->getEntreprise() !== $this->getUser()) {
+            $this->addFlash('danger', 'Vous n\'avez pas les droits pour modifier cette insertion professionnelle.');
+
+            return $this->redirectToRoute('app_detail_insertions_professionnelles', ['id' => $insertion->getId()]);
+        }
+
         $form = $this->createFormBuilder($insertion)
             ->add('delete', SubmitType::class, ['label' => 'Supprimer'])
             ->add('cancel', SubmitType::class, ['label' => 'Annuler'])
