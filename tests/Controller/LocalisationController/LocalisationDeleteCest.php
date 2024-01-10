@@ -29,4 +29,14 @@ class LocalisationDeleteCest
         $I->seeCurrentUrlEquals('/login');
     }
 
+    public function accessIsRestrictedToAuthors(ControllerTester $I): void
+    {
+        $user = UserFactory::createOne(['tpUser' => 2, 'isVerified' => true, 'roles' => ['ROLE_COMPANY']]);
+        LocalisationFactory::createOne(['entreprise' => $user]);
+        $user = UserFactory::createOne(['roles' => ['ROLE_STUDENT']]);
+        $user = $user->object();
+        $I->amLoggedInAs($user);
+        $I->amOnPage('/localisation/1/delete');
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+    }
 }
