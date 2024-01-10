@@ -39,7 +39,39 @@ class InsertionsProfessionnellesController extends AbstractController
         return $this->render('insertions_professionnelles/index.html.twig', ['insertions' => $insertions, 'filters' => $filters]);
     }
 
-    #[Route('/insertions/{id}', name: 'app_detail_insertions_professionnelles', requirements: ['id' => "\d+"])]
+    #[Route('/insertions/create', name: 'app_create_insertions_pro')]
+    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $company = $this->getUser();
+        $insertion = new InsertionProfessionnelle();
+        $form = $this->createForm(InsertionProType::class, $insertion);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $insertion = $form->getData();
+
+            $dateDeb = $form->get('dateDeb')->getData();
+            $dateFin = $form->get('dateDeb')->getData();
+
+            if ($dateFin && $dateDeb) {
+                $duree = $form->get('duree')->getData();
+                $insertion->setDuree((int) $duree);
+            }
+
+            $entityManager->persist($insertion);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Modification apportée');
+
+            return $this->redirectToRoute('app_detail_insertions_professionnelles', ['id' => $insertion->getId()]);
+        }
+
+        return $this->render('insertions_professionnelles/create.html.twig', [
+            'insertion' => $insertion,
+            'current' => $company,
+            'form' => $form]);
+    }
+
+    #[Route('/insertions/{id}', name: 'app_detail_insertions_professionnelles')]
     public function show(
         int $id,
         InsertionProfessionnelleRepository $repository
@@ -152,36 +184,6 @@ class InsertionsProfessionnellesController extends AbstractController
             'form' => $form,
             'current' => $company,
         ]);
-    }
-
-    #[Route('/insertions/create', name: 'app_create_insertions_pro')]
-    public function create(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $insertion = new InsertionProfessionnelle();
-        $form = $this->createForm(InsertionProType::class, $insertion);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $insertion = $form->getData();
-
-            $dateDeb = $form->get('dateDeb')->getData();
-            $dateFin = $form->get('dateDeb')->getData();
-
-            if ($dateFin && $dateDeb) {
-                $duree = $form->get('duree')->getData();
-                $insertion->setDuree((int) $duree);
-            }
-
-            $entityManager->persist($insertion);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Modification apportée');
-
-            return $this->redirectToRoute('app_detail_insertions_professionnelles', ['id' => $insertion->getId()]);
-        }
-
-        return $this->render('insertions_professionnelles/create.html.twig', [
-            'insertion' => $insertion,
-            'form' => $form]);
     }
 
     #[Route('/insertions/{id}/delete', name: 'app_delete_insertions_pro', requirements: ['id' => '\d+'])]
