@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Candidature;
 use App\Entity\InsertionProfessionnelle;
-use App\Entity\Localisation;
 use App\Entity\User;
 use App\Form\CandidatureType;
 use App\Form\InsertionProType;
@@ -69,16 +68,19 @@ class InsertionsProfessionnellesController extends AbstractController
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
         $company = $this->getUser();
-        $localisation = new Localisation();
-        $localisation->setEntreprise($company);
         $insertion = new InsertionProfessionnelle();
-        $insertion->setLocalisation($localisation);
 
         $form = $this->createForm(InsertionProType::class, $insertion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $insertion = $form->getData();
+            $localisation = $form->get('localisation')->getData();
+            if ($localisation->getEntreprise() == $this->getUser()) {
+                $insertion->setLocalisation($this->getUser());
+            } else {
+                $this->addFlash('danger', 'Localisation non valide');
+            }
 
             $dateDeb = $form->get('dateDeb')->getData();
             $dateFin = $form->get('dateFin')->getData();
