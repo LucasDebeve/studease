@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'une localisation{% endblock %}
+
+{% block body %}
+    <div class="container-lg my-5 p-3 shadow">
+        <h1 class="text-center">Créer une localisation</h1>
+        {{ include('localisation/_form.html.twig', {form, submit_label: "Créer"}) }}
+    </div>
+{% endblock %}
+

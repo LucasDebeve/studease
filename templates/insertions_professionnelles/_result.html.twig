@@ -1,0 +1,18 @@
+<div class="col py-2">
+    <div class="rounded-2 d-flex flex-column p-3 h-100 mb-2"
+         style="border: 2px solid {{ insertion.typePro == 1 ? '#00ac8c' : '#ac008c' }};">
+        <a href="{{ path('app_detail_insertions_professionnelles', {id: insertion.id }) }}"
+           class="d-flex flex-column align-items-start text-black text-decoration-none flex-grow-1 gap-3">
+            <img class="rounded-circle"
+                 src="{{ insertion.localisation.entreprise.displayAvatar|default(asset('img/default_profile.jpg')) }}"
+                 alt="Logo de l'entreprise {{ insertion.localisation.entreprise.name }}" height="120px">
+
+            <h5 class="flex-grow-1">{{ insertion.titre }}</h5>
+            <div class="d-flex justify-content-between w-100 align-items-end">
+                <p class="w-50">{{ insertion.localisation.entreprise.name }}</p>
+                <p class="w-50 text-end">{{ insertion.duree }} jours ouvrés</p>
+            </div>
+
+        </a>
+    </div>
+</div>

@@ -31,7 +31,9 @@ class InsertionProfessionnelleRepository extends ServiceEntityRepository
     {
         $parameters = new ArrayCollection([]);
         $qb = $this->createQueryBuilder('insertion')
-            ->leftJoin('insertion.company', 'company')
+            ->leftJoin('insertion.localisation', 'localisation')
+            ->leftJoin('localisation.entreprise', 'company')
+            ->addSelect('localisation')
             ->addSelect('company');
         if ('' != $filters['intitule']) {
             $qb->andWhere($qb->expr()->like('insertion.titre', ':intitule'));
@@ -60,6 +62,41 @@ class InsertionProfessionnelleRepository extends ServiceEntityRepository
             $qb->orderBy('insertion.id');
         }
         $qb->setParameters($parameters);
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    public function findWithCompanyAndLocalisation(int $id): ?array
+    {
+        $qb = $this->createQueryBuilder('insertion');
+        $qb->select('insertion')
+            ->leftJoin('insertion.localisation', 'localisation')
+            ->leftJoin('localisation.entreprise', 'company')
+            ->addSelect('company')
+            ->addSelect('localisation')
+            ->andWhere('insertion.id = :id')
+            ->setParameter('id', $id);
+
+        $res = $qb->getQuery()->getArrayResult();
+        if (count($res) > 0) {
+            return $res[0];
+        } else {
+            return null;
+        }
+    }
+
+    public function getRecommandationsWithCompany(int $id): array
+    {
+        $qb = $this->createQueryBuilder('insertion');
+        $qb->select('insertion')
+            ->leftJoin('insertion.localisation', 'localisation')
+            ->leftJoin('localisation.entreprise', 'company')
+            ->addSelect('localisation')
+            ->addSelect('company')
+            ->andWhere('insertion.id != :id')
+            ->setParameter('id', $id)
+            ->orderBy('insertion.dateDeb', 'DESC')
+            ->setMaxResults(4);
 
         return $qb->getQuery()->getArrayResult();
     }

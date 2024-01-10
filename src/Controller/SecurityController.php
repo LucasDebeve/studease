@@ -85,7 +85,11 @@ class SecurityController extends AbstractController
 
             $avatar = $form->get('avatar')->getData();
             $password = $form->get('password')->getData();
-            $cv = $form->get('cv')->getData();
+            if (1 === $user->getTpUser()) {
+                $cv = $form->get('cv')->getData();
+            } else {
+                $cv = null;
+            }
 
             if ($avatar) {
                 $new_filename = uniqid().'.'.$avatar->guessExtension();
@@ -115,6 +119,8 @@ class SecurityController extends AbstractController
             }
 
             $entityManager->flush();
+
+            $this->addFlash('success', 'Profil mis à jour');
 
             return $this->redirectToRoute('app_profile', ['id' => $user->getId()]);
         }

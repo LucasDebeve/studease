@@ -21,6 +21,24 @@ class LocalisationRepository extends ServiceEntityRepository
         parent::__construct($registry, Localisation::class);
     }
 
+    public function findWithInsertions(int $id): ?Localisation
+    {
+        $qb = $this->createQueryBuilder('l')
+            ->addSelect('i')
+            ->leftJoin('l.insertionProfessionnelles', 'i')
+            ->where('l.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+        ;
+
+        $res = $qb->execute();
+        if (count($res) > 0) {
+            return $res[0];
+        }
+
+        return null;
+    }
+
     //    /**
     //     * @return Localisation[] Returns an array of Localisation objects
     //     */
