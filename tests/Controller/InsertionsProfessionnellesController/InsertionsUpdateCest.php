@@ -14,11 +14,13 @@ class InsertionsUpdateCest
     {
         $user = UserFactory::createOne(['tpUser' => 2, 'isVerified' => true, 'roles' => ['ROLE_COMPANY']]);
         $loca = LocalisationFactory::createOne(['entreprise' => $user]);
-        InsertionProfessionnelleFactory::createOne(['localisation' => $loca]);
+        $insertion = InsertionProfessionnelleFactory::createOne(['localisation' => $loca]);
         $user = $user->object();
         $I->amLoggedInAs($user);
         $I->amOnPage('/insertions/1/update');
         $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeInTitle('Edition du stage/alternance: '.$insertion->getTitre());
+        $I->see('Edition du stage/alternance: '.$insertion->getTitre(), 'h1');
     }
 
     public function accessIsRestrictedToAuthenticatedUsers(ControllerTester $I): void
