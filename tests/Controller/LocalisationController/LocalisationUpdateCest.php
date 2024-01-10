@@ -29,4 +29,15 @@ class LocalisationUpdateCest
         $I->amOnPage('/localisation/1/update');
         $I->seeCurrentUrlEquals('/login');
     }
+
+    public function accessIsRestrictedToAuthors(ControllerTester $I): void
+    {
+        $user = UserFactory::createOne(['tpUser' => 2, 'isVerified' => true, 'roles' => ['ROLE_COMPANY']]);
+        LocalisationFactory::createOne(['entreprise' => $user]);
+        $user = UserFactory::createOne(['tpUser' => 2, 'isVerified' => true, 'roles' => ['ROLE_COMPANY']]);
+        $user = $user->object();
+        $I->amLoggedInAs($user);
+        $I->amOnPage('/localisation/1/update');
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+    }
 }
