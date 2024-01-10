@@ -15,7 +15,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class LocalisationController extends AbstractController
 {
-    #[Route('/localisation/create', name: 'app_localisation_delete')]
+    #[Route('/localisation/create', name: 'app_localisation_create')]
     #[IsGranted('ROLE_COMPANY')]
     public function create(Request $request, EntityManagerInterface $entityManager)
     {
