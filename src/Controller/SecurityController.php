@@ -54,7 +54,6 @@ class SecurityController extends AbstractController
     {
         return $this->render('registration/profile.html.twig', [
             'user' => $id,
-            'current_user' => $this->getUser(),
         ]);
     }
 

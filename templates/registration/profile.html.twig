@@ -141,7 +141,7 @@
                             </div>
                         </div>
                     </div>
-                    {% if user.tpUser == 1 and user == current_user %}
+                    {% if user.tpUser == 1 and app.user and app.user == user %}
                     <div class="col-sm-6 mb-3 ">
                         <div class="card">
                             <div class="card-body" style="max-height: 400px; overflow-y: auto;">
