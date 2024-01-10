@@ -15,4 +15,9 @@ class profileCest
         $I->amOnPage('/profile');
         $I->seeCurrentUrlEquals('/profile/'.$user->getId());
     }
+    public function profileAccessIsRestrictedToAuthenticatedUsers(ControllerTester $I): void
+    {
+        $I->amOnPage('/profile');
+        $I->seeCurrentUrlEquals('/login');
+    }
 }
