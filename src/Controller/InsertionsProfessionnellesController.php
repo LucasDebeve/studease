@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Candidature;
 use App\Entity\InsertionProfessionnelle;
+use App\Entity\Localisation;
 use App\Entity\User;
 use App\Form\CandidatureType;
 use App\Form\InsertionProType;
@@ -68,9 +69,10 @@ class InsertionsProfessionnellesController extends AbstractController
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
         $company = $this->getUser();
-
+        $localisation = new Localisation();
+        $localisation->setEntreprise($company);
         $insertion = new InsertionProfessionnelle();
-        $insertion->setCompany($company);
+        $insertion->setLocalisation($localisation);
 
         $form = $this->createForm(InsertionProType::class, $insertion);
         $form->handleRequest($request);
@@ -184,7 +186,6 @@ class InsertionsProfessionnellesController extends AbstractController
     public function update(Request $request, EntityManagerInterface $entityManager, InsertionProfessionnelle $insertion): Response
     {
         $company = $this->getUser();
-        $insertion->setCompany($company);
 
         $form = $this->createForm(InsertionProType::class, $insertion);
 

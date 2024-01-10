@@ -46,9 +46,9 @@ class InsertionProType extends AbstractType
             ->add('duree', IntegerType::class, [
                 'empty_data' => ' ',
             ])
-            ->add('company', EntityType::class, [
-                'class' => 'App\Entity\User',
-                'choice_label' => 'name',
+            ->add('localisation', EntityType::class, [
+                'class' => 'App\Entity\Localisation',
+                'choice_label' => 'entreprise',
             ]);
     }
 
