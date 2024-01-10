@@ -78,6 +78,7 @@ class InsertionsProfessionnellesController extends AbstractController
                 $insertion->setLocalisation($localisation);
             } else {
                 $this->addFlash('danger', 'Localisation non valide');
+
                 return $this->redirectToRoute('app_create_insertions_pro');
             }
 
@@ -98,7 +99,6 @@ class InsertionsProfessionnellesController extends AbstractController
             }
             $insertion->setDateDeb($dateDeb);
             $insertion->setDuree((int) $duree);
-
 
             $entityManager->persist($insertion);
             $entityManager->flush();
@@ -131,7 +131,6 @@ class InsertionsProfessionnellesController extends AbstractController
             'recommandations' => $recommandations,
         ]);
     }
-
 
     #[Route('/insertions/{id}/candidatures/', name: 'app_candidatures')]
     #[IsGranted('ROLE_COMPANY')]

@@ -7,7 +7,6 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateIntervalType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
@@ -55,7 +54,7 @@ class InsertionProType extends AbstractType
             ])
             ->add('localisation', EntityType::class, [
                 'class' => 'App\Entity\Localisation',
-                'choice_label' => function($localisation) {
+                'choice_label' => function ($localisation) {
                     return $localisation->getEntreprise()->getName().' - '.$localisation->getAdresse().', '.$localisation->getCodePostal().' '.$localisation->getVille();
                 },
                 'mapped' => false,
