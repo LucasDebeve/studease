@@ -18,4 +18,12 @@ class DeleteCest
         $I->amOnPage('/insertions/1/delete');
         $I->seeResponseCodeIs(HttpCode::OK);
     }
+
+    public function accessIsRestrictedToAuthenticatedUsers(ControllerTester $I): void
+    {
+        UserFactory::createOne(['tpUser' => 2, 'isVerified' => true]);
+        InsertionProfessionnelleFactory::createOne();
+        $I->amOnPage('/insertions/1/delete');
+        $I->seeCurrentUrlEquals('/login');
+    }
 }
