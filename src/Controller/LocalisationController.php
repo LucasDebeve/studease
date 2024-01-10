@@ -17,10 +17,6 @@ class LocalisationController extends AbstractController
         #[MapEntity(expr: 'repository.findWithInsertions(id)')]
         Localisation $localisation): Response
     {
-        if ($localisation->getEntreprise() !== $this->getUser()) {
-            throw $this->createAccessDeniedException('Vous n\'avez pas accès à cette page');
-        }
-
         return $this->render('localisation/index.html.twig', [
             'localisation' => $localisation,
         ]);

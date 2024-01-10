@@ -1,0 +1,122 @@
+[
+  {
+    "adresse": "123 Rue de la République",
+    "code_postal": "75001",
+    "ville": "Paris",
+    "pays": "FR",
+    "latitude": 48.8566,
+    "longitude": 2.3522
+  },
+  {
+    "adresse": "456 Main Street",
+    "code_postal": "10001",
+    "ville": "New York",
+    "pays": "US",
+    "latitude": 40.7128,
+    "longitude": -74.0060
+  },
+  {
+    "adresse": "789 Calle Principal",
+    "code_postal": "28001",
+    "ville": "Madrid",
+    "pays": "ES",
+    "latitude": 40.4168,
+    "longitude": -3.7038
+  },
+  {
+    "adresse": "234 Hauptstraße",
+    "code_postal": "10115",
+    "ville": "Berlin",
+    "pays": "DE",
+    "latitude": 52.5200,
+    "longitude": 13.4050
+  },
+  {
+    "adresse": "567 Via Roma",
+    "code_postal": "00185",
+    "ville": "Rome",
+    "pays": "IT",
+    "latitude": 41.9028,
+    "longitude": 12.4964
+  },
+  {
+    "adresse": "789 Avenue des Champs-Élysées",
+    "code_postal": "75008",
+    "ville": "Paris",
+    "pays": "FR",
+    "latitude": 48.8718,
+    "longitude": 2.3014
+  },
+  {
+    "adresse": "101 Market Street",
+    "code_postal": "94105",
+    "ville": "San Francisco",
+    "pays": "US",
+    "latitude": 37.7749,
+    "longitude": -122.4194
+  },
+  {
+    "adresse": "456 Carrer Gran Via",
+    "code_postal": "08011",
+    "ville": "Barcelone",
+    "pays": "ES",
+    "latitude": 41.3797,
+    "longitude": 2.1686
+  },
+  {
+    "adresse": "789 Karl-Liebknecht-Straße",
+    "code_postal": "10178",
+    "ville": "Berlin",
+    "pays": "DE",
+    "latitude": 52.5233,
+    "longitude": 13.4115
+  },
+  {
+    "adresse": "234 Piazza di Spagna",
+    "code_postal": "00187",
+    "ville": "Rome",
+    "pays": "IT",
+    "latitude": 41.9059,
+    "longitude": 12.4828
+  },
+  {
+    "adresse": "456 Avenue de la Liberté",
+    "code_postal": "69002",
+    "ville": "Lyon",
+    "pays": "FR",
+    "latitude": 45.7589,
+    "longitude": 4.8416
+  },
+  {
+    "adresse": "789 Rue Saint-Michel",
+    "code_postal": "33000",
+    "ville": "Bordeaux",
+    "pays": "FR",
+    "latitude": 44.8378,
+    "longitude": -0.5795
+  },
+  {
+    "adresse": "101 Place du Capitole",
+    "code_postal": "31000",
+    "ville": "Toulouse",
+    "pays": "FR",
+    "latitude": 43.6047,
+    "longitude": 1.4442
+  },
+  {
+    "adresse": "234 Rue de la Petite France",
+    "code_postal": "67000",
+    "ville": "Strasbourg",
+    "pays": "FR",
+    "latitude": 48.5734,
+    "longitude": 7.7521
+  },
+  {
+    "adresse": "567 Quai de la Pêcherie",
+    "code_postal": "69001",
+    "ville": "Lyon",
+    "pays": "FR",
+    "latitude": 45.7640,
+    "longitude": 4.8312
+  }
+]
