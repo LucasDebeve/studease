@@ -22,4 +22,13 @@ class CreateCest
         $I->amOnPage('/insertions/create');
         $I->seeCurrentUrlEquals('/login');
     }
+
+    public function accessIsRestrictedToCompanies(ControllerTester $I): void
+    {
+        $user = UserFactory::createOne(['roles' => ['ROLE_STUDENT']]);
+        $user = $user->object();
+        $I->amLoggedInAs($user);
+        $I->amOnPage('/insertions/create');
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+    }
 }
