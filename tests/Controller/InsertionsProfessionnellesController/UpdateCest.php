@@ -11,15 +11,20 @@ class UpdateCest
 {
     public function form(ControllerTester $I): void
     {
-        $user = UserFactory::createOne(['email' => 'root@example.com',
-            'name' => 'Parker',
-            'firstname' => 'Peter',
-            'roles' => ['ROLE_COMPANY'],
-            'isVerified' => true]);
+        $user = UserFactory::createOne(['tpUser' => 2, 'isVerified' => true]);
         InsertionProfessionnelleFactory::createOne();
         $user = $user->object();
         $I->amLoggedInAs($user);
         $I->amOnPage('/insertions/1/update');
         $I->seeResponseCodeIs(HttpCode::OK);
     }
+
+    public function accessIsRestrictedToAuthenticatedUsers(ControllerTester $I): void
+    {
+        UserFactory::createOne(['tpUser' => 2, 'isVerified' => true]);
+        InsertionProfessionnelleFactory::createOne();
+        $I->amOnPage('/insertions/1/update');
+        $I->seeCurrentUrlEquals('/login');
+    }
+
 }
