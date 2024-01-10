@@ -78,10 +78,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $qb->getQuery()->getResult();
     }
 
-    public function findUnverifiedUsers(): array {
+    public function findUnverifiedUsers(): array
+    {
         $qb = $this->createQueryBuilder('u');
         $qb->select('u')
             ->where('u.isVerified = false');
+
         return $qb->getQuery()->execute();
     }
 

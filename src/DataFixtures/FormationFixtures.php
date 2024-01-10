@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Factory\EcoleFactory;
 use App\Factory\FormationFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;

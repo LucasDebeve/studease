@@ -20,14 +20,38 @@ class InsertionsProfessionnellesController extends AbstractController
     #[Route('/insertions', name: 'app_insertions_professionnelles')]
     public function index(Request $request, InsertionProfessionnelleRepository $repository): Response
     {
-        $insertions = $repository->search();
-        return $this->render('insertions_professionnelles/index.html.twig', ['insertions' => $insertions]);
+        $filters = $request->request->all();
+        if ([] == $filters) {
+            $filters['intitule'] = '';
+            $filters['type_contrat'] = '';
+            $filters['duree'] = '';
+            $filters['order_by'] = '';
+        } else {
+            if ('' != $filters['duree']) {
+                $temp = intval($filters['duree']);
+                $filters['duree'] = "$temp";
+            }
+        }
+        $insertions = $repository->search($filters);
+
+        return $this->render('insertions_professionnelles/index.html.twig', ['insertions' => $insertions, 'filters' => $filters]);
     }
 
-    #[Route('/insertions/{id}', name: 'app_detail_insertions_professionnelles')]
-    public function show(InsertionProfessionnelle $insertion): Response
-    {
-        return $this->render('insertions_professionnelles/show.html.twig', ['insertion' => $insertion]);
+    #[Route('/insertions/{id}', name: 'app_detail_insertions_professionnelles', requirements: ['id' => "\d+"])]
+    public function show(
+        int $id,
+        InsertionProfessionnelleRepository $repository
+    ): Response {
+        $insertion = $repository->findWithCompanyAndLocalisation($id);
+        if (!$insertion) {
+            throw $this->createNotFoundException('Insertion professionnelle non trouvée.');
+        }
+        $recommandations = $repository->getRecommandationsWithCompany($insertion['id']);
+
+        return $this->render('insertions_professionnelles/show.html.twig', [
+            'insertion' => $insertion,
+            'recommandations' => $recommandations,
+        ]);
     }
 
     #[Route('/insertions/{id}/candidatures/', name: 'app_candidatures')]
@@ -47,8 +71,8 @@ class InsertionsProfessionnellesController extends AbstractController
             $entityManager->flush();
         }
 
-        if ($user !== $id->getCompany()) {
-            // return $this->redirectToRoute('app_insertions_professionnelles_id', ['id' => $id->getId()]);
+        if ($user !== $id->getLocalisation()->getEntreprise()) {
+            return $this->redirectToRoute('app_detail_insertions_professionnelles', ['id' => $id->getId()]);
         }
 
         return $this->render('insertions_professionnelles/candidatures.html.twig', ['insertion' => $id]);

@@ -1,17 +1,3 @@
-.container.insertions{
-    display: flex;
-    margin-top: 55px;
-    gap: 30px;
-    flex-direction: column;
-    height: 100%;
-}
-
-.container.insertions>.row{
-    padding: 15px 15px 15px 15px;
-    background: #FFF;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
-}
-
 form.row>.col>.input{
     width: 90%;
     height: 100%;
@@ -48,55 +34,11 @@ form.row>.col>label{
     height: 0;
 }
 
-div.insertion{
-    background-color: #f6f6f6;
-    border-radius: 5px;
-    padding: 10px;
-    height: 100%;
-    margin-bottom: 10px;
-}
-.typepro_stage{
-    border: 2px solid #00ac8c;
-}
-.typepro_alternance{
-    border: 2px solid #ac008c;
-}
 .row.justify-content-around>*{
     display: flex;
     align-items: center;
 }
-div.insertion>a{
-    display: grid;
-    gap:10px
-}
-
-.insertion_intitule {
-    color: #000;
-    font-family: Karla, serif;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    letter-spacing: -0.33px;
-    text-decoration-line: underline;
-}
 .row-cols-sm-2>div.col{
     padding-bottom: 5px;
     padding-top: 5px;
-}
-
-a.insertion{
-    text-decoration: none;
-    color: black;
-}
-
-.insertion_duree .insertion_entreprise{
-    color: #4A4A4A;
-    font-family: Karla, serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    letter-spacing: -0.24px;
-    text-decoration-line: underline;
 }

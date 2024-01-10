@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\InsertionProfessionnelle;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\Query\Parameter;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -25,12 +27,76 @@ class InsertionProfessionnelleRepository extends ServiceEntityRepository
     /**
      * @return array InsertionProfessionnelle[]
      */
-    public function search(): array
+    public function search(array $filters): array
     {
+        $parameters = new ArrayCollection([]);
         $qb = $this->createQueryBuilder('insertion')
-            ->leftJoin('insertion.company', 'company')
+            ->leftJoin('insertion.localisation', 'localisation')
+            ->leftJoin('localisation.entreprise', 'company')
+            ->addSelect('localisation')
+            ->addSelect('company');
+        if ('' != $filters['intitule']) {
+            $qb->andWhere($qb->expr()->like('insertion.titre', ':intitule'));
+            $intitule = $filters['intitule'];
+            $parameters->add(new Parameter('intitule', '%'.$intitule.'%'));
+        }
+        if ('stage' == $filters['type_contrat']) {
+            $qb->andWhere('insertion.typePro = 1');
+        } elseif ('alternance' == $filters['type_contrat']) {
+            $qb->andWhere('insertion.typePro = 2');
+        }
+        if ('' != $filters['duree']) {
+            $duree = intval($filters['duree']);
+            $qb->andWhere('insertion.duree <= :duree_max')
+                ->andWhere('insertion.duree >= :duree_min');
+            $parameters->add(new Parameter('duree_max', $duree + 7));
+            $parameters->add(new Parameter('duree_min', $duree - 7));
+        }
+        if ('company' == $filters['order_by']) {
+            $qb->orderBy('company.name');
+        } elseif ('insertion' == $filters['order_by']) {
+            $qb->orderBy('insertion.titre');
+        } elseif ('duree' == $filters['order_by']) {
+            $qb->orderBy('insertion.duree');
+        } else {
+            $qb->orderBy('insertion.id');
+        }
+        $qb->setParameters($parameters);
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    public function findWithCompanyAndLocalisation(int $id): ?array
+    {
+        $qb = $this->createQueryBuilder('insertion');
+        $qb->select('insertion')
+            ->leftJoin('insertion.localisation', 'localisation')
+            ->leftJoin('localisation.entreprise', 'company')
             ->addSelect('company')
-            ->orderBy('insertion.titre');
+            ->addSelect('localisation')
+            ->andWhere('insertion.id = :id')
+            ->setParameter('id', $id);
+
+        $res = $qb->getQuery()->getArrayResult();
+        if (count($res) > 0) {
+            return $res[0];
+        } else {
+            return null;
+        }
+    }
+
+    public function getRecommandationsWithCompany(int $id): array
+    {
+        $qb = $this->createQueryBuilder('insertion');
+        $qb->select('insertion')
+            ->leftJoin('insertion.localisation', 'localisation')
+            ->leftJoin('localisation.entreprise', 'company')
+            ->addSelect('localisation')
+            ->addSelect('company')
+            ->andWhere('insertion.id != :id')
+            ->setParameter('id', $id)
+            ->orderBy('insertion.dateDeb', 'DESC')
+            ->setMaxResults(4);
 
         return $qb->getQuery()->getArrayResult();
     }

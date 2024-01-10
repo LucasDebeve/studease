@@ -85,7 +85,11 @@ class SecurityController extends AbstractController
 
             $avatar = $form->get('avatar')->getData();
             $password = $form->get('password')->getData();
-            $cv = $form->get('cv')->getData();
+            if (1 === $user->getTpUser()) {
+                $cv = $form->get('cv')->getData();
+            } else {
+                $cv = null;
+            }
 
             if ($avatar) {
                 $new_filename = uniqid().'.'.$avatar->guessExtension();
@@ -96,6 +100,7 @@ class SecurityController extends AbstractController
                         $new_filename
                     );
                 } catch (FileException $e) {
+                    $this->addFlash('error', 'Une erreur est survenue lors de l\'upload de l\'avatar');
                 }
 
                 $user->setAvatar(file_get_contents($this->getParameter('avatar_directory').'/'.$new_filename));
@@ -114,6 +119,8 @@ class SecurityController extends AbstractController
             }
 
             $entityManager->flush();
+
+            $this->addFlash('success', 'Profil mis à jour');
 
             return $this->redirectToRoute('app_profile', ['id' => $user->getId()]);
         }

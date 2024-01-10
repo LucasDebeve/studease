@@ -47,13 +47,13 @@ final class InsertionProfessionnelleFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'company' => UserFactory::random(['tpUser' => 2]),
+            'localisation' => LocalisationFactory::random(),
             'dateDeb' => self::faker()->dateTime(),
             'descInsPro' => self::faker()->text(),
             'duree' => self::faker()->randomNumber(),
             'titre' => self::faker()->text(5000),
             'typePro' => self::faker()->numberBetween(1, 2),
-            'revenus' => self::faker()->randomFloat(2, 100, 100000),
+            'revenus' => self::faker()->numberBetween(0, 63),
         ];
     }
 

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LocalisationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LocalisationRepository::class)]
@@ -34,6 +36,14 @@ class Localisation
     #[ORM\ManyToOne(inversedBy: 'localisations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $entreprise = null;
+
+    #[ORM\OneToMany(mappedBy: 'localisation', targetEntity: InsertionProfessionnelle::class, orphanRemoval: true)]
+    private Collection $insertionProfessionnelles;
+
+    public function __construct()
+    {
+        $this->insertionProfessionnelles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +130,36 @@ class Localisation
     public function setEntreprise(?User $entreprise): static
     {
         $this->entreprise = $entreprise;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, InsertionProfessionnelle>
+     */
+    public function getInsertionProfessionnelles(): Collection
+    {
+        return $this->insertionProfessionnelles;
+    }
+
+    public function addInsertionProfessionnelle(InsertionProfessionnelle $insertionProfessionnelle): static
+    {
+        if (!$this->insertionProfessionnelles->contains($insertionProfessionnelle)) {
+            $this->insertionProfessionnelles->add($insertionProfessionnelle);
+            $insertionProfessionnelle->setLocalisation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInsertionProfessionnelle(InsertionProfessionnelle $insertionProfessionnelle): static
+    {
+        if ($this->insertionProfessionnelles->removeElement($insertionProfessionnelle)) {
+            // set the owning side to null (unless already changed)
+            if ($insertionProfessionnelle->getLocalisation() === $this) {
+                $insertionProfessionnelle->setLocalisation(null);
+            }
+        }
 
         return $this;
     }
