@@ -10,9 +10,7 @@
         </div>
         <div class="col-12 col-lg-6 order-lg-first text-center text-lg-start d-flex flex-column justify-content-lg-center align-items-lg-center my-5">
             <h1>Ici, tu construis ton avenir</h1>
-            {% if app.user %}
-                <a class="connect btn btn-primary rounded-0 mx-5" href="{{ path('app_user_profile') }}">Mon profil</a>
-            {% else %}
+            {% if  not app.user %}
                 <a class="connect btn btn-primary rounded-0 mx-5" href="{{ path('app_login') }}">Se connecter</a>
             {% endif %}
         </div>
