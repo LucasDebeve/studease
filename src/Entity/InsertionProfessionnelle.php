@@ -161,6 +161,18 @@ class InsertionProfessionnelle
         return $this;
     }
 
+    public function getCompany(): ?User
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?User $Company): static
+    {
+        $this->company = $Company;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Candidature>
      */
