@@ -134,7 +134,7 @@ class InsertionsProfessionnellesController extends AbstractController
         }
 
         if ($user !== $id->getCompany()) {
-            // return $this->redirectToRoute('app_insertions_professionnelles_id', ['id' => $id->getId()]);
+            return $this->redirectToRoute('app_insertions_professionnelles_id', ['id' => $id->getId()]);
         }
 
         return $this->render('insertions_professionnelles/candidatures.html.twig', ['insertion' => $id]);
