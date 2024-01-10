@@ -14,11 +14,13 @@ class InsertionsDeleteCest
     {
         $user = UserFactory::createOne(['tpUser' => 2, 'isVerified' => true, 'roles' => ['ROLE_COMPANY']]);
         $loca = LocalisationFactory::createOne(['entreprise' => $user]);
-        InsertionProfessionnelleFactory::createOne(['localisation' => $loca]);
+        $insertion = InsertionProfessionnelleFactory::createOne(['localisation' => $loca]);
         $user = $user->object();
         $I->amLoggedInAs($user);
         $I->amOnPage('/insertions/1/delete');
         $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeInTitle('Suppression du stage/alternance: '.$insertion->getTitre());
+        $I->see('Suppression du stage/alternance: '.$insertion->getTitre(), 'h1');
     }
 
     public function accessIsRestrictedToAuthenticatedUsers(ControllerTester $I): void
