@@ -22,27 +22,28 @@
             {% for insertion in insertions %}
                 <div class="col">
                     <a href="{{ path('app_detail_insertions_professionnelles', {id: insertion.id}) }}" class="text-decoration-none text-dark">
-                    <div class="card h-100">
-                        <img src="{{ asset('img/default_profile.jpg') }}" class="card-img-top" alt="Logo de l'entreprise {{ insertion.company.name }}" width="50">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ insertion.titre }}</h5>
-                        </div>
-                        <div class="card-footer">
-                            {% set difference = date( 'now'|date() ).diff(date(insertion.dateDeb)) %}
-                            {% set leftDays = difference.days %}
-                            {% if leftDays > 1 %}
-                                <small class="text-muted">Commencé il y a {{ leftDays }} jours</small>
-                            {% elseif leftDays == 0 %}
-                                <small class="text-muted">Commencé aujourd'hui</small>
-                            {% else %}
-                                <small class="text-muted">Commencé hier</small>
-                            {% endif %}
-                            <div class="mt-2">
-                                <a href="{{ path('app_update_insertions_pro', {id: insertion.id}) }}"><span class="material-symbols-outlined text-warning">edit</span></a>
-                                <a href="{{ path('app_delete_insertions_pro', {id: insertion.id}) }}"><span class="material-symbols-outlined text-danger">delete</span></a>
+                        <div class="card h-100">
+                            <img src="{{ asset('img/default_profile.jpg') }}" class="card-img-top" alt="Logo de l'entreprise {{ insertion.company.name }}" width="50">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ insertion.titre }}</h5>
+                            </div>
+                            <div class="card-footer">
+                                {% set difference = date( 'now'|date() ).diff(date(insertion.dateDeb)) %}
+                                {% set leftDays = difference.days %}
+                                {% if leftDays > 1 %}
+                                    <small class="text-muted">Commencé il y a {{ leftDays }} jours</small>
+                                {% elseif leftDays == 0 %}
+                                    <small class="text-muted">Commencé aujourd'hui</small>
+                                {% else %}
+                                    <small class="text-muted">Commencé hier</small>
+                                {% endif %}
+                                <div class="mt-2">
+                                    <a href="{{ path('app_update_insertions_pro', {id: insertion.id}) }}"><span class="material-symbols-outlined text-warning">edit</span></a>
+                                    <a href="{{ path('app_delete_insertions_pro', {id: insertion.id}) }}"><span class="material-symbols-outlined text-danger">delete</span></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             {% endfor %}
         </div>
