@@ -12,7 +12,15 @@
                 <p class="w-50">{{ insertion.localisation.entreprise.name }}</p>
                 <p class="w-50 text-end">{{ insertion.duree }} jours ouvrés</p>
             </div>
-
         </a>
+        {% if with_button %}
+            <div class="d-flex justify-content-between w-100 align-items-end">
+                <a href="{{ path('app_update_insertions_pro', {id: insertion.id}) }}"><span
+                            class="material-symbols-outlined text-warning">edit</span></a>
+                <a href="{{ path('app_delete_insertions_pro', {id: insertion.id}) }}"><span
+                            class="material-symbols-outlined text-danger">delete</span></a>
+            </div>
+        {% endif %}
+
     </div>
 </div>

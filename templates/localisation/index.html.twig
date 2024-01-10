@@ -28,7 +28,11 @@
         <div id="map" style="height: 400px"></div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4">
             {% for insertion in localisation.insertionProfessionnelles %}
-                {{ include('insertions_professionnelles/_result.html.twig', {insertion}) }}
+                {% if app.user and app.user == localisation.entreprise %}
+                    {{ include('insertions_professionnelles/_result.html.twig', {insertion, with_button: true} ) }}
+                {% else %}
+                    {{ include('insertions_professionnelles/_result.html.twig', {insertion, with_button: false} ) }}
+                {% endif %}
             {% endfor %}
         </div>
 

@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Candidature;
 use App\Entity\InsertionProfessionnelle;
+use App\Entity\Localisation;
 use App\Entity\User;
 use App\Form\CandidatureType;
 use App\Form\InsertionProType;
 use App\Repository\CandidatureRepository;
 use App\Repository\InsertionProfessionnelleRepository;
+use App\Repository\LocalisationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use MongoDB\Driver\Exception\AuthenticationException;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
@@ -51,8 +53,7 @@ class InsertionsProfessionnellesController extends AbstractController
         if (!$company instanceof User) {
             throw new AuthenticationException('User is not authenticated.');
         }
-
-        $insertions = $entityManager->getRepository(InsertionProfessionnelle::class)->findBy(['company' => $company->getId()]);
+        $insertions = $entityManager->getRepository(InsertionProfessionnelle::class)->findByCompany($company->getId());
 
         return $this->render('insertions_professionnelles/list.html.twig', [
             'insertions' => $insertions,
