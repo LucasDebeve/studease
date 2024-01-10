@@ -8,16 +8,16 @@
 
         {{ form_errors(registrationForm) }}
 
-        {{ form_start(registrationForm, {'attr': {'class': 'auth'}}) }}
-        <div class="mb-3">
-            {{ form_label(registrationForm.email) }}
+        {{ form_start(registrationForm, {'attr': {'class': 'auth required'}}) }}
+        <div class="mb-3 required">
+            {{ form_label(registrationForm.email) }}<span style="color: red"> *</span>
             {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
             {% if errors_email is defined %}
                 <div style="color: red">{{ errors_email.message }}</div>
             {% endif %}
         </div>
-        <div class="mb-3">
-            {{ form_label(registrationForm.plainPassword) }}
+        <div class="mb-3 required">
+            {{ form_label(registrationForm.plainPassword) }}<span style="color: red"> *</span>
             {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'password form-control'}}) }}
             {% if errors_password is defined %}
                 <div style="color: red">{{ errors_password.message }}</div>
@@ -31,10 +31,10 @@
             {{ form_label(registrationForm.tpUser) }}
             {{ form_widget(registrationForm.tpUser, {'attr': {'class': 'form-select'}}) }}
         </div>
-        <div class="mb-3">
+        <div class="mb-3 required">
             {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
             {{ form_label(registrationForm.agreeTerms, 'J\'accepte les ') }}
-            <a href="">Conditions Générale d'Utilisation</a>
+            <a href="{{ path('app_cgu') }}">Conditions Générale d'Utilisation</a><span style="color: red"> *</span>
         </div>
         <button type="submit" class="btn btn-primary rounded-0 w-100 mb-3">S'inscrire</button>
         <div>Déjà inscris ? <a href="{{ path('app_login') }}">Connectez-vous</a></div>
