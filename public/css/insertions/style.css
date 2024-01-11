@@ -12,6 +12,42 @@
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
 }
 
+form.row>.col>.input{
+    width: 90%;
+    height: 100%;
+    border-radius: 6px;
+    background: #E8E8E8;
+    border: 0;
+    padding: 10px;
+    font-family: Karla, serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.33px;
+    text-decoration-line: underline;
+    opacity: 1;
+    text-align: start;
+}
+form.row>.col>.input {
+    color: rgba(0, 0, 0, 0.60);
+}
+::placeholder{
+    color: rgba(0, 0, 0, 0.60);
+    font-family: Karla, serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.33px;
+    text-decoration-line: underline;
+    opacity: 1;
+}
+form.row>.col>label{
+    width: 0;
+    height: 0;
+}
+
 div.insertion{
     background-color: #f6f6f6;
     border: 2px solid #00ac8c;
