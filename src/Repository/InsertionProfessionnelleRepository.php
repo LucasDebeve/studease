@@ -63,7 +63,7 @@ class InsertionProfessionnelleRepository extends ServiceEntityRepository
         }
         $qb->setParameters($parameters);
 
-        return $qb->getQuery()->getArrayResult();
+        return $qb->getQuery()->getResult();
     }
 
     public function findByCompany(int $id): array
