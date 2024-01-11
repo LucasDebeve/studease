@@ -10,9 +10,7 @@
         </div>
         <div class="col-12 col-lg-6 order-lg-first text-center text-lg-start d-flex flex-column justify-content-lg-center align-items-lg-center my-5">
             <h1>Ici, tu construis ton avenir</h1>
-            {% if app.user %}
-                <a class="connect btn btn-primary rounded-0 mx-5" href="{{ path('app_user_profile') }}">Mon profil</a>
-            {% else %}
+            {% if  not app.user %}
                 <a class="connect btn btn-primary rounded-0 mx-5" href="{{ path('app_login') }}">Se connecter</a>
             {% endif %}
         </div>
@@ -23,29 +21,25 @@
             <div class="row">
                 <article class="col-12 col-lg-6">
                     <h2>Trouves le stage qui est fait pour toi</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus cumque delectus dignissimos
-                        dolor, doloribus dolorum, eum exercitationem hic illum minima modi nisi perferendis placeat
-                        quidem repudiandae veniam vitae voluptatem.</p>
+                    <p>La plateforme Studease réunis des centaines d'utilisateurs dont des dizaines d'entreprises reconnus, de quoi apporter une
+                     variété de stages correspondant aux besoin de majorité d'étudiant étudiant en France !</p>
                 </article>
                 <article class="col-12 col-lg-6">
                     <h2>Trouves l’alternance qui te correspond</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus cumque delectus dignissimos
-                        dolor, doloribus dolorum, eum exercitationem hic illum minima modi nisi perferendis placeat
-                        quidem repudiandae veniam vitae voluptatem.</p>
+                    <p>Le moteur de recherche propose différents paramètres de recherche ; tel que la durée ou le type de contrat, assurant de trouver
+                     rapidement le type d'alternance correspondant le plus à votre profile !</p>
                 </article>
             </div>
             <div class="row">
                 <article class="col-12 col-lg-6">
                     <h2>Pour faciliter la vie des étudiants</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus cumque delectus dignissimos
-                        dolor, doloribus dolorum, eum exercitationem hic illum minima modi nisi perferendis placeat
-                        quidem repudiandae veniam vitae voluptatem.</p>
+                    <p>Terminé la recherche aveugle de stage ou d'alternance ! Avec Studease, consulter la liste de toutes les expériences professionnelles,
+                    et déposer votre candidature en quelques minutes seulement pour alerter l'entreprise de votre intérêt à son égard !</p>
                 </article>
                 <article class="col-12 col-lg-6">
                     <h2>Une aide à la gestion des candidatures pour les entreprises</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus cumque delectus dignissimos
-                        dolor, doloribus dolorum, eum exercitationem hic illum minima modi nisi perferendis placeat
-                        quidem repudiandae veniam vitae voluptatem.</p>
+                    <p>En tant qu'entreprise, vous pouvez consulter l'ensemble des informations concernant l'étudiant
+                    candidatant à votre proposition de stage ou d'alternace en quelque clics pour trouver rapidement celui ou celle correspondant le plus à votre entreprise !</p>
                 </article>
             </div>
         </section>
