@@ -31,13 +31,15 @@ class InsertionProfessionnelleCrudController extends AbstractCrudController
         return [
             TextField::new('titre'),
             TextareaField::new('descInsPro', 'Description')->hideOnIndex(),
-            AssociationField::new('company', 'Entreprise')
+            AssociationField::new('localisation', 'Localisation')
                 ->setQueryBuilder(
-                    fn ($queryBuilder) => $queryBuilder->andWhere('entity.tpUser = 2')->orderBy('entity.name', 'ASC')
+                    fn ($queryBuilder) => $queryBuilder->orderBy('entity.ville', 'ASC')
                 )
-                ->setFormTypeOptions(['choice_label' => 'name'])
+                ->setFormTypeOptions(['choice_label' => function ($localisation) {
+                    return $localisation->getAdresse().' '.$localisation->getVille();
+                }])
                 ->FormatValue(function ($value) {
-                    return $value->getName();
+                    return $value->getAdresse().' '.$value->getVille();
                 }),
             ChoiceField::new('typePro', 'Type de contrat')
                 ->setChoices([
