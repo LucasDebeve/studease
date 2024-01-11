@@ -81,7 +81,7 @@ class InsertionProfessionnelleRepository extends ServiceEntityRepository
         return $qb->getQuery()->getArrayResult();
     }
 
-    public function findWithCompanyAndLocalisation(int $id): ?array
+    public function findWithCompanyAndLocalisation(int $id): ?InsertionProfessionnelle
     {
         $qb = $this->createQueryBuilder('insertion');
         $qb->select('insertion')
@@ -92,7 +92,7 @@ class InsertionProfessionnelleRepository extends ServiceEntityRepository
             ->andWhere('insertion.id = :id')
             ->setParameter('id', $id);
 
-        $res = $qb->getQuery()->getArrayResult();
+        $res = $qb->getQuery()->getResult();
         if (count($res) > 0) {
             return $res[0];
         } else {

@@ -6,7 +6,9 @@
     <div class="container-lg py-5">
 {% for user in users %}
         <div class="row gutters-sm">
-            <div><span class="material-symbols-outlined">visibility</span><a href="/dashboard/unVerified/{{user.id }}" >{{ user.name }} {{ user.firstname }}</a></div>
+            <div><span class="material-symbols-outlined">visibility</span><a
+                        href="{{ path('app_dashboard_verify', {id: user.id}) }}">{{ user.name|default(user.email) }} {{ user.firstname }}</a>
+            </div>
         </div>
     {% endfor %}
     </div>

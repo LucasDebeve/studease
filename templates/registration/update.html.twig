@@ -58,6 +58,9 @@
                             <div class="col-sm-9 text-secondary">
                                 {{ form_widget(form.numEtud) }}
                             </div>
+                            <div class="form-text">
+                                Le numéro étudiant doit comporter 8 chiffres.
+                            </div>
                         </div>
                         <hr>
                     {% elseif user.tpUser == 2 %}
@@ -77,6 +80,9 @@
                             <div class="col-sm-9 text-secondary">
                                 {{ form_widget(form.numSiret) }}
                             </div>
+                            <div class="form-text">
+                                Le numéro de SIRET doit comporter 14 chiffres.
+                            </div>
                         </div>
                         <hr>
                     {% endif %}
@@ -95,6 +101,9 @@
                         </div>
                         <div class="col-sm-9 text-secondary">
                             {{ form_widget(form.telephone) }}
+                        </div>
+                        <div class="form-text">
+                            Le numéro de téléphone doit comporter au maximum 13 chiffres.
                         </div>
                     </div>
                     <hr>

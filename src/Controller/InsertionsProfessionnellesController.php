@@ -104,7 +104,7 @@ class InsertionsProfessionnellesController extends AbstractController
         if (!$insertion) {
             throw $this->createNotFoundException('Insertion professionnelle non trouvée.');
         }
-        $recommandations = $repository->getRecommandationsWithCompany($insertion['id']);
+        $recommandations = $repository->getRecommandationsWithCompany($insertion->getId());
 
         return $this->render('insertions_professionnelles/show.html.twig', [
             'insertion' => $insertion,
