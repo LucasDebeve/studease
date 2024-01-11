@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Length;
 
 class UserType extends AbstractType
 {
@@ -37,6 +38,12 @@ class UserType extends AbstractType
             ->add('telephone', TelType::class, [
                 'empty_data' => '',
                 'attr' => ['class' => 'form-control w-100'],
+                'constraints' => [
+                    new Length([
+                        'max' => 13,
+                        'maxMessage' => 'Le numéro de téléphone doit contenir maximum 13 chiffres',
+                    ]),
+                ],
             ])
             ->add('avatar', FileType::class, [
                 'label' => 'Avatar',
@@ -54,6 +61,12 @@ class UserType extends AbstractType
             ->add('name', TextType::class, [
                 'empty_data' => '',
                 'attr' => ['class' => 'form-control w-100'],
+                'constraints' => [
+                    new Length([
+                        'max' => 150,
+                        'maxMessage' => 'Le nom doit contenir maximum 150 caractères',
+                    ]),
+                ],
             ])
         ;
         // Verify if the user is a student or a company
@@ -84,10 +97,24 @@ class UserType extends AbstractType
                 ->add('firstname', TextType::class, [
                     'empty_data' => '',
                     'attr' => ['class' => 'form-control w-100'],
+                    'constraints' => [
+                        new Length([
+                            'max' => 150,
+                            'maxMessage' => 'Le nom doit contenir maximum 150 caractères',
+                        ]),
+                    ],
                 ])
                 ->add('numEtud', TextType::class, [
                     'empty_data' => '',
                     'attr' => ['class' => 'form-control w-100'],
+                    'constraints' => [
+                        new Length([
+                            'min' => 8,
+                            'max' => 8,
+                            'minMessage' => 'Le numéro étudiant doit contenir 8 chiffres',
+                            'maxMessage' => 'Le numéro étudiant doit contenir 8 chiffres',
+                        ]),
+                    ],
                 ])
                 ->add('cv', FileType::class, [
                     'label' => 'CV',
@@ -112,6 +139,12 @@ class UserType extends AbstractType
                 ->add('numSiret', TextType::class, [
                     'empty_data' => '',
                     'attr' => ['class' => 'form-control w-100'],
+                    'constraints' => [
+                        new Length([
+                            'max' => 14,
+                            'maxMessage' => 'Le numéro de SIRET doit contenir maximum 14 caractères',
+                        ]),
+                    ],
                 ])
             ;
         }
