@@ -24,7 +24,7 @@
                         </div>
                     </div>
                 </div>
-                {% if user.tpUser == 1 and (current_user == user or current_user.tpUser == 2 or current_user.tpUser == 0) %}
+                {% if user.tpUser == 1 and app.user and (app.user == user or app.user.tpUser == 2 or app.user.tpUser == 0) %}
                     <div class="card mb-3 mb-lg-0">
                         <div class="card-body p-0">
                             <ul class="list-group list-group-flush rounded-3">
@@ -93,15 +93,6 @@
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Address</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                Bay Area, San Francisco, CA
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
                             {% if user.id == app.user.id %}
                             <div class="col-sm-12">
                                 <a class="btn btn-primary " href="{{ path('app_profile_update', {id: user.id}) }}">Modifier</a>
@@ -120,12 +111,30 @@
                                     {{ user.formation.nom|default('Aucune formation renseignée') }}
                                 {% elseif user.tpUser == 2 %}
                                     <h6 class="d-flex align-items-center mb-3 fw-bold">Localisations</h6>
-                                    <ul>
+                                    <ul class="list-group">
                                         {% for localisation in user.localisations %}
-                                            <li>
-                                                <a href="{{ path("app_localisation_insertions", {id: localisation.id}) }}">{{ localisation.adresse }}
-                                                    , {{ localisation.codepostal }} {{ localisation.ville }}</a></li>
+                                            <li class="list-group-item">
+                                                {% if app.user == localisation.entreprise %}
+                                                    <a href="{{ path('app_localisation_update', {id: localisation.id }) }}">
+                                                        <span class="material-symbols-outlined text-warning">edit</span>
+                                                    </a>
+                                                {% endif %}
+                                                <a href="{{ path("app_localisation_insertions", {id: localisation.id}) }}">
+                                                    {{ localisation.adresse }}
+                                                    , {{ localisation.codepostal }} {{ localisation.ville }}
+                                                </a>
+                                                {% if app.user == localisation.entreprise %}
+                                                    <a href="{{ path('app_localisation_delete', {id: localisation.id}) }}">
+                                                        <span class="material-symbols-outlined text-danger">delete</span>
+                                                    </a>
+                                                {% endif %}
+                                            </li>
                                         {% endfor %}
+                                        <li class="list-group-item">
+                                            <a href="{{ path('app_localisation_create') }}">
+                                                <span class="material-symbols-outlined text-success">add</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 {% endif %}
                             </div>

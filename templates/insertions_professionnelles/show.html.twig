@@ -36,8 +36,13 @@
                 <p><strong> Dates : </strong>{{ insertion.dateDeb|date('d/m/Y') }}
                     - {{ insertion.dateFin ? insertion.dateFin|date('d/m/Y') : "" }}</p>
                 <p><strong>Rémunération :</strong> {{ insertion.revenus }} € /jour</p>
-                <a class="btn btn-primary rounded-0"
-                   href="{{ path('app_candidater', {id: insertion.id} ) }}">Candidater</a>
+                {% if app.user and app.user.tpUser == 1 %}
+                    <a class="btn btn-primary rounded-0"
+                       href="{{ path('app_candidater', {id: insertion.id} ) }}">Candidater</a>
+                {% elseif app.user and app.user.id == insertion.localisation.entreprise.id %}
+                    <a class="btn btn-primary rounded-0"
+                       href="{{ path('app_candidatures', {id: insertion.id} ) }}">Voir les candidatures</a>
+                {% endif %}
             </div>
             <div class="d-flex flex-column shadow p-3 w-100">
                 <div class="d-flex p-3 gap-4">
