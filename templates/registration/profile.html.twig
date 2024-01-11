@@ -111,11 +111,24 @@
                                     {{ user.formation.nom|default('Aucune formation renseignée') }}
                                 {% elseif user.tpUser == 2 %}
                                     <h6 class="d-flex align-items-center mb-3 fw-bold">Localisations</h6>
-                                    <ul>
+                                    <ul class="list-group">
                                         {% for localisation in user.localisations %}
-                                            <li>
-                                                <a href="{{ path("app_localisation_insertions", {id: localisation.id}) }}">{{ localisation.adresse }}
-                                                    , {{ localisation.codepostal }} {{ localisation.ville }}</a></li>
+                                            <li class="list-group-item">
+                                                {% if app.user == localisation.entreprise %}
+                                                    <a href="{{ path('app_localisation_update', {id: localisation.id }) }}">
+                                                        <span class="material-symbols-outlined text-warning">edit</span>
+                                                    </a>
+                                                {% endif %}
+                                                <a href="{{ path("app_localisation_insertions", {id: localisation.id}) }}">
+                                                    {{ localisation.adresse }}
+                                                    , {{ localisation.codepostal }} {{ localisation.ville }}
+                                                </a>
+                                                {% if app.user == localisation.entreprise %}
+                                                    <a href="{{ path('app_localisation_delete', {id: localisation.id}) }}">
+                                                        <span class="material-symbols-outlined text-danger">delete</span>
+                                                    </a>
+                                                {% endif %}
+                                            </li>
                                         {% endfor %}
                                     </ul>
                                 {% endif %}
