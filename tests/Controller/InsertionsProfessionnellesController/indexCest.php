@@ -2,7 +2,9 @@
 
 namespace App\Tests\Controller\InsertionsProfessionnellesController;
 
+use App\DataFixtures\LocalisationFixtures;
 use App\Factory\InsertionProfessionnelleFactory;
+use App\Factory\LocalisationFactory;
 use App\Factory\UserFactory;
 use App\Tests\Support\ControllerTester;
 
@@ -11,6 +13,7 @@ class IndexCest
     public function insertionsProfessionnelles(ControllerTester $I): void
     {
         UserFactory::createOne(['tpUser' => 2]);
+        LocalisationFactory::createOne();
         $user = UserFactory::createOne(['roles' => ['ROLE_STUDENT']]);
         $user = $user->object();
         $I->amLoggedInAs($user);
