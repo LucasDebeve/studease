@@ -34,7 +34,7 @@
                 <p><strong>Description :</strong></p>
                 <p class="flex-grow-1">{{ insertion.descInsPro }}</p>
                 <p><strong> Dates : </strong>{{ insertion.dateDeb|date('d/m/Y') }}
-                    - {{ insertion.dateFin|date('d/m/Y')|default("") }}</p>
+                    - {{ insertion.dateFin ? insertion.dateFin|date('d/m/Y') : "" }}</p>
                 <p><strong>Rémunération :</strong> {{ insertion.revenus }} € /jour</p>
                 <a class="btn btn-primary rounded-0"
                    href="{{ path('app_candidater', {id: insertion.id} ) }}">Candidater</a>
@@ -64,7 +64,7 @@
         <h2>Recommandations</h2>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4">
             {% for recommandation in recommandations %}
-                {{ include('insertions_professionnelles/_result.html.twig', {insertion: recommandation}) }}
+                {{ include('insertions_professionnelles/_result.html.twig', {insertion: recommandation, with_button: false}) }}
             {% endfor %}
         </div>
     </div>
