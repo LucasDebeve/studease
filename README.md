@@ -1,7 +1,9 @@
 # Studease
 
 ## Description
-Studease is a web application realized in Academic Project at the IUT of Reims. It allows students to find an internship. 
+Studease is a web application realized in Academic Project at the IUT of Reims. It allows students to find an internship.
+Students can apply for multiples interships offered by various companies. Companies propose interships
+and can review students applications to accept or refuse them for each intership.
 
 ## Authors
 - [COUDROT Axel](https://iut-info.univ-reims.fr/gitlab/coud0011/)
@@ -31,6 +33,11 @@ composer install
 composer run start
 ```
 
+### Load the database
+```bash
+composer run db
+```
+
 ## Tests
 
 ### [PHP CS Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
@@ -43,3 +50,32 @@ composer run test:cs
 ```bash
 composer run fix:cs
 ```
+
+### [Codeception](https://github.com/codeception/codeception)
+#### Run tests
+```bash
+composer run test:codeception
+```
+
+### Others
+#### Run all tests
+```bash
+composer run test
+```
+
+## Users
+Users access for each functionality on the website
+### Student
+Peter Parker
+- Email : peter@example.com
+- password : test
+
+### Company
+Tony Stark
+- Email : tony@example.com
+- password : test
+
+### Administrator
+Homer Simpson
+- Email : homer@studease.com
+- password : test

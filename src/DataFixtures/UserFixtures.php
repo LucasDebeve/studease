@@ -30,6 +30,16 @@ class UserFixtures extends Fixture
         ]);
         UserFactory::createMany(10);
         UserFactory::createOne([
+            'email' => 'homer@studease.com',
+            'firstname' => 'Homer',
+            'name' => 'Simpson',
+            'numSiret' => 'null',
+            'descriptionEntreprise' => 'null',
+            'tpUser' => 0,
+            'roles' => ['ROLE_ADMIN'],
+            'isVerified' => true,
+        ]);
+        UserFactory::createOne([
             'email' => 'lucas@studease.com',
             'firstname' => 'Lucas',
             'name' => 'Debeve',
